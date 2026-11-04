@@ -24,14 +24,14 @@ html, body { margin: 0; background: #fff; }
 /* Layout: a white dashboard of rounded cards on a 12-column grid. A dark header band holds the title and headline figures; the genre flow is the hero card, its years are the decade filter. */
 #dash-root { --dash-gutter: 0; }
 .fy {
-  --ink: #141416; --muted: #5f5e5a; --faint: #b4b3ae; --line: #e6e5e0; --grid: #efeee9;
-  --paper: #ffffff; --panel: #f6f5f1; --pill: #ecebe6; --tip: #ffffff; --up: #4f8368; --down: #b3625c; --star: #e6c56e; --star-edge: #c9a84f;
-  --g-action: #d3a293; --g-drama: #9baec4; --g-comedy: #d0bc89; --g-romance: #d9acbe; --g-thriller: #b3a6ca;
-  --g-crime: #8e989f; --g-musical: #a1bc9b; --g-family: #d7b597; --g-fantasy: #8bb4b2; --g-history: #b3a28e;
-  --g-action-ink: #854832; --g-drama-ink: #3b5774; --g-comedy-ink: #725a18; --g-romance-ink: #894261; --g-thriller-ink: #5d4d87;
-  --g-crime-ink: #38444a; --g-musical-ink: #3c6436; --g-family-ink: #825428; --g-fantasy-ink: #29605d; --g-history-ink: #624e38;
-  --l-hindi: #a4abd2; --l-telugu: #d0b087; --l-tamil: #d6a6a6; --l-malayalam: #89b29d; --l-kannada: #c9be8a; --l-other: #cccbc7;
-  --woman: #a0506f; --man: #566f8a; --unsure: #a3a29d;
+  --ink: #141416; --muted: #5f6066; --faint: #b4b5ba; --line: #e6e6e9; --grid: #efeff1;
+  --paper: #ffffff; --panel: #ffffff; --pill: #f1f1f4; --tip: #ffffff; --up: #3f9e6e; --down: #e0695f; --star: #ffd24d; --star-edge: #e8b400;
+  --g-action: #fba88f; --g-drama: #8fbff2; --g-comedy: #fbd96f; --g-romance: #f8a4c8; --g-thriller: #bba3f2;
+  --g-crime: #a6b8c8; --g-musical: #9ade90; --g-family: #fdc187; --g-fantasy: #7cdfd3; --g-history: #e0bb90;
+  --g-action-ink: #9b3d1c; --g-drama-ink: #2c5683; --g-comedy-ink: #8a6500; --g-romance-ink: #9c2f5e; --g-thriller-ink: #563d97;
+  --g-crime-ink: #33454f; --g-musical-ink: #33702a; --g-family-ink: #9a5410; --g-fantasy-ink: #1a6f6a; --g-history-ink: #6e4f2c;
+  --l-hindi: #a3b0f7; --l-telugu: #fcc47c; --l-tamil: #f8a3a3; --l-malayalam: #88deb0; --l-kannada: #f4e07c; --l-other: #d9d9dc;
+  --woman: #c4487a; --man: #3f7dbd; --unsure: #a3a29d;
   color-scheme: light;
   background: var(--paper); color: var(--ink);
   font-family: var(--font-anthropic-sans); font-weight: 500; font-variant-numeric: tabular-nums;
@@ -60,7 +60,7 @@ html, body { margin: 0; background: #fff; }
 @media (max-width: 700px) { .fy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 4px 10px; border-left: 1px solid var(--line); color: var(--ink); min-width: 0; }
 .fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--pill); color: var(--muted); }
-.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #c98ba3; --pie-man: #a9b8c8; --pie-unsure: #cfcdc7; }
+.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #f8a4c8; --pie-man: #8fbff2; --pie-unsure: #d9d9dc; }
 .fy-pie { width: 84px; height: 84px; flex: none; }
 .fy-pie svg { display: block; width: 100%; height: 100%; }
 .fy-pie-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
@@ -71,20 +71,20 @@ html, body { margin: 0; background: #fff; }
 .fy-stat-label { font-size: 12px; color: var(--muted); font-weight: 600; }
 
 /* cards */
-.fy-card { background: var(--panel); border-radius: 24px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+.fy-card { background: var(--paper); border-top: 1px solid var(--line); padding: 18px 0; display: flex; flex-direction: column; gap: 14px; position: relative; }
 .fy-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 .fy-card-title { font-weight: 800; font-size: 18px; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
 .fy-card-head .fy-push { margin-left: auto; }
-.fy-info { position: relative; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); color: var(--muted); cursor: help; }
+.fy-info { position: relative; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--pill); color: var(--muted); cursor: help; }
 .fy-info-text { position: absolute; left: 0; top: calc(100% + 8px); z-index: 7; width: min(22rem, 80vw); padding: 10px 12px; border-radius: 12px; background: var(--ink); color: var(--paper); font-size: 12.5px; font-weight: 500; line-height: 1.5; visibility: hidden; opacity: 0; transition: opacity .15s; }
 .fy-info:hover .fy-info-text, .fy-info:focus .fy-info-text { visibility: visible; opacity: 1; }
 .fy-chart { position: relative; min-width: 0; }
 .fy-chart svg { display: block; overflow: visible; }
-.fy-stream { min-height: 640px; }
+.fy-stream { min-height: 640px; margin-inline: 28px; }
 .fy-ribbons { min-height: 512px; }
 .fy-lanes { min-height: 470px; }
 .fy-more { border-top: 1px solid var(--line); padding-top: 12px; }
-.fy-more summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 800; font-size: 15px; list-style: none; padding: 6px 14px; border-radius: 999px; background: var(--paper); }
+.fy-more summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 800; font-size: 15px; list-style: none; padding: 6px 14px; border-radius: 999px; background: var(--pill); }
 .fy-more summary::-webkit-details-marker { display: none; }
 .fy-more[open] summary svg { transform: rotate(180deg); }
 .fy-more-body { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
@@ -92,7 +92,7 @@ html, body { margin: 0; background: #fff; }
 .fy-searchbox:focus-within { border-color: var(--ink); }
 .fy-search { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); }
 .fy-lanes-more { min-height: 60px; }
-.fy-gender { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: var(--paper); }
+.fy-gender { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: var(--pill); }
 .fy-gbtn, .fy-mbtn { font: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 5px 12px; background: transparent; color: var(--muted); cursor: pointer; }
 .fy-gbtn svg { width: 17px; height: 17px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .fy-gbtn:hover, .fy-mbtn:hover { color: var(--ink); }
@@ -103,7 +103,7 @@ html, body { margin: 0; background: #fff; }
 .fy-combo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: center; }
 @media (max-width: 1000px) { .fy-combo { grid-template-columns: minmax(0, 1fr); } }
 .fy-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 10px; }
-.fy-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--paper); font-size: 13px; line-height: 1.5; color: var(--muted); font-weight: 600; }
+.fy-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--pill); font-size: 13px; line-height: 1.5; color: var(--muted); font-weight: 600; }
 .fy-note b { color: var(--ink); font-weight: 800; }
 .fy-hits { min-height: 420px; }
 .fy-headline { font-size: 16px; line-height: 1.55; font-weight: 600; color: var(--muted); max-width: 64rem; }

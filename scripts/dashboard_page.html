@@ -1,0 +1,1406 @@
+<meta name="dash-one-writer">
+<style>
+/* Layout: a white dashboard of rounded cards on a 12-column grid. A dark header band holds the title and headline figures; the genre flow is the hero card, its years are the decade filter. */
+#dash-root { --dash-gutter: 0; }
+.fy {
+  --ink: #141416; --muted: #5f5e5a; --faint: #b4b3ae; --line: #e6e5e0; --grid: #efeee9;
+  --paper: #ffffff; --panel: #f6f5f1; --pill: #ecebe6; --tip: #ffffff; --up: #2e8b57; --down: #d0342c; --star: #ffc93c; --star-edge: #e3a800;
+  --g-action: #f29274; --g-drama: #86acd9; --g-comedy: #f3cb66; --g-romance: #ef96ba; --g-thriller: #ad93dd;
+  --g-crime: #8599a8; --g-musical: #96cc8a; --g-family: #f7b377; --g-fantasy: #77c9c3; --g-history: #c6a27c;
+  --g-action-ink: #9b3d1c; --g-drama-ink: #2c5683; --g-comedy-ink: #8a6500; --g-romance-ink: #9c2f5e; --g-thriller-ink: #563d97;
+  --g-crime-ink: #33454f; --g-musical-ink: #33702a; --g-family-ink: #9a5410; --g-fantasy-ink: #1a6f6a; --g-history-ink: #6e4f2c;
+  --l-hindi: #8e9be8; --l-telugu: #f5b462; --l-tamil: #ee8e8e; --l-malayalam: #74c69d; --l-kannada: #e9d36a; --l-other: #cfccc4;
+  --woman: #c2185b; --man: #3a6ea5; --unsure: #a3a29d;
+  color-scheme: light;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-anthropic-sans); font-weight: 500; font-variant-numeric: tabular-nums;
+  padding: 16px clamp(16px, 2.5vw, 32px) 40px;
+}
+.fy h1, .fy h2, .fy h3, .fy p { margin: 0; }
+.fy svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fy-dash { max-width: 1480px; margin-inline: auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+.fy-dash > * { grid-column: span 12; min-width: 0; }
+@media (min-width: 1000px) {
+  .s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; } .s6 { grid-column: span 6; }
+  .s7 { grid-column: span 7; } .s8 { grid-column: span 8; } .s9 { grid-column: span 9; }
+}
+.fy button:focus-visible, .fy select:focus-visible, .fy-info:focus-visible, .fy [role="button"]:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* header band */
+.fy-head { background: none; color: var(--ink); padding: 4px 0 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px; align-items: center; }
+@media (max-width: 1000px) { .fy-head { grid-template-columns: minmax(0, 1fr); } }
+.fy-brand { display: flex; align-items: center; gap: 14px; }
+.fy-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--star); color: var(--ink); font-weight: 800; font-size: 18px; flex: none; }
+.fy-title { font-weight: 800; font-size: clamp(26px, 2.6vw, 38px); line-height: 1; letter-spacing: -.02em; }
+.fy-scopebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.fy-scopebar b { color: var(--ink); font-weight: 800; background: color-mix(in srgb, var(--star) 45%, transparent); padding: 0 4px; border-radius: 4px; }
+.fy-scope { font: inherit; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 4px 10px; background: var(--star); color: var(--ink); cursor: pointer; }
+.fy-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 700px) { .fy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 18px; background: var(--ink); color: var(--paper); min-width: 0; }
+.fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--paper) 14%, var(--ink)); color: var(--star); }
+.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #ff8fb8; --pie-man: #7fb2ff; --pie-unsure: #8a8984; }
+.fy-pie { width: 84px; height: 84px; flex: none; }
+.fy-pie svg { display: block; width: 100%; height: 100%; }
+.fy-pie-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.fy-pie-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: color-mix(in srgb, var(--paper) 70%, transparent); }
+.fy-pie-row b { color: var(--paper); font-weight: 800; }
+.fy-pie-row i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.fy-stat-value { font-weight: 800; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; overflow-wrap: anywhere; }
+.fy-stat-label { font-size: 12px; color: color-mix(in srgb, var(--paper) 65%, transparent); font-weight: 600; }
+
+/* cards */
+.fy-card { background: var(--panel); border-radius: 24px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+.fy-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.fy-card-title { font-weight: 800; font-size: 18px; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
+.fy-card-head .fy-push { margin-left: auto; }
+.fy-info { position: relative; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); color: var(--muted); cursor: help; }
+.fy-info-text { position: absolute; left: 0; top: calc(100% + 8px); z-index: 7; width: min(22rem, 80vw); padding: 10px 12px; border-radius: 12px; background: var(--ink); color: var(--paper); font-size: 12.5px; font-weight: 500; line-height: 1.5; visibility: hidden; opacity: 0; transition: opacity .15s; }
+.fy-info:hover .fy-info-text, .fy-info:focus .fy-info-text { visibility: visible; opacity: 1; }
+.fy-chart { position: relative; min-width: 0; }
+.fy-chart svg { display: block; overflow: visible; }
+.fy-stream { min-height: 640px; }
+.fy-ribbons { min-height: 512px; }
+.fy-lanes { min-height: 470px; }
+.fy-more { border-top: 1px solid var(--line); padding-top: 12px; }
+.fy-more summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 800; font-size: 15px; list-style: none; padding: 6px 14px; border-radius: 999px; background: var(--paper); }
+.fy-more summary::-webkit-details-marker { display: none; }
+.fy-more[open] summary svg { transform: rotate(180deg); }
+.fy-more-body { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.fy-searchbox { display: flex; align-items: center; gap: 8px; max-width: 26rem; padding: 8px 14px; border-radius: 999px; background: var(--paper); border: 1.5px solid var(--line); color: var(--muted); }
+.fy-searchbox:focus-within { border-color: var(--ink); }
+.fy-search { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); }
+.fy-lanes-more { min-height: 60px; }
+.fy-gender { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: var(--paper); }
+.fy-gbtn, .fy-mbtn { font: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 5px 12px; background: transparent; color: var(--muted); cursor: pointer; }
+.fy-gbtn svg { width: 17px; height: 17px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fy-gbtn:hover, .fy-mbtn:hover { color: var(--ink); }
+.fy-gbtn[aria-pressed="true"], .fy-mbtn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.fy-cost { min-height: 420px; }
+.fy-langshare { min-height: 360px; }
+.fy-map { min-height: 400px; }
+.fy-combo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+@media (max-width: 1000px) { .fy-combo { grid-template-columns: minmax(0, 1fr); } }
+.fy-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 10px; }
+.fy-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--paper); font-size: 13px; line-height: 1.5; color: var(--muted); font-weight: 600; }
+.fy-note b { color: var(--ink); font-weight: 800; }
+.fy-hits { min-height: 420px; }
+.fy-headline { font-size: 16px; line-height: 1.55; font-weight: 600; color: var(--muted); max-width: 64rem; }
+.fy .fy-headline b { color: var(--ink); font-weight: 800; background: color-mix(in srgb, var(--star) 40%, transparent); padding: 0 4px; border-radius: 4px; }
+.fy-circles { min-height: 352px; }
+.fy-dot { width: 10px; height: 10px; border-radius: 50%; }
+.fy-hint { font-size: 12.5px; color: var(--muted); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+
+/* genre chips */
+.fy-genres { display: flex; flex-wrap: wrap; gap: 6px; padding: 18px 12px; border-radius: 10px; background-color: var(--ink);
+  background-image: radial-gradient(circle, var(--panel) 2.6px, transparent 3px), radial-gradient(circle, var(--panel) 2.6px, transparent 3px);
+  background-size: 16px 9px, 16px 9px; background-repeat: repeat-x; background-position: 4px 3px, 4px calc(100% - 3px); }
+.fy-genre { --g: var(--faint); font: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px 4px 4px; border-radius: 6px; border: 2px solid transparent; background: var(--paper); color: var(--ink); cursor: pointer; }
+.fy-genre svg { width: 24px; height: 24px; padding: 4px; border-radius: 50%; background: var(--g); stroke: var(--gi); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; box-sizing: border-box; }
+.fy-genre .fy-count { color: var(--muted); font-size: 12px; font-weight: 600; }
+.fy-genre[aria-pressed="true"] { border-color: var(--g); background: color-mix(in srgb, var(--g) 22%, var(--paper)); }
+.fy-genre.fy-dim { opacity: .45; }
+.fy-genre:focus-visible { outline-color: var(--star); }
+
+/* star detail */
+.fy-pop { --g: var(--faint); position: absolute; z-index: 6; width: min(400px, 92%); display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 20px; background: var(--paper); box-shadow: 0 16px 48px rgba(20, 20, 22, .22); border: 1px solid var(--line); }
+.fy-pop .fy-poster-art { border-radius: 12px; }
+.fy-pop-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding-right: 18px; }
+.fy-pop .fy-detail-title { font-size: 18px; }
+.fy-pop .fy-facts { gap: 5px; font-size: 12.5px; }
+.fy-pop-close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 0; background: var(--pill); color: var(--ink); cursor: pointer; }
+.fy-pop-close svg.i { width: 14px; height: 14px; }
+.fy-poster-art { position: relative; aspect-ratio: 2 / 3; width: 100%; max-width: 100%; border-radius: 16px; overflow: hidden; display: grid; place-items: center; background: color-mix(in srgb, var(--g) 14%, var(--paper)); border: 1.5px solid color-mix(in srgb, var(--g) 30%, var(--paper)); }
+.fy-poster-art img { width: 100%; height: 100%; object-fit: cover; }
+.fy-poster-art > svg { width: 34%; height: auto; stroke: var(--gi); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.fy-chip { position: absolute; display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 800; background: var(--paper); color: var(--ink); }
+.fy-chip svg { width: 13px; height: 13px; fill: var(--star); stroke: var(--ink); stroke-width: 1.5; }
+.fy-chip-rating { left: 10px; bottom: 10px; }
+.fy-detail-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--gi); }
+.fy-shelf-badge { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--g); }
+.fy-shelf-badge svg { width: 17px; height: 17px; stroke: var(--gi); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.fy-detail-title { font-size: 22px; font-weight: 800; line-height: 1.15; letter-spacing: -.01em; }
+.fy-facts { display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.fy-facts span { display: flex; align-items: flex-start; gap: 8px; }
+.fy-facts svg.i { width: 16px; height: 16px; color: var(--ink); }
+
+/* directors */
+.fy-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); font-weight: 700; }
+.fy-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.fy-legend svg { width: 18px; height: 18px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fy-ico-woman { stroke: var(--woman); } .fy-ico-man { stroke: var(--man); } .fy-ico-unsure { stroke: var(--unsure); }
+.fy-select { font: inherit; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 0; background: var(--paper); color: var(--ink); max-width: 100%; }
+.fy-sum { display: flex; flex-wrap: wrap; gap: 6px; }
+.fy-pillstat { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: var(--paper); font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.fy-pillstat b { color: var(--ink); font-weight: 800; }
+.fy-pillstat svg.i { width: 15px; height: 15px; }
+
+/* money */
+.fy-then { display: flex; flex-direction: column; gap: 10px; }
+.fy-then-card { display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 18px; background: var(--paper); }
+.fy-then-label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.fy-then-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.fy-then-row > span { display: flex; flex-direction: column; }
+.fy-then-row small { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+.fy-then-row b { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.fy-arrow { color: var(--faint); }
+.fy-times { margin-left: auto; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--star); font-weight: 800; font-size: 13px; }
+.fy-key { width: 14px; height: 4px; border-radius: 2px; }
+.fy-key-line { width: 0; height: 14px; border-left: 2px solid; border-radius: 0; }
+.fy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fy-table th { text-align: left; font-weight: 700; color: var(--muted); padding: 5px 6px; border-bottom: 1.5px solid var(--line); }
+.fy-table td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.fy-table .num { text-align: right; white-space: nowrap; font-weight: 800; }
+.fy-table td.fy-film { font-weight: 700; }
+.fy-up { color: var(--up); } .fy-down { color: var(--down); }
+.fy-mini { font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+
+/* chart text */
+.fy-tip { position: absolute; z-index: 5; pointer-events: none; background: var(--tip); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 28px rgba(20, 20, 22, .14); padding: 9px 11px; font-size: 12.5px; line-height: 1.45; max-width: 17rem; color: var(--ink); font-weight: 600; }
+.fy-tip-h { color: var(--muted); font-weight: 700; }
+.fy-axis text, .fy-lab-muted { fill: var(--muted); font-size: 11px; font-weight: 600; }
+.fy-lab { fill: var(--ink); font-size: 11.5px; font-weight: 800; }
+.fy-year:hover { fill: var(--g-action); }
+.fy-halo-p { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+.fy-click { cursor: pointer; }
+.fy [data-dash-source-state=empty] { color: transparent; }
+.fy [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.fy .g-action { --g: var(--g-action); --gi: var(--g-action-ink); } .fy .g-drama { --g: var(--g-drama); --gi: var(--g-drama-ink); } .fy .g-comedy { --g: var(--g-comedy); --gi: var(--g-comedy-ink); } .fy .g-romance { --g: var(--g-romance); --gi: var(--g-romance-ink); } .fy .g-thriller { --g: var(--g-thriller); --gi: var(--g-thriller-ink); }
+.fy .g-crime { --g: var(--g-crime); --gi: var(--g-crime-ink); } .fy .g-musical { --g: var(--g-musical); --gi: var(--g-musical-ink); } .fy .g-family { --g: var(--g-family); --gi: var(--g-family-ink); } .fy .g-fantasy { --g: var(--g-fantasy); --gi: var(--g-fantasy-ink); } .fy .g-history { --g: var(--g-history); --gi: var(--g-history-ink); }
+</style>
+
+<div class="fy">
+<div class="fy-dash">
+  <header class="fy-head" id="overview">
+    <div class="fy-brand">
+      <div>
+        <h1 class="fy-title">50 Years of Indian Cinema</h1>
+        <div class="fy-scopebar">
+          <span>Showing <b data-draw="scope-name">—</b></span>
+          <button type="button" class="fy-scope" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M6 6l12 12M18 6 6 18"/></svg>All years</button>
+        </div>
+      </div>
+    </div>
+    <div class="fy-stats">
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="films" data-fmt="int">—</span><span class="fy-stat-label">Films</span></div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 9h12M14 20 7 13h2c3 0 5-2 5-4.5S12 4 9 4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="gross_total" data-fmt="cr">—</span><span class="fy-stat-label">Worldwide gross</span></div>
+      <div class="fy-stat fy-stat-pie">
+        <div class="fy-pie" data-draw="dirpie" data-source="scope_stats">—</div>
+        <div class="fy-pie-text">
+          <span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="directors" data-fmt="int">—</span> <span class="fy-stat-label">directors</span></span>
+          <span class="fy-pie-row"><i style="background: var(--pie-woman)"></i><b data-draw="stat" data-source="scope_stats" data-field="women_directors" data-fmt="int">—</b> women</span>
+          <span class="fy-pie-row"><i style="background: var(--pie-man)"></i><b data-draw="stat" data-source="scope_stats" data-field="men_directors" data-fmt="int">—</b> men</span>
+        </div>
+      </div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 8 4 4 5-7 5 7 4-4-2 11H5z"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="top_film">—</span><span class="fy-stat-label" data-draw="stat" data-source="scope_stats" data-field="top_film_gross" data-fmt="cr">—</span></div>
+    </div>
+  </header>
+
+  <section class="fy-card" id="flow">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title">How genres flowed</h2>
+      <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The ribbon snakes through 50 years, a row per decade. Each colour is a lead genre, as thick as its share of that year’s films. Click a genre to see stars: its 5 best-rated films in this view (all 50 years, or the decade you picked), the bigger the star, the higher it ranks, placed on its release date. Only films with at least the view’s median IMDb votes count, so a little-seen film can’t top a genre. English-language films are left out.</span></span>
+      <span class="fy-hint fy-push"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v6l4 1a2 2 0 0 1 1.5 2.3L17 21H9l-4-6a1.6 1.6 0 0 1 2.4-2z"/></svg>Click a year to focus its decade · pick a genre, then click a star</span>
+    </div>
+    <div class="fy-genres" role="group" aria-label="Genre">
+      <button type="button" class="fy-genre g-action" data-genre="Action"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Action <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Action">—</span></button>
+      <button type="button" class="fy-genre g-drama" data-genre="Drama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4c5-2 11-2 16 0v7c0 5-4 9-8 9s-8-4-8-9z"/><path d="M8 10h2M14 10h2M9 15c2-1.3 4-1.3 6 0"/></svg>Drama <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Drama">—</span></button>
+      <button type="button" class="fy-genre g-comedy" data-genre="Comedy"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14c2 2.5 6 2.5 8 0M9 9.5h.01M15 9.5h.01"/></svg>Comedy <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Comedy">—</span></button>
+      <button type="button" class="fy-genre g-romance" data-genre="Romance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/></svg>Romance <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Romance">—</span></button>
+      <button type="button" class="fy-genre g-thriller" data-genre="Thriller"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Thriller <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Thriller">—</span></button>
+      <button type="button" class="fy-genre g-crime" data-genre="Crime"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m14.5 14.5 6 6"/></svg>Crime <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Crime">—</span></button>
+      <button type="button" class="fy-genre g-musical" data-genre="Musical"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>Musical <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Musical">—</span></button>
+      <button type="button" class="fy-genre g-family" data-genre="Family &amp; adventure"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Family &amp; adventure <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Family &amp; adventure">—</span></button>
+      <button type="button" class="fy-genre g-fantasy" data-genre="Fantasy &amp; horror"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>Fantasy &amp; horror <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Fantasy &amp; horror">—</span></button>
+      <button type="button" class="fy-genre g-history" data-genre="History &amp; sport"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3.5 3M17 6h3v1a3 3 0 0 1-3.5 3M12 13v4M8 21h8M10 17h4v4h-4z"/></svg>History &amp; sport <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="History &amp; sport">—</span></button>
+    </div>
+    <div class="fy-chart fy-stream dash-skeleton" data-draw="stream" data-source="genre_year best_genre films">—</div>
+  </section>
+
+  <section class="fy-card" id="languages">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title">Hindi’s share of the box office has shrunk</h2>
+      <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Each band is a language’s share of the year’s listed films, or of their combined worldwide gross. The lists before 1990 don’t record language, so the chart starts in 1990. “Other” is Punjabi, Marathi and bilingual releases. The lists cover top grossers only, and the cutoff changed in 2024 (₹20 cr to ₹10 cr). On the map, each circle sits on the language’s home region and its area is the share in this view; Hindi’s circle stands for all of north and central India. Positions are approximate; the outline is your own image.</span></span>
+      <div class="fy-gender fy-push" role="group" aria-label="Measure">
+        <button type="button" class="fy-mbtn" data-metric="gross">Share of gross</button>
+        <button type="button" class="fy-mbtn" data-metric="films">Share of films</button>
+      </div>
+    </div>
+    <p class="fy-headline">Hindi took <b data-draw="lstat" data-source="lang_period" data-field="gross_pct" data-where="key=2013–18|Hindi">—</b> of total gross in 2013–18, <b data-draw="lstat" data-source="lang_period" data-field="gross_pct" data-where="key=2019–23|Hindi">—</b> in 2019–23 and <b data-draw="lstat" data-source="lang_period" data-field="gross_pct" data-where="key=2024–26|Hindi">—</b> in 2024–26. Telugu, Tamil, Kannada and Malayalam gained, and Malayalam’s share of films grew from <b data-draw="lstat" data-source="lang_period" data-field="films_pct" data-where="key=2013–18|Malayalam">—</b> to <b data-draw="lstat" data-source="lang_period" data-field="films_pct" data-where="key=2024–26|Malayalam">—</b>.</p>
+    <div class="fy-legend">
+      <span><i class="fy-key fy-dot" style="background: var(--l-hindi)"></i>Hindi</span><span><i class="fy-key fy-dot" style="background: var(--l-telugu)"></i>Telugu</span><span><i class="fy-key fy-dot" style="background: var(--l-tamil)"></i>Tamil</span>
+      <span><i class="fy-key fy-dot" style="background: var(--l-malayalam)"></i>Malayalam</span><span><i class="fy-key fy-dot" style="background: var(--l-kannada)"></i>Kannada</span><span><i class="fy-key fy-dot" style="background: var(--l-other)"></i>Other</span>
+    </div>
+    <div class="fy-combo">
+      <div class="fy-chart fy-langshare dash-skeleton" data-draw="langshare" data-source="lang_year lang_period">—</div>
+      <div class="fy-chart fy-map dash-skeleton" data-draw="langmap" data-source="lang_scope">—</div>
+    </div>
+  </section>
+
+
+  <section class="fy-card" id="industry-hits">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title">Industry records have moved south</h2>
+      <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Films the source lists mark as their industry’s biggest ever (“Industry Hit”). Left: each industry stands on the stage as a dome, sized by the worldwide gross of its current record; dashed domes are the records it replaced. Right: one clapperboard per record, stacked by industry. Pick a decade to see the records as they stood at its end. The lists only mark records from 2014 on.</span></span>
+    </div>
+    <p class="fy-headline">Of the <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=All">—</b> films marked as their industry’s biggest ever, <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=Hindi">—</b> are Hindi and <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=South Indian">—</b> come from South Indian industries. Malayalam alone broke its record <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=Malayalam 2024–26">—</b> times between 2024 and 2026.</p>
+    <div class="fy-legend">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted)"><path d="M3 18A9 8 0 0 1 21 18Z"/></svg>Dome size = gross of the industry’s current record</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted); stroke-dasharray: 3 2"><path d="M3 18A9 8 0 0 1 21 18Z"/></svg>Records it replaced</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted)"><path d="M4 11h16v9H4zM4 11l2-6 14 2-2 4M9 5.5l-1 5M14 6.3l-1 4.5"/></svg>One clapper per record · solid = 2024–26</span>
+    </div>
+    <div class="fy-chart fy-hits dash-skeleton" data-draw="hits" data-source="industry_hits">—</div>
+  </section>
+
+
+
+
+  <section class="fy-card" id="directors">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title">Top directors: genres and growth</h2>
+      <span class="fy-info" tabindex="0" aria-label="About these charts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The directors with the most films in this view. Top: each band runs from a lead genre to a director, as wide as their films in it. Bottom: each director’s whole career, 1976–2026; the lane swells with every film they add, and dots are films coloured by lead genre and sized by worldwide gross. Click a director to highlight them. Women directors are marked in raw/director_gender.csv: some from Claude’s own knowledge (not checked against a source), some confirmed by the project author. Everyone not listed there is assumed to be a man.</span></span>
+      <div class="fy-gender fy-push" role="group" aria-label="Show directors">
+        <button type="button" class="fy-gbtn" data-gender="">All</button>
+        <button type="button" class="fy-gbtn" data-gender="man"><svg class="fy-ico-man" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M5 21v-1.5a7 7 0 0 1 14 0V21"/></svg>Men</button>
+        <button type="button" class="fy-gbtn" data-gender="woman"><svg class="fy-ico-woman" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M12 11 6 21h12z"/></svg>Women</button>
+      </div>
+    </div>
+    <div class="fy-chart fy-ribbons dash-skeleton" data-draw="ribbons" data-source="director_scope">—</div>
+    <div class="fy-chart fy-lanes dash-skeleton" data-draw="lanes" data-source="director_scope films">—</div>
+    <details class="fy-more" id="more-directors">
+      <summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>More directors</summary>
+      <div class="fy-more-body">
+        <label class="fy-searchbox"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" class="fy-search" id="director-search" list="fy-dirlist" placeholder="Search any of the 798 directors" aria-label="Search directors" autocomplete="off"></label>
+        <datalist id="fy-dirlist" data-draw="dirlist" data-source="directors"></datalist>
+        <div class="fy-chart fy-lanes-more" data-draw="lanes-more" data-source="directors films">—</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="fy-card" id="money">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title">What films cost, then and now</h2>
+      <span class="fy-info" tabindex="0" aria-label="About these figures"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Top: each stem runs from what a film cost (dot) to what it grossed worldwide; the thick lines are the typical (median) budget and gross each year, and ringed films are the three best returns and three biggest misses in this view. Bottom: the typical film of each decade, its budget (dark circle) inside its gross (green circle), area to scale; click one to open that decade. ₹ crore as reported, not adjusted for inflation, on a log scale. Gross is before cinemas and taxes take their cut, so a film usually needs about twice its budget to break even. Earlier lists hold only hits.</span></span>
+      <div class="fy-legend fy-push">
+        <span><i class="fy-key" style="background: var(--ink)"></i>Typical budget</span>
+        <span><i class="fy-key" style="background: var(--up)"></i>Typical gross</span>
+        <span><i class="fy-key fy-key-line" style="border-color: var(--up)"></i>Made more than it cost</span>
+        <span><i class="fy-key fy-key-line" style="border-color: var(--down)"></i>Made less</span>
+        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--up)"></i>Best returns</span>
+        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--down)"></i>Biggest misses</span>
+      </div>
+    </div>
+    <div class="fy-chart fy-cost dash-skeleton" data-draw="costtime" data-source="budget_year budget_decade returns_rank films share_year">—</div>
+    <div class="fy-notes">
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>2021:</b> opening day was <b data-draw="snote" data-source="share_notes" data-field="opening_2021">—</b> of a typical film’s total, against <b data-draw="snote" data-source="share_notes" data-field="opening_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="opening_max">—</b> in other years. Theatres reopened after COVID and runs were short.</span></p>
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span><b>Overseas</b> earned <b data-draw="snote" data-source="share_notes" data-field="overseas_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="overseas_max">—</b> of a typical film’s gross every year since 2014.</span></p>
+    </div>
+  </section>
+
+
+</div>
+</div>
+
+<script>
+// ---------- calculations ----------
+dash.calc('scope_stats', {
+  inputs: ['films', 'directors'],
+  title: 'Summary per view',
+  description: 'For all 50 years and each decade: films, total gross, directors, women directors, top grosser, most common lead genre and median gross ÷ budget.',
+  fn: (films, directors) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const gender = new Map(directors.map((d) => [d.director, d.gender]));
+    const split = (r) => (r.directors || '').split(', ').filter(Boolean);
+    return scopes.map((scope) => {
+      const f = scope === 'all' ? films : films.filter((r) => r.decade === scope);
+      const names = new Set(f.flatMap(split));
+      const m = f.filter((r) => r.budget > 0 && r.gross != null).map((r) => r.gross / r.budget).sort((a, b) => a - b);
+      const mid = m.length ? (m.length % 2 ? m[(m.length - 1) / 2] : (m[m.length / 2 - 1] + m[m.length / 2]) / 2) : null;
+      const lead = {};
+      f.forEach((r) => { lead[r.lead_genre] = (lead[r.lead_genre] || 0) + 1; });
+      const top = Object.entries(lead).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+      const big = f.filter((r) => r.gross != null).sort((a, b) => b.gross - a.gross)[0];
+      return {
+        scope, films: f.length,
+        gross_total: Math.round(f.reduce((s, r) => s + (r.gross || 0), 0)),
+        directors: names.size,
+        women_directors: [...names].filter((d) => gender.get(d) === 'woman').length,
+        unsure_directors: [...names].filter((d) => gender.get(d) === 'unsure').length,
+        men_directors: [...names].filter((d) => gender.get(d) !== 'woman' && gender.get(d) !== 'unsure').length,
+        median_multiple: mid == null ? null : Math.round(mid * 10) / 10,
+        top_lead_genre: top[0], top_lead_pct: f.length ? Math.round(top[1] / f.length * 100) : null,
+        top_film: big ? big.title : null, top_film_gross: big ? Math.round(big.gross) : null,
+      };
+    });
+  },
+});
+
+dash.calc('genre_scope', {
+  inputs: ['films'],
+  title: 'Films per lead genre',
+  description: 'Films per lead genre for all 50 years and each decade.',
+  fn: (films) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const genres = ['Action', 'Drama', 'Comedy', 'Romance', 'Thriller', 'Crime', 'Musical', 'Family & adventure', 'Fantasy & horror', 'History & sport'];
+    return scopes.flatMap((scope) => {
+      const f = scope === 'all' ? films : films.filter((r) => r.decade === scope);
+      return genres.map((genre) => ({ key: scope + '|' + genre, scope, genre, films: f.filter((r) => r.lead_genre === genre).length }));
+    });
+  },
+});
+
+dash.calc('genre_year', {
+  inputs: ['films'],
+  title: 'Lead genre share per year',
+  description: 'For each year, films per lead genre and their share of that year’s films.',
+  fn: (films) => {
+    const genres = ['Action', 'Drama', 'Comedy', 'Romance', 'Thriller', 'Crime', 'Musical', 'Family & adventure', 'Fantasy & horror', 'History & sport'];
+    const byYear = {};
+    films.forEach((r) => { (byYear[r.year] = byYear[r.year] || []).push(r); });
+    return Object.keys(byYear).flatMap((y) => genres.map((genre) => {
+      const n = byYear[y].filter((r) => r.lead_genre === genre).length;
+      return { key: y + '|' + genre, year: Number(y), genre, films: n, share_pct: Math.round(n / byYear[y].length * 1000) / 10 };
+    }));
+  },
+});
+
+dash.calc('best_genre', {
+  inputs: ['films'],
+  title: 'Top 5 films per genre',
+  description: 'The five highest IMDb ratings in each lead genre, for all 50 years and for each decade, among films with at least that view’s median votes.',
+  fn: (films) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const genres = ['Action', 'Drama', 'Comedy', 'Romance', 'Thriller', 'Crime', 'Musical', 'Family & adventure', 'Fantasy & horror', 'History & sport'];
+    const out = [];
+    scopes.forEach((scope) => {
+      const f = films.filter((r) => (scope === 'all' || r.decade === scope) && r.rating != null);
+      const v = f.map((r) => r.votes || 0).sort((a, b) => a - b);
+      const med = v.length ? v[Math.floor(v.length / 2)] : 0;
+      genres.forEach((genre) => {
+        f.filter((x) => (x.votes || 0) >= med && x.lead_genre === genre).sort((a, b) => b.rating - a.rating || b.votes - a.votes).slice(0, 5)
+          .forEach((r, i) => out.push({ key: scope + '|' + genre + '|' + (i + 1), scope, genre, rank: i + 1, film: r.key, title: r.title, year: r.year, decade: r.decade, release: r.release, language: r.language, directors: r.directors, rating: r.rating, votes: r.votes, gross: r.gross, budget: r.budget, poster: r.poster, min_votes: med }));
+      });
+    });
+    return out;
+  },
+});
+
+dash.calc('budget_year', {
+  inputs: ['films'],
+  title: 'Typical budget and gross per year',
+  description: 'Median budget and median worldwide gross each year, among films with both figures.',
+  fn: (films) => {
+    const med = (a) => { const s = a.slice().sort((x, y) => x - y); const n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+    const by = {};
+    films.filter((r) => r.budget > 0 && r.gross != null).forEach((r) => { (by[r.year] = by[r.year] || []).push(r); });
+    return Object.keys(by).map((y) => ({
+      year: Number(y), films: by[y].length,
+      median_budget: Math.round(med(by[y].map((r) => r.budget)) * 10) / 10,
+      median_gross: Math.round(med(by[y].map((r) => r.gross)) * 10) / 10,
+    })).sort((a, b) => a.year - b.year);
+  },
+});
+
+dash.calc('budget_decade', {
+  inputs: ['films'],
+  title: 'Budget and gross per decade',
+  description: 'Per decade: median budget and median worldwide gross among films with both figures, and the biggest budget.',
+  fn: (films) => {
+    const decades = ['1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const med = (a) => { const s = a.slice().sort((x, y) => x - y); const n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+    return decades.map((decade) => {
+      const f = films.filter((r) => r.decade === decade && r.budget > 0 && r.gross != null);
+      const top = f.slice().sort((a, b) => b.budget - a.budget)[0];
+      return {
+        decade, films: f.length,
+        median_budget: Math.round(med(f.map((r) => r.budget)) * 10) / 10,
+        median_gross: Math.round(med(f.map((r) => r.gross)) * 10) / 10,
+        max_budget: top ? top.budget : null, max_title: top ? top.title : null,
+      };
+    });
+  },
+});
+
+dash.calc('director_scope', {
+  inputs: ['films', 'directors'],
+  title: 'Top 10 directors per view',
+  description: 'For all 50 years and each decade, the ten directors with the most films (all, or only men, women or not known), with their films per lead genre.',
+  fn: (films, directors) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const filters = ['all', 'man', 'woman', 'unsure'];
+    const gender = new Map(directors.map((d) => [d.director, d.gender]));
+    const out = [];
+    scopes.forEach((scope) => {
+      const f = scope === 'all' ? films : films.filter((r) => r.decade === scope);
+      const by = {};
+      f.forEach((r) => (r.directors || '').split(', ').filter(Boolean).forEach((d) => { (by[d] = by[d] || []).push(r); }));
+      filters.forEach((filter) => {
+        Object.keys(by).filter((d) => filter === 'all' || (gender.get(d) || 'man') === filter)
+          .sort((a, b) => by[b].length - by[a].length || a.localeCompare(b)).slice(0, 10).forEach((director, rank) => {
+            const counts = {};
+            by[director].forEach((r) => { counts[r.lead_genre] = (counts[r.lead_genre] || 0) + 1; });
+            Object.entries(counts).forEach(([genre, n]) => out.push({ key: [scope, filter, director, genre].join('|'), scope, filter, director, rank, genre, films: n, gender: gender.get(director) || 'man' }));
+          });
+      });
+    });
+    return out;
+  },
+});
+
+dash.calc('lang_year', {
+  inputs: ['films'],
+  title: 'Language share per year',
+  description: 'Each year’s listed films and worldwide gross by language, as counts and as shares of the year (films with a recorded language).',
+  fn: (films) => {
+    const L = ['Hindi', 'Telugu', 'Tamil', 'Malayalam', 'Kannada', 'Other'];
+    const grp = (l) => (L.slice(0, 5).includes(l) ? l : 'Other');
+    const by = {};
+    films.filter((r) => r.language).forEach((r) => { (by[r.year] = by[r.year] || []).push(r); });
+    return Object.keys(by).flatMap((y) => {
+      const f = by[y], tg = f.reduce((s, r) => s + (r.gross || 0), 0);
+      return L.map((language) => {
+        const g = f.filter((r) => grp(r.language) === language), gross = g.reduce((s, r) => s + (r.gross || 0), 0);
+        return { key: y + '|' + language, year: Number(y), language, films: g.length, gross: Math.round(gross), films_pct: Math.round(g.length / f.length * 1000) / 10, gross_pct: tg ? Math.round(gross / tg * 1000) / 10 : 0 };
+      });
+    });
+  },
+});
+
+dash.calc('lang_period', {
+  inputs: ['films'],
+  title: 'Language share by period',
+  description: 'Share of listed films and of worldwide gross by language for 2013–18, 2019–23 and 2024–26.',
+  fn: (films) => {
+    const L = ['Hindi', 'Telugu', 'Tamil', 'Malayalam', 'Kannada', 'Other'];
+    const grp = (l) => (L.slice(0, 5).includes(l) ? l : 'Other');
+    const periods = [['2013–18', 2013, 2018], ['2019–23', 2019, 2023], ['2024–26', 2024, 2026]];
+    return periods.flatMap(([period, a, b]) => {
+      const f = films.filter((r) => r.language && r.year >= a && r.year <= b), tg = f.reduce((s, r) => s + (r.gross || 0), 0);
+      return L.map((language) => {
+        const g = f.filter((r) => grp(r.language) === language), gross = g.reduce((s, r) => s + (r.gross || 0), 0);
+        return { key: period + '|' + language, period, start: a, end: b, language, films_pct: Math.round(g.length / f.length * 100), gross_pct: Math.round(gross / tg * 100) };
+      });
+    });
+  },
+});
+
+dash.calc('lang_scope', {
+  inputs: ['films'],
+  title: 'Language share per view',
+  description: 'For all years and each decade, each language’s share of listed films and of worldwide gross (films with a recorded language).',
+  fn: (films) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const L = ['Hindi', 'Telugu', 'Tamil', 'Malayalam', 'Kannada', 'Punjabi', 'Marathi'];
+    const out = [];
+    scopes.forEach((scope) => {
+      const f = films.filter((r) => r.language && (scope === 'all' || r.decade === scope));
+      if (!f.length) return;
+      const tg = f.reduce((s, r) => s + (r.gross || 0), 0);
+      L.forEach((language) => {
+        const g = f.filter((r) => r.language === language), gross = g.reduce((s, r) => s + (r.gross || 0), 0);
+        out.push({ key: scope + '|' + language, scope, language, films: g.length, films_pct: Math.round(g.length / f.length * 1000) / 10, gross_pct: tg ? Math.round(gross / tg * 1000) / 10 : 0 });
+      });
+    });
+    return out;
+  },
+});
+
+dash.calc('industry_hits', {
+  inputs: ['films'],
+  title: 'Industry records',
+  description: 'Films the lists mark as their industry’s biggest ever, with release date and worldwide gross.',
+  fn: (films) => films.filter((r) => r.industry_hit).map((r) => ({ key: r.key, title: r.title, year: r.year, release: r.release, language: r.language, gross: r.gross }))
+    .sort((a, b) => (a.release || String(a.year)).localeCompare(b.release || String(b.year))),
+});
+
+dash.calc('hits_summary', {
+  inputs: ['industry_hits'],
+  title: 'Industry records by region',
+  description: 'How many industry records are Hindi or South Indian, and how many Malayalam set in 2024–26.',
+  fn: (industry_hits) => {
+    const south = ['Telugu', 'Tamil', 'Kannada', 'Malayalam'];
+    return [
+      { group: 'All', films: industry_hits.length },
+      { group: 'Hindi', films: industry_hits.filter((r) => r.language === 'Hindi').length },
+      { group: 'South Indian', films: industry_hits.filter((r) => south.includes(r.language)).length },
+      { group: 'Malayalam 2024–26', films: industry_hits.filter((r) => r.language === 'Malayalam' && r.year >= 2024).length },
+    ];
+  },
+});
+
+dash.calc('share_year', {
+  inputs: ['films'],
+  title: 'Opening day and overseas share',
+  description: 'Per year, the median film’s opening-day worldwide take and overseas earnings as a share of its worldwide gross.',
+  fn: (films) => {
+    const med = (a) => { const s = a.slice().sort((x, y) => x - y); const n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+    const by = {};
+    films.filter((r) => r.gross > 0).forEach((r) => { (by[r.year] = by[r.year] || []).push(r); });
+    return Object.keys(by).map((y) => {
+      const fd = by[y].filter((r) => r.first_day != null).map((r) => r.first_day / r.gross * 100);
+      const os = by[y].filter((r) => r.overseas != null).map((r) => r.overseas / r.gross * 100);
+      return { year: Number(y), opening_pct: fd.length ? Math.round(med(fd)) : null, overseas_pct: os.length ? Math.round(med(os)) : null, films_opening: fd.length, films_overseas: os.length };
+    }).filter((r) => r.opening_pct != null || r.overseas_pct != null);
+  },
+});
+
+dash.calc('share_notes', {
+  inputs: ['share_year'],
+  title: 'Opening day and overseas, in short',
+  description: 'The 2021 opening-day share against the range in other years, and the range of overseas share across years.',
+  fn: (share_year) => {
+    const op = share_year.filter((r) => r.year !== 2021 && r.opening_pct != null).map((r) => r.opening_pct);
+    const os = share_year.filter((r) => r.overseas_pct != null).map((r) => r.overseas_pct);
+    const y21 = share_year.find((r) => r.year === 2021);
+    return [{ opening_2021: y21 ? y21.opening_pct : null, opening_min: Math.min(...op), opening_max: Math.max(...op), overseas_min: Math.min(...os), overseas_max: Math.max(...os) }];
+  },
+});
+
+dash.calc('returns_rank', {
+  inputs: ['films'],
+  title: 'Best and worst returns',
+  description: 'For all 50 years and each decade, the five highest and five lowest worldwide gross ÷ budget among films with both figures.',
+  fn: (films) => {
+    const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+    const out = [];
+    scopes.forEach((scope) => {
+      const f = (scope === 'all' ? films : films.filter((r) => r.decade === scope)).filter((r) => r.budget > 0 && r.gross != null)
+        .map((r) => ({ ...r, multiple: Math.round(r.gross / r.budget * 10) / 10 }))
+        .sort((a, b) => b.multiple - a.multiple);
+      const pick = (rows, kind) => rows.forEach((r, i) => out.push({ key: scope + '|' + kind + '|' + r.key, scope, kind, rank: i + 1, title: r.title, year: r.year, budget: r.budget, gross: r.gross, multiple: r.multiple, lead_genre: r.lead_genre }));
+      pick(f.slice(0, 5), 'best');
+      pick(f.slice(-5).reverse(), 'worst');
+    });
+    return out;
+  },
+});
+
+
+// ---------- helpers ----------
+const GENRES = ['Action', 'Drama', 'Comedy', 'Romance', 'Thriller', 'Crime', 'Musical', 'Family & adventure', 'Fantasy & horror', 'History & sport'];
+const SLUG = { 'Action': 'action', 'Drama': 'drama', 'Comedy': 'comedy', 'Romance': 'romance', 'Thriller': 'thriller', 'Crime': 'crime', 'Musical': 'musical', 'Family & adventure': 'family', 'Fantasy & horror': 'fantasy', 'History & sport': 'history' };
+const ICON = {
+  action: ['M13 2 4 14h7l-1 8 9-12h-7z'],
+  drama: ['M4 4c5-2 11-2 16 0v7c0 5-4 9-8 9s-8-4-8-9z', 'M8 10h2M14 10h2M9 15c2-1.3 4-1.3 6 0'],
+  comedy: ['M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z', 'M8 14c2 2.5 6 2.5 8 0M9 9.5h.01M15 9.5h.01'],
+  romance: ['M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z'],
+  thriller: ['M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z', 'M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'],
+  crime: ['M16 10a6 6 0 1 1-12 0 6 6 0 0 1 12 0z', 'm14.5 14.5 6 6'],
+  musical: ['M9 18V5l11-2v13', 'M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'],
+  family: ['M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z', 'm15.5 8.5-2 5-5 2 2-5z'],
+  fantasy: ['m12 3 2 6 6 2-6 2-2 6-2-6-6-2 6-2z'],
+  history: ['M7 4h10v4a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3.5 3M17 6h3v1a3 3 0 0 1-3.5 3M12 13v4M8 21h8M10 17h4v4h-4z'],
+  man: ['M15.5 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z', 'M5 21v-1.5a7 7 0 0 1 14 0V21'],
+  woman: ['M15.5 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z', 'M12 11 6 21h12z'],
+  unsure: ['M15.5 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z', 'M5 21v-1.5a7 7 0 0 1 14 0V21'],
+  calendar: ['M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+  clapper: ['M4 11h16v9H4zM4 11l2-6 14 2-2 4M9 5.5l-1 5M14 6.3l-1 4.5'],
+  globe: ['M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18'],
+  rupee: ['M6 4h12M6 9h12M14 20 7 13h2c3 0 5-2 5-4.5S12 4 9 4'],
+  bag: ['M4 7h16v12H4zM8 7V5h8v2'],
+  close: ['M6 6l12 12M18 6 6 18'],
+  crown: ['m3 8 4 4 5-7 5 7 4-4-2 11H5z'],
+  star: ['m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z'],
+};
+const SVGNS = 'http://www.w3.org/2000/svg';
+const gColor = (g) => 'var(--g-' + (SLUG[g] || 'drama') + ')';
+const fmtInt = d3.format(',');
+const FMT = {
+  text: (v) => String(v), int: (v) => fmtInt(v), cr: (v) => '₹' + fmtInt(Math.round(v)) + ' cr',
+  x: (v) => d3.format('.1f')(v) + '×', pct: (v) => v + '%', rating: (v) => d3.format('.1f')(v),
+};
+const enc = (v) => String(v).replace(/%/g, '%25').replace(/&/g, '%26').replace(/=/g, '%3D');
+const scope = () => dash.params().scope || 'all';
+const inScope = (r) => scope() === 'all' || r.decade === scope();
+const topDirs = () => {
+  const d = dash.data('director_scope');
+  if (d.status !== 'ok') return [];
+  const f = dash.params().dgender || 'all';
+  return Array.from(new Set(d.data.filter((r) => r.scope === scope() && r.filter === f).sort((a, b) => a.rank - b.rank).map((r) => r.director)));
+};
+const director = () => { const p = dash.params().director, t = topDirs(); return t.includes(p) ? p : (t[0] || p); };
+const decadeOf = (y) => (y < 1980 ? '1970s' : Math.floor(y / 10) * 10 + 's');
+const scopeYears = () => {
+  const s = scope();
+  if (s === 'all') return [1976, 2026];
+  const a = Math.max(1976, +s.slice(0, 4));
+  return [a, Math.min(2026, +s.slice(0, 4) + 9)];
+};
+
+function icon(name, cls) {
+  const s = document.createElementNS(SVGNS, 'svg');
+  s.setAttribute('viewBox', '0 0 24 24');
+  s.setAttribute('aria-hidden', 'true');
+  if (cls) s.setAttribute('class', cls);
+  (ICON[name] || []).forEach((d) => { const p = document.createElementNS(SVGNS, 'path'); p.setAttribute('d', d); s.appendChild(p); });
+  return s;
+}
+function d3icon(g, name, x, y, size, color, dashed) {
+  const gi = g.append('g').attr('transform', `translate(${x - size / 2},${y - size / 2}) scale(${size / 24})`)
+    .style('fill', 'none').style('stroke', color).style('stroke-width', 2).style('stroke-linecap', 'round').style('stroke-linejoin', 'round');
+  (ICON[name] || []).forEach((d) => gi.append('path').attr('d', d).style('stroke-dasharray', dashed ? '2 2' : null));
+  return gi;
+}
+function ready(el, ...ids) {
+  const states = ids.map((id) => dash.data(id).status);
+  el.classList.toggle('dash-skeleton', states.includes('loading'));
+  if (states.every((s) => s === 'ok')) { el.replaceChildren(); return true; }
+  el.textContent = '—';
+  return false;
+}
+function tooltip(el) {
+  const t = document.createElement('div');
+  t.className = 'fy-tip';
+  t.hidden = true;
+  el.appendChild(t);
+  return {
+    show(event, lines) {
+      t.replaceChildren(...lines.filter(Boolean).map((s, i) => { const d = document.createElement('div'); d.textContent = s; if (i === 0) d.className = 'fy-tip-h'; return d; }));
+      t.hidden = false;
+      const box = el.getBoundingClientRect();
+      let x = event.clientX - box.left + 14, y = event.clientY - box.top + 14;
+      if (x + t.offsetWidth > box.width) x = Math.max(0, event.clientX - box.left - t.offsetWidth - 14);
+      if (y + t.offsetHeight > box.height) y = Math.max(0, event.clientY - box.top - t.offsetHeight - 14);
+      t.style.left = x + 'px';
+      t.style.top = y + 'px';
+    },
+    hide() { t.hidden = true; },
+  };
+}
+function cell(tr, text, cls) {
+  const td = document.createElement('td');
+  td.textContent = text;
+  if (cls) td.className = cls;
+  tr.appendChild(td);
+}
+function chip(cls, text, iconName) {
+  const c = document.createElement('span');
+  c.className = 'fy-chip ' + cls;
+  if (iconName) c.appendChild(icon(iconName));
+  c.append(text);
+  return c;
+}
+function poster(r, genre, rank) {
+  const li = document.createElement('li');
+  li.className = 'fy-poster g-' + (SLUG[genre] || 'drama');
+  const art = document.createElement('div');
+  art.className = 'fy-poster-art';
+  if (r.poster && String(r.poster).startsWith('/_blob/')) {
+    const img = document.createElement('img');
+    img.src = r.poster; img.alt = 'Poster of ' + r.title; img.loading = 'lazy';
+    art.appendChild(img);
+  } else {
+    art.appendChild(icon(SLUG[genre] || 'drama'));
+  }
+  art.appendChild(chip('fy-chip-year', String(r.year)));
+  if (rank) art.appendChild(chip('fy-chip-rank', '#' + rank));
+  if (r.rating != null) art.appendChild(chip('fy-chip-rating', FMT.rating(r.rating), 'star'));
+  const t = document.createElement('div'); t.className = 'fy-poster-title'; t.textContent = r.title;
+  const m = document.createElement('div'); m.className = 'fy-poster-meta'; m.textContent = r.gross != null ? FMT.cr(r.gross) : '';
+  li.append(art, t, m);
+  return li;
+}
+
+// ---------- controls ----------
+document.querySelectorAll('.fy-scope').forEach((b) => b.addEventListener('click', () => dash.setParams({ scope: 'all', film: null })));
+document.querySelectorAll('.fy-mbtn').forEach((b) => b.addEventListener('click', () => dash.setParams({ langmetric: b.dataset.metric })));
+document.querySelectorAll('.fy-gbtn').forEach((b) => b.addEventListener('click', () => dash.setParams({ dgender: b.dataset.gender || null, director: null })));
+document.querySelectorAll('.fy-genre').forEach((b) => b.addEventListener('click', () => dash.setParams({ genre: dash.params().genre === b.dataset.genre ? null : b.dataset.genre, film: null })));
+dash.onData(() => {
+  const g = dash.params().genre;
+  document.querySelectorAll('.fy-scope').forEach((b) => { b.hidden = scope() === 'all'; });
+  document.querySelectorAll('.fy-mbtn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.metric === (dash.params().langmetric === 'films' ? 'films' : 'gross'))));
+  document.querySelectorAll('.fy-gbtn').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.gender || null) === (dash.params().dgender || null))));
+  document.querySelectorAll('.fy-genre').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.genre === g));
+    b.classList.toggle('fy-dim', Boolean(g) && b.dataset.genre !== g);
+  });
+});
+
+dash.draw('scope-name', (el) => { el.textContent = scope() === 'all' ? 'All years · 1976–2026' : 'The ' + scope(); });
+
+dash.draw('dirpie', (el) => {
+  const d = dash.data('scope_stats');
+  el.replaceChildren();
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const row = d.data.find((r) => r.scope === scope());
+  if (!row) { el.textContent = '—'; return; }
+  const parts = [['women_directors', 'var(--pie-woman)'], ['men_directors', 'var(--pie-man)'], ['unsure_directors', 'var(--pie-unsure)']];
+  const arcs = d3.pie().sort(null).value((p) => row[p[0]])(parts);
+  const svg = d3.select(el).append('svg').attr('viewBox', '-42 -42 84 84').attr('role', 'img')
+    .attr('aria-label', row.women_directors + ' women, ' + row.men_directors + ' men, ' + row.unsure_directors + ' not known');
+  svg.selectAll('path').data(arcs).join('path')
+    .attr('d', d3.arc().innerRadius(22).outerRadius(40).padAngle(0.03).cornerRadius(2))
+    .style('fill', (a) => a.data[1]);
+  svg.append('text').attr('text-anchor', 'middle').attr('dy', '0.35em').style('fill', 'var(--pie-woman)').style('font-size', '13px').style('font-weight', 800)
+    .text(d3.format('.0%')(row.women_directors / (row.directors || 1)));
+});
+
+dash.draw('stat', (el) => {
+  el.dataset.where = 'scope=' + enc(scope());
+  const d = dash.data('scope_stats');
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const row = d.data.find((r) => r.scope === scope());
+  const v = row ? row[el.dataset.field] : null;
+  el.textContent = v == null ? '—' : FMT[el.dataset.fmt || 'text'](v);
+});
+
+dash.draw('gcount', (el) => {
+  el.dataset.where = 'key=' + enc(scope() + '|' + el.dataset.genre);
+  const d = dash.data('genre_scope');
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const row = d.data.find((r) => r.scope === scope() && r.genre === el.dataset.genre);
+  el.textContent = row ? fmtInt(row.films) : '—';
+});
+
+
+dash.draw('ribbons', (el) => {
+  if (!ready(el, 'director_scope')) return;
+  const rows = dash.data('director_scope').data.filter((r) => r.scope === scope() && r.filter === (dash.params().dgender || 'all'));
+  if (!rows.length) { el.textContent = '—'; return; }
+  const dirs = Array.from(d3.group(rows, (r) => r.director), ([d, v]) => ({ d, rank: v[0].rank, gender: v[0].gender, n: d3.sum(v, (r) => r.films) })).sort((a, b) => a.rank - b.rank);
+  const gens = GENRES.map((g) => ({ g, n: d3.sum(rows.filter((r) => r.genre === g), (r) => r.films) }));
+  const W = Math.max(340, el.clientWidth), narrow = W < 760;
+  const top = narrow ? 44 : 62, bot = 420, H = bot + 92;
+  const gSlot = W / gens.length, dSlot = W / dirs.length;
+  const k = Math.min((gSlot - 10) / (d3.max(gens, (x) => x.n) || 1), (dSlot - 18) / (d3.max(dirs, (x) => x.n) || 1));
+  const gx = new Map(gens.map((x, i) => [x.g, i * gSlot + (gSlot - x.n * k) / 2]));
+  const dx = new Map(dirs.map((x, i) => [x.d, i * dSlot + (dSlot - x.n * k) / 2]));
+  const gOff = new Map(gx), dOff = new Map(dx);
+  const links = [];
+  GENRES.forEach((g) => dirs.forEach((dd) => {
+    const r = rows.find((x) => x.genre === g && x.director === dd.d);
+    if (r) { const w = r.films * k; links.push({ r, s0: gOff.get(g), w }); gOff.set(g, gOff.get(g) + w); }
+  }));
+  dirs.forEach((dd) => GENRES.forEach((g) => {
+    const l = links.find((x) => x.r.genre === g && x.r.director === dd.d);
+    if (l) { l.t0 = dOff.get(dd.d); dOff.set(dd.d, l.t0 + l.w); }
+  }));
+  const tip = tooltip(el);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Lead genres flowing to the directors with the most films');
+  const y0 = top + 8, y1 = bot, ym = (y0 + y1) / 2;
+  const dir = director(), pickG = dash.params().genre;
+  const focus = dirs.some((x) => x.d === dir);
+  svg.append('g').selectAll('path').data(links).join('path')
+    .attr('class', 'fy-click')
+    .attr('d', (l) => `M${l.s0},${y0} L${l.s0},${y0 + 24} C${l.s0},${ym} ${l.t0},${ym} ${l.t0},${y1 - 24} L${l.t0},${y1} L${l.t0 + l.w},${y1} L${l.t0 + l.w},${y1 - 24} C${l.t0 + l.w},${ym} ${l.s0 + l.w},${ym} ${l.s0 + l.w},${y0 + 24} L${l.s0 + l.w},${y0} Z`)
+    .style('fill', (l) => gColor(l.r.genre))
+    .style('opacity', (l) => ((pickG && l.r.genre !== pickG) || (focus && l.r.director !== dir) ? 0.18 : 0.88))
+    .style('stroke', 'var(--panel)').style('stroke-width', 0.6)
+    .on('mousemove', (e, l) => tip.show(e, [l.r.genre + ' → ' + l.r.director, fmtInt(l.r.films) + (l.r.films === 1 ? ' film' : ' films')]))
+    .on('mouseleave', () => tip.hide())
+    .on('click', (e, l) => dash.setParams({ director: l.r.director }));
+  gens.forEach((x, i) => {
+    const cx = i * gSlot + gSlot / 2;
+    svg.append('rect').attr('x', gx.get(x.g)).attr('y', y0 - 4).attr('width', Math.max(2, x.n * k)).attr('height', 4).style('fill', gColor(x.g));
+    svg.append('circle').attr('cx', cx).attr('cy', 14).attr('r', 14).style('fill', gColor(x.g));
+    d3icon(svg, SLUG[x.g], cx, 14, 16, 'var(--g-' + SLUG[x.g] + '-ink)');
+    if (!narrow) svg.append('text').attr('x', cx).attr('y', 44).attr('text-anchor', 'middle').attr('class', 'fy-lab').text(x.g);
+    svg.append('text').attr('x', cx).attr('y', narrow ? 40 : 57).attr('text-anchor', 'middle').attr('class', 'fy-lab-muted').text(x.n ? fmtInt(x.n) : '');
+  });
+  dirs.forEach((x, i) => {
+    const cx = i * dSlot + dSlot / 2;
+    const col = x.gender === 'woman' ? 'var(--woman)' : x.gender === 'unsure' ? 'var(--unsure)' : 'var(--man)';
+    svg.append('rect').attr('x', dx.get(x.d)).attr('y', y1).attr('width', x.n * k).attr('height', 4).style('fill', 'var(--ink)');
+    svg.append('circle').attr('cx', cx).attr('cy', y1 + 28).attr('r', 17).style('fill', 'var(--paper)').style('stroke', col).style('stroke-width', x.d === dir ? 2.5 : 1.2);
+    d3icon(svg, x.gender === 'woman' ? 'woman' : x.gender === 'unsure' ? 'unsure' : 'man', cx, y1 + 28, 20, col, x.gender === 'unsure')
+      .attr('class', 'fy-click').on('click', () => dash.setParams({ director: x.d }));
+    const name = svg.append('text').attr('x', cx).attr('y', y1 + 62).attr('text-anchor', 'middle').attr('class', 'fy-lab fy-click')
+      .style('font-weight', x.d === dir ? 800 : 700).text(x.d).on('click', () => dash.setParams({ director: x.d }));
+    let label = x.d;
+    while (name.node().getComputedTextLength() > dSlot - 6 && label.length > 4) { label = label.slice(0, -2); name.text(label + '…'); }
+    svg.append('text').attr('x', cx).attr('y', y1 + 78).attr('text-anchor', 'middle').attr('class', 'fy-lab-muted').text(fmtInt(x.n) + ' films');
+  });
+});
+
+
+// ---------- serpentine genre stream with best-film stars ----------
+const STAR = 'm12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z';
+const releaseT = (r) => {
+  if (!r.release) return r.year;
+  const d = new Date(r.release + 'T00:00:00Z');
+  const day = (d - Date.UTC(r.year, 0, 1)) / 864e5;
+  return Math.max(1976, Math.min(2026, r.year - 0.5 + day / 366));
+};
+const fmtDate = (r) => (r.release ? d3.utcFormat('%-d %b %Y')(new Date(r.release + 'T00:00:00Z')) : String(r.year));
+const pickedStar = () => {
+  const b = dash.data('best_genre');
+  if (b.status !== 'ok') return null;
+  const hit = b.data.find((r) => r.key === dash.params().film);
+  return hit && hit.scope === scope() && hit.genre === dash.params().genre ? hit : null;
+};
+
+dash.draw('stream', (el) => {
+  if (!ready(el, 'genre_year', 'best_genre', 'films')) return;
+  const rows = dash.data('genre_year').data;
+  const films = dash.data('films').data;
+  const stars = dash.data('best_genre').data.filter((r) => r.scope === scope());
+  const share = new Map();
+  d3.group(rows, (r) => r.year).forEach((v, y) => {
+    const tot = d3.sum(v, (r) => r.share_pct) || 1;
+    share.set(y, new Map(v.map((r) => [r.genre, r.share_pct / tot])));
+  });
+  const lines = [[1976, 1985], [1986, 1995], [1996, 2005], [2006, 2015], [2016, 2026]];
+  const W = Math.max(340, el.clientWidth), narrow = W < 720;
+  const T = narrow ? 50 : 96, R = (T + (narrow ? 32 : 42)) / 2, padX = 8;
+  const xa = padX + R, xb = W - padX - R, top = T / 2 + 14;
+  const H = top + (lines.length - 1) * 2 * R + T / 2 + 32;
+  const rowY = (i) => top + i * 2 * R;
+  // centre line: straight rows of years, joined by half-circle turns spanning one year
+  const P = (t) => {
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b] = lines[i], dir = i % 2 ? -1 : 1, y = rowY(i);
+      if (t <= b || i === lines.length - 1) {
+        const u = (Math.max(a, Math.min(t, b)) - a) / (b - a);
+        if (t < a && i > 0) break;
+        return [dir > 0 ? xa + u * (xb - xa) : xb - u * (xb - xa), y];
+      }
+      if (t < b + 1) {
+        const th = -Math.PI / 2 + (t - b) * Math.PI, cy = y + R;
+        return dir > 0 ? [xb + R * Math.cos(th), cy + R * Math.sin(th)] : [xa - R * Math.cos(th), cy + R * Math.sin(th)];
+      }
+    }
+    return [xa, rowY(0)];
+  };
+  const N = (t) => {
+    const p = P(Math.max(1976, t - 0.01)), q = P(Math.min(2026, t + 0.01));
+    const dx = q[0] - p[0], dy = q[1] - p[1], l = Math.hypot(dx, dy) || 1;
+    return [dy / l, -dx / l];
+  };
+  const gap = narrow ? 1 : 1.8, avail = T - gap * (GENRES.length - 1);
+  const ease = (f) => f * f * (3 - 2 * f);
+  const val = (g, t) => {
+    const y0 = Math.floor(t), y1 = Math.min(2026, y0 + 1), f = ease(t - y0);
+    const a = (share.get(y0) || new Map()).get(g) || 0, b = (share.get(y1) || new Map()).get(g) || 0;
+    return a + (b - a) * f;
+  };
+  const band = (t) => {
+    let o = -T / 2;
+    return GENRES.map((g) => { const w = val(g, t) * avail; const r = [o, o + w]; o += w + gap; return r; });
+  };
+  const step = 0.04;
+  const samples = d3.range(1976, 2026 + step / 2, step).map((t) => { const tt = Math.min(t, 2026); return { t: tt, p: P(tt), n: N(tt), b: band(tt) }; });
+  const path = (gi, t0, t1) => {
+    const s = samples.filter((x) => x.t >= t0 - 1e-9 && x.t <= t1 + 1e-9);
+    if (s.length < 2) return '';
+    const out = s.map((x) => [x.p[0] + x.n[0] * x.b[gi][1], x.p[1] + x.n[1] * x.b[gi][1]]);
+    const inn = s.map((x) => [x.p[0] + x.n[0] * x.b[gi][0], x.p[1] + x.n[1] * x.b[gi][0]]).reverse();
+    return 'M' + out.concat(inn).map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z';
+  };
+  const [s0, s1] = scopeYears();
+  const pickG = dash.params().genre;
+  const tip = tooltip(el);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Lead genre share of each year, 1976 to 2026, with the best film of each genre in each decade as stars');
+  lines.forEach(([a, b]) => {
+    for (let y = a; y <= b; y++) {
+      const [x, cy] = P(y), key = y % 10 === 0 || y === 1976 || y === 2026;
+      const on = y >= s0 && y <= s1;
+      svg.append('line').attr('x1', x).attr('x2', x).attr('y1', cy - T / 2 - 8).attr('y2', cy + T / 2 + 8)
+        .style('stroke', key ? 'var(--ink)' : 'var(--faint)').style('stroke-width', key ? 1.4 : 1).style('stroke-dasharray', key ? null : '1 3')
+        .style('opacity', on ? 1 : 0.35);
+      if (!narrow || key || y % 5 === 0) {
+        svg.append('text').attr('x', x).attr('y', cy + T / 2 + 22).attr('text-anchor', 'middle')
+          .attr('class', key ? 'fy-lab' : 'fy-lab-muted').style('font-size', key ? '13px' : '11px').style('opacity', on ? 1 : 0.4)
+          .text(key ? y : "'" + String(y).slice(2))
+          .attr('class', (key ? 'fy-lab' : 'fy-lab-muted') + ' fy-click fy-year')
+          .on('click', () => dash.setParams({ scope: scope() === decadeOf(y) ? 'all' : decadeOf(y), film: null }));
+      }
+    }
+  });
+  const g = svg.append('g');
+  const dimAll = scope() !== 'all';
+  GENRES.forEach((gn, gi) => {
+    const faded = pickG && pickG !== gn;
+    g.append('path').attr('d', path(gi, 1976, 2026)).style('fill', gColor(gn)).style('opacity', faded ? 0.12 : dimAll ? 0.22 : 0.92);
+    if (dimAll && !faded) g.append('path').attr('d', path(gi, s0 - 0.5, s1 + 0.5)).style('fill', gColor(gn)).style('opacity', 0.95);
+  });
+  const hit = svg.append('rect').attr('width', W).attr('height', H).style('fill', 'transparent').attr('class', 'fy-click');
+  svg.selectAll('.fy-year').raise();
+  const locate = (e) => {
+    const [mx, my] = d3.pointer(e, svg.node());
+    let best = null, bd = Infinity;
+    samples.forEach((s) => { const d = (s.p[0] - mx) ** 2 + (s.p[1] - my) ** 2; if (d < bd) { bd = d; best = s; } });
+    if (!best || bd > (T / 2 + 8) ** 2) return null;
+    const off = (mx - best.p[0]) * best.n[0] + (my - best.p[1]) * best.n[1];
+    const gi = best.b.findIndex((r) => off >= r[0] - gap && off <= r[1]);
+    return { year: Math.round(best.t), genre: gi >= 0 ? GENRES[gi] : null };
+  };
+  hit.on('mousemove', (e) => {
+    const h = locate(e);
+    if (!h || !h.genre) { tip.hide(); return; }
+    const yr = films.filter((r) => r.year === h.year && r.lead_genre === h.genre);
+    const topFilm = d3.greatest(yr, (r) => r.gross || 0);
+    const row = rows.find((r) => r.year === h.year && r.genre === h.genre);
+    tip.show(e, [h.year + ' · ' + h.genre, (row ? row.share_pct : 0) + '% of the year’s films (' + yr.length + ')', topFilm ? 'Top grosser: ' + topFilm.title : '']);
+  }).on('mouseleave', () => tip.hide())
+    .on('click', (e) => { const h = locate(e); if (h) dash.setParams({ scope: decadeOf(h.year), film: null }); });
+  // stars: best film of each genre per decade, on its genre band at its release date
+  const sel = pickedStar();
+  let selXY = null;
+  const starG = svg.append('g');
+  stars.filter((r) => r.genre === pickG).forEach((r) => {
+    const t = releaseT(r), gi = GENRES.indexOf(r.genre);
+    const p = P(t), n = N(t), b = band(t)[gi], mid = (b[0] + b[1]) / 2;
+    const x = p[0] + n[0] * mid, y = p[1] + n[1] * mid;
+    const on = !pickG || r.genre === pickG;
+    const isSel = sel && sel.key === r.key, sz = [40, 32, 26, 21, 17][r.rank - 1] || 16;
+    const gs = starG.append('g').attr('class', 'fy-click').attr('transform', `translate(${x},${y})`).style('opacity', on ? 1 : 0.25)
+      .attr('tabindex', 0).attr('role', 'button').attr('aria-label', r.title + ', number ' + r.rank + ' in ' + r.genre);
+    if (isSel) gs.append('circle').attr('r', sz * 0.78 + 4).style('fill', 'color-mix(in srgb, var(--up) 22%, transparent)').style('stroke', 'var(--up)').style('stroke-width', 3);
+    gs.append('path').attr('d', STAR).attr('transform', `translate(${-sz / 2},${-sz / 2}) scale(${sz / 24})`)
+      .style('fill', 'var(--star)').style('stroke', 'var(--star-edge)').style('stroke-width', 1.2 * 24 / sz).style('stroke-linejoin', 'round')
+      .style('filter', 'drop-shadow(0 1px 2px rgba(20, 20, 22, .3))');
+    if (isSel) selXY = [x, y, sz];
+    gs.on('mousemove', (e) => { e.stopPropagation(); tip.show(e, ['#' + r.rank + ' ' + r.genre + (scope() === 'all' ? '' : ' · ' + scope()), r.title, fmtDate(r) + ' · ★ ' + FMT.rating(r.rating)]); })
+      .on('mouseleave', () => tip.hide())
+      .on('click', (e) => { e.stopPropagation(); dash.setParams({ film: r.key }); })
+      .on('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dash.setParams({ film: r.key }); } });
+  });
+  if (sel && selXY) {
+    const pop = starCard(sel);
+    el.appendChild(pop);
+    const k = el.clientWidth / W, [sx, sy, ssz] = selXY;
+    const pw = pop.offsetWidth, ph = pop.offsetHeight, off = ssz * 0.8 + 14;
+    let left = sx * k + off, topY = sy * k - ph / 2;
+    if (left + pw > el.clientWidth) left = sx * k - off - pw;
+    topY = Math.max(0, Math.min(topY, el.clientHeight - ph));
+    pop.style.left = Math.max(0, left) + 'px';
+    pop.style.top = topY + 'px';
+  }
+});
+
+function starCard(r) {
+  const card = document.createElement('div');
+  card.className = 'fy-pop g-' + SLUG[r.genre];
+  card.setAttribute('role', 'dialog');
+  card.setAttribute('aria-label', r.title);
+  const close = document.createElement('button');
+  close.type = 'button'; close.className = 'fy-pop-close'; close.setAttribute('aria-label', 'Close');
+  close.appendChild(icon('close', 'i'));
+  close.addEventListener('click', () => dash.setParams({ film: null }));
+  const art = document.createElement('div');
+  art.className = 'fy-poster-art';
+  if (r.poster && String(r.poster).startsWith('/_blob/')) {
+    const img = document.createElement('img'); img.src = r.poster; img.alt = 'Poster of ' + r.title; art.appendChild(img);
+  } else art.appendChild(icon(SLUG[r.genre]));
+  const body = document.createElement('div'); body.className = 'fy-pop-body';
+  const badge = document.createElement('div'); badge.className = 'fy-detail-badge';
+  const dot = document.createElement('span'); dot.className = 'fy-shelf-badge'; dot.appendChild(icon(SLUG[r.genre]));
+  const bt = document.createElement('span'); bt.textContent = '#' + r.rank + ' ' + r.genre + ' · ' + (r.scope === 'all' ? 'all 50 years' : 'the ' + r.scope);
+  badge.append(dot, bt);
+  const t = document.createElement('h3'); t.className = 'fy-detail-title'; t.textContent = r.title;
+  const facts = document.createElement('div'); facts.className = 'fy-facts';
+  const fact = (ico, text) => { if (!text) return; const sp = document.createElement('span'); sp.appendChild(icon(ico, 'i')); sp.append(text); facts.appendChild(sp); };
+  fact('calendar', fmtDate(r));
+  fact('clapper', r.directors);
+  fact('globe', r.language);
+  fact('star', FMT.rating(r.rating) + ' from ' + fmtInt(r.votes) + ' votes');
+  fact('rupee', r.gross != null ? FMT.cr(r.gross) + ' worldwide' : null);
+  fact('bag', r.budget != null ? FMT.cr(r.budget) + ' budget' : null);
+  body.append(badge, t, facts);
+  card.append(close, art, body);
+  card.addEventListener('click', (e) => e.stopPropagation());
+  return card;
+}
+
+
+// ---------- director growth lanes (same top 10 as the ribbons) ----------
+dash.draw('lanes', (el) => {
+  if (!ready(el, 'director_scope', 'films')) return;
+  const names = topDirs();
+  if (!names.length) { el.textContent = '—'; return; }
+  const gOf = new Map(dash.data('director_scope').data.map((r) => [r.director, r.gender]));
+  lanesChart(el, names, gOf);
+});
+
+// one career lane per name: the lane swells with every film, dots are films
+function lanesChart(el, names, gOf) {
+  const films = dash.data('films').data;
+  const byDir = new Map(names.map((n) => [n, films.filter((r) => (r.directors || '').split(', ').includes(n)).sort((a, b) => releaseT(a) - releaseT(b))]));
+  const dir = director();
+  const W = Math.max(340, el.clientWidth), narrow = W < 720;
+  const nameW = narrow ? 120 : 220, laneH = narrow ? 28 : 44, topA = 28, endW = narrow ? 64 : 96;
+  const H = topA + names.length * laneH + 8;
+  const x = d3.scaleLinear([1976, 2027], [nameW + 10, W - endW]);
+  const maxF = d3.max(names, (n) => byDir.get(n).length) || 1;
+  const thick = d3.scaleSqrt([0, maxF], [0, laneH / 2 - 3]);
+  const all = names.flatMap((n) => byDir.get(n));
+  const rr = d3.scaleSqrt([0, d3.max(all, (r) => r.gross || 0) || 1], [2.5, laneH * 0.4]);
+  const tip = tooltip(el);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Career lanes for the top ten directors in this view');
+  const [s0, s1] = scopeYears();
+  if (scope() !== 'all') svg.append('rect').attr('x', x(s0)).attr('width', x(s1 + 1) - x(s0)).attr('y', topA - 6).attr('height', H - topA).attr('rx', 8).style('fill', 'var(--paper)');
+  d3.range(1980, 2030, 10).forEach((y) => {
+    svg.append('line').attr('x1', x(y)).attr('x2', x(y)).attr('y1', topA - 6).attr('y2', H - 4).style('stroke', 'var(--line)');
+    svg.append('text').attr('x', x(y)).attr('y', 14).attr('text-anchor', 'middle').attr('class', 'fy-lab').text(y + 's');
+  });
+  names.forEach((n, i) => {
+    const cy = topA + i * laneH + laneH / 2, fs = byDir.get(n), g = gOf.get(n) || 'man';
+    const isSel = n === dir;
+    const col = g === 'woman' ? 'var(--woman)' : g === 'unsure' ? 'var(--unsure)' : 'var(--man)';
+    const lane = svg.append('g').attr('class', 'fy-click').on('click', () => dash.setParams({ director: n }));
+    lane.append('rect').attr('x', 0).attr('y', cy - laneH / 2 + 1).attr('width', W).attr('height', laneH - 2).attr('rx', 10)
+      .style('fill', isSel ? 'color-mix(in srgb, var(--star) 30%, transparent)' : 'transparent');
+    const pts = [];
+    fs.forEach((f, k) => { const t = releaseT(f); pts.push([t, k], [t, k + 1]); });
+    pts.push([2026.9, fs.length]);
+    lane.append('path').datum(pts)
+      .attr('d', d3.area().x((p) => x(p[0])).y0((p) => cy - thick(p[1])).y1((p) => cy + thick(p[1])))
+      .style('fill', col).style('opacity', isSel ? 0.4 : 0.2);
+    lane.selectAll('circle').data(fs).join('circle')
+      .attr('cx', (f) => x(releaseT(f))).attr('cy', cy).attr('r', (f) => rr(f.gross || 0))
+      .style('fill', (f) => gColor(f.lead_genre)).style('stroke', 'var(--paper)').style('stroke-width', 1.2)
+      .style('opacity', (f) => (scope() === 'all' || f.decade === scope() ? 1 : 0.4))
+      .on('mousemove', (e, f) => tip.show(e, [n + ' · ' + f.year, f.title, f.lead_genre + (f.gross != null ? ' · ' + FMT.cr(f.gross) : '')]))
+      .on('mouseleave', () => tip.hide());
+    d3icon(lane, g === 'woman' ? 'woman' : g === 'unsure' ? 'unsure' : 'man', 11, cy, narrow ? 16 : 20, col, g === 'unsure');
+    const name = lane.append('text').attr('x', narrow ? 24 : 28).attr('y', cy).attr('dy', '0.35em').attr('class', 'fy-lab')
+      .style('font-size', narrow ? '11px' : '13px').style('font-weight', isSel ? 800 : 700).text(n);
+    let label = n;
+    while (name.node().getComputedTextLength() > nameW - (narrow ? 84 : 100) && label.length > 4) { label = label.slice(0, -2); name.text(label + '…'); }
+    lane.append('text').attr('x', nameW).attr('y', cy).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'fy-lab-muted').text(fs.length + (fs.length === 1 ? ' film' : ' films'));
+    lane.append('text').attr('x', W - endW + 10).attr('y', cy).attr('dy', '0.35em').attr('class', 'fy-lab').style('font-size', narrow ? '10.5px' : '12px')
+      .text(FMT.cr(d3.sum(fs, (f) => f.gross || 0)));
+  });
+}
+
+// ---------- cost over time ----------
+const DEC_COL = ['#fde3c8', '#f9c592', '#f4a582', '#e98a9a', '#ab92dc', '#6f5cbf'];
+
+
+dash.draw('costtime', (el) => {
+  if (!ready(el, 'budget_year', 'budget_decade', 'returns_rank', 'films', 'share_year')) return;
+  const yrs = dash.data('budget_year').data, decs = dash.data('budget_decade').data;
+  const pts = dash.data('films').data.filter((r) => r.budget > 0 && r.gross > 0);
+  const W = Math.max(320, el.clientWidth), narrow = W < 760;
+  const H1 = Math.round(Math.max(360, Math.min(520, W * 0.4)));
+  const m = { t: 18, r: 110, b: 34, l: 70 };
+  const x = d3.scaleLinear([1976, 2027], [m.l, W - m.r]);
+  const rMax = Math.min(46, (x(1990) - x(1980)) * 0.42), stripH = 2 * rMax + 74, H = H1 + stripH;
+  const lo = d3.min(pts, (r) => Math.min(r.budget, r.gross)), hi = d3.max(pts, (r) => Math.max(r.budget, r.gross));
+  const y = d3.scaleLog([Math.min(lo, 0.5), hi * 1.15], [H1 - m.b, m.t]);
+  const [s0, s1] = scopeYears();
+  const on = (yr) => yr >= s0 && yr <= s1;
+  const tip = tooltip(el);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Budget and worldwide gross of every film by year, the typical budget and gross, and each decade’s typical film as nested circles');
+  if (scope() !== 'all') svg.append('rect').attr('x', x(s0)).attr('width', x(s1 + 1) - x(s0)).attr('y', m.t).attr('height', H - m.t).attr('rx', 10).style('fill', 'var(--paper)');
+  [1, 10, 100, 1000].filter((v) => v >= y.domain()[0] && v <= y.domain()[1]).forEach((v) => {
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--line)');
+    svg.append('text').attr('x', m.l - 8).attr('y', y(v)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'fy-lab-muted').text('₹' + fmtInt(v) + ' cr');
+  });
+  d3.range(1980, 2030, 10).forEach((v) => svg.append('text').attr('x', x(v)).attr('y', H1 - 12).attr('text-anchor', 'middle').attr('class', 'fy-lab').text(v));
+  // each film: a stem from what it cost (dot) to what it made
+  const jit = (r) => releaseT(r) + 0.5;
+  svg.append('g').selectAll('line').data(pts).join('line')
+    .attr('x1', (r) => x(jit(r))).attr('x2', (r) => x(jit(r))).attr('y1', (r) => y(r.budget)).attr('y2', (r) => y(r.gross))
+    .style('stroke', (r) => (r.gross >= r.budget ? 'var(--up)' : 'var(--down)')).style('stroke-width', 1.2)
+    .style('opacity', (r) => (on(r.year) ? 0.32 : 0.1));
+  svg.append('g').selectAll('circle').data(pts).join('circle')
+    .attr('cx', (r) => x(jit(r))).attr('cy', (r) => y(r.budget)).attr('r', 2)
+    .style('fill', 'var(--ink)').style('opacity', (r) => (on(r.year) ? 0.45 : 0.12))
+    .on('mousemove', (e, r) => tip.show(e, [r.year + ' · ' + r.lead_genre, r.title, 'Cost ' + FMT.cr(r.budget), 'Made ' + FMT.cr(r.gross) + ' (' + FMT.x(r.gross / r.budget) + ')']))
+    .on('mouseleave', () => tip.hide());
+  // typical budget and gross each year, the gap between them shaded
+  const ym = yrs.map((r) => ({ ...r, xm: x(r.year + 0.5) }));
+  svg.append('path').datum(ym).attr('d', d3.area().x((r) => r.xm).y0((r) => y(r.median_budget)).y1((r) => y(r.median_gross))).style('fill', 'var(--up)').style('opacity', 0.16);
+  [['median_gross', 'var(--up)'], ['median_budget', 'var(--ink)']].forEach(([k, c]) => {
+    svg.append('path').datum(ym).attr('d', d3.line().x((r) => r.xm).y((r) => y(r[k])))
+      .style('fill', 'none').style('stroke', c).style('stroke-width', 3.5).style('stroke-linejoin', 'round').style('stroke-linecap', 'round');
+  });
+  const last = ym[ym.length - 1];
+  [['median_budget', 'var(--ink)', 'cost', 16], ['median_gross', 'var(--up)', 'made', -8]].forEach(([k, c, w, dy]) => {
+    svg.append('circle').attr('cx', last.xm).attr('cy', y(last[k])).attr('r', 5.5).style('fill', c).style('stroke', 'var(--panel)').style('stroke-width', 2);
+    svg.append('text').attr('x', last.xm + 10).attr('y', y(last[k]) + dy).attr('class', 'fy-lab fy-halo-p').style('font-size', '13px').style('fill', c).text(FMT.cr(last[k]) + ' ' + w);
+  });
+  // best returns and biggest misses in this view, ringed and named
+  const ret = dash.data('returns_rank').data.filter((r) => r.scope === scope() && r.rank <= 3);
+  const used = [];
+  ret.forEach((r) => {
+    const f = pts.find((p) => p.title === r.title && p.year === r.year);
+    if (!f) return;
+    const good = r.kind === 'best', px = x(jit(f)), py = y(good ? f.gross : f.budget);
+    svg.append('circle').attr('cx', px).attr('cy', py).attr('r', 6).style('fill', 'none').style('stroke', good ? 'var(--up)' : 'var(--down)').style('stroke-width', 2.2);
+    let ly = good ? py - 12 : py + 20;
+    while (used.some((u) => Math.abs(u[0] - px) < 140 && Math.abs(u[1] - ly) < 14)) ly += good ? -14 : 14;
+    used.push([px, ly]);
+    const right = px < W - m.r - 150;
+    svg.append('text').attr('x', px + (right ? 8 : -8)).attr('y', ly).attr('text-anchor', right ? 'start' : 'end').attr('class', 'fy-lab fy-halo-p').style('font-size', '11.5px')
+      .style('fill', good ? 'var(--up)' : 'var(--down)').text(r.title + ' ' + FMT.x(r.multiple));
+  });
+  // 2021: opening day spike (see the note below)
+  const xx = x(2021.5);
+  svg.append('line').attr('x1', xx).attr('x2', xx).attr('y1', m.t).attr('y2', H1 - m.b).style('stroke', 'var(--ink)').style('stroke-dasharray', '3 3').style('opacity', 0.6);
+  // decade strip: the typical film of each decade, budget circle inside gross circle, area to scale
+  const sy = H1 + 8, base = sy + 2 * rMax;
+  svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', sy - 4).attr('y2', sy - 4).style('stroke', 'var(--line)');
+  const maxV = d3.max(decs, (d) => Math.max(d.median_budget || 0, d.median_gross || 0)) || 1;
+  const rr = (v) => Math.sqrt((v || 0) / maxV) * rMax;
+  decs.forEach((d) => {
+    const a = d.decade === '1970s' ? 1976 : +d.decade.slice(0, 4), b = d.decade === '2020s' ? 2027 : +d.decade.slice(0, 4) + 10;
+    const cx = x((a + b) / 2), gr = rr(d.median_gross), br = rr(d.median_budget), act = scope() === 'all' || scope() === d.decade;
+    const g = svg.append('g').style('opacity', act ? 1 : 0.4).attr('class', 'fy-click').on('click', () => dash.setParams({ scope: scope() === d.decade ? 'all' : d.decade }));
+    g.append('circle').attr('cx', cx).attr('cy', base - gr).attr('r', gr).style('fill', 'var(--up)').style('fill-opacity', 0.28).style('stroke', 'var(--up)').style('stroke-width', 1.6);
+    g.append('circle').attr('cx', cx).attr('cy', base - br).attr('r', br).style('fill', 'var(--ink)').style('fill-opacity', 0.85);
+    g.on('mousemove', (e) => tip.show(e, ['Typical film of the ' + d.decade, 'Cost ' + FMT.cr(d.median_budget), 'Made ' + FMT.cr(d.median_gross)])).on('mouseleave', () => tip.hide());
+    const t = g.append('text').attr('x', cx).attr('y', base + 18).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', narrow ? '10px' : '12px');
+    t.append('tspan').text(FMT.cr(d.median_budget));
+    t.append('tspan').style('fill', 'var(--muted)').text(' → ');
+    t.append('tspan').style('fill', 'var(--up)').text(FMT.cr(d.median_gross));
+    g.append('text').attr('x', cx).attr('y', base + 34).attr('text-anchor', 'middle').attr('class', 'fy-lab-muted').style('font-size', '11px').text(d.decade);
+  });
+  const d0 = decs[0], d1 = decs[decs.length - 1];
+  if (d0 && d1 && d0.median_budget && d0.median_gross) {
+    const g = svg.append('g').attr('transform', `translate(${W - m.r + 12},${sy + rMax - 10})`);
+    g.append('text').attr('class', 'fy-lab').style('font-size', '13px').text('Budget ×' + Math.round(d1.median_budget / d0.median_budget));
+    g.append('text').attr('y', 20).attr('class', 'fy-lab').style('font-size', '13px').style('fill', 'var(--up)').text('Gross ×' + Math.round(d1.median_gross / d0.median_gross));
+    g.append('text').attr('y', 38).attr('class', 'fy-lab-muted').style('font-size', '11px').text('1970s → 2020s');
+  }
+});
+
+
+// ---------- languages ----------
+const LANGS = ['Hindi', 'Telugu', 'Tamil', 'Malayalam', 'Kannada', 'Other'];
+const lColor = (l) => 'var(--l-' + (LANGS.includes(l) ? l.toLowerCase() : 'other') + ')';
+const langGroup = (l) => (LANGS.slice(0, 5).includes(l) ? l : 'Other');
+const metric = () => (dash.params().langmetric === 'films' ? 'films' : 'gross');
+
+function whereStat(el, id, keyCol) {
+  const d = dash.data(id);
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const want = decodeURIComponent(el.dataset.where.split('=').slice(1).join('='));
+  const row = d.data.find((r) => String(r[keyCol]) === want);
+  const v = row ? row[el.dataset.field] : null;
+  el.textContent = v == null ? '—' : (el.dataset.field.endsWith('_pct') ? v + '%' : fmtInt(v));
+}
+dash.draw('snote', (el) => {
+  const d = dash.data('share_notes');
+  el.dataset.row = '0';
+  if (d.status !== 'ok' || !d.data[0]) { el.textContent = '—'; return; }
+  const v = d.data[0][el.dataset.field];
+  el.textContent = v == null ? '—' : v + '%';
+});
+dash.draw('lstat', (el) => whereStat(el, 'lang_period', 'key'));
+dash.draw('hstat', (el) => whereStat(el, 'hits_summary', 'group'));
+
+dash.draw('langshare', (el) => {
+  if (!ready(el, 'lang_year', 'lang_period')) return;
+  const rows = dash.data('lang_year').data, periods = dash.data('lang_period').data;
+  const k = metric() === 'films' ? 'films_pct' : 'gross_pct';
+  const years = Array.from(new Set(rows.map((r) => r.year))).sort((a, b) => a - b);
+  const table = years.map((y) => {
+    const o = { year: y };
+    const v = rows.filter((r) => r.year === y);
+    const tot = d3.sum(v, (r) => r[k]) || 1;
+    LANGS.forEach((l) => { const r = v.find((z) => z.language === l); o[l] = (r ? r[k] : 0) / tot; });
+    return o;
+  });
+  const W = Math.max(320, el.clientWidth), H = Math.round(Math.max(340, Math.min(440, W * 0.32)));
+  const m = { t: 78, r: 92, b: 30, l: 40 };
+  const x = d3.scaleLinear([years[0], years[years.length - 1]], [m.l, W - m.r]);
+  const y = d3.scaleLinear([0, 1], [H - m.b, m.t]);
+  const series = d3.stack().keys(LANGS)(table);
+  const tip = tooltip(el);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Language share of ' + (metric() === 'films' ? 'films' : 'gross') + ' per year, 1990 to 2026');
+  const [s0, s1] = scopeYears();
+  svg.append('g').selectAll('path').data(series).join('path')
+    .attr('d', d3.area().x((d) => x(d.data.year)).y0((d) => y(d[0])).y1((d) => y(d[1])))
+    .style('fill', (s) => lColor(s.key)).style('stroke', 'var(--panel)').style('stroke-width', 1.2);
+  if (scope() !== 'all') {
+    [[years[0], s0], [s1, years[years.length - 1]]].forEach(([a, b]) => {
+      if (b > a) svg.append('rect').attr('x', x(a)).attr('width', x(b) - x(a)).attr('y', m.t).attr('height', H - m.t - m.b).style('fill', 'var(--panel)').style('opacity', 0.65);
+    });
+  }
+  [0, 0.25, 0.5, 0.75, 1].forEach((v) => svg.append('text').attr('x', m.l - 6).attr('y', y(v)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'fy-lab-muted').text(Math.round(v * 100) + '%'));
+  d3.range(1990, 2030, 5).filter((v) => v <= years[years.length - 1]).forEach((v) => svg.append('text').attr('x', x(v)).attr('y', H - 10).attr('text-anchor', 'middle').attr('class', v % 10 ? 'fy-lab-muted' : 'fy-lab').text(v));
+  // the three periods of the headline, with Hindi's share in each
+  const sk = metric() === 'films' ? 'films_pct' : 'gross_pct';
+  ['2013–18', '2019–23', '2024–26'].forEach((p, pi) => {
+    const r = periods.find((z) => z.period === p && z.language === 'Hindi');
+    if (!r) return;
+    const a = x(r.start - 0.4), b = x(Math.min(r.end + 0.4, years[years.length - 1]));
+    const lift = pi % 2 ? 30 : 0;
+    svg.append('path').attr('d', `M${a},${m.t - 6} L${a},${m.t - 12 - lift} L${b},${m.t - 12 - lift} L${b},${m.t - 6}`).style('fill', 'none').style('stroke', 'var(--ink)').style('stroke-width', 1.4);
+    const lt = svg.append('text').attr('x', (a + b) / 2).attr('y', m.t - 32 - lift).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '12px');
+    lt.append('tspan').attr('x', (a + b) / 2).style('fill', 'var(--muted)').text(p);
+    lt.append('tspan').attr('x', (a + b) / 2).attr('dy', '1.2em').text('Hindi ' + r[sk] + '%');
+  });
+  // end labels: each language's share in the last year
+  const last = table[table.length - 1], lastS = series.map((s) => ({ key: s.key, mid: (s[s.length - 1][0] + s[s.length - 1][1]) / 2, v: last[s.key] }));
+  let prev = Infinity;
+  lastS.forEach((s) => {
+    let yy = y(s.mid);
+    if (prev - yy < 13) yy = prev - 13;
+    prev = yy;
+    if (s.v < 0.005) return;
+    svg.append('text').attr('x', W - m.r + 8).attr('y', yy).attr('dy', '0.35em').attr('class', 'fy-lab').style('font-size', '12px')
+      .text(s.key + ' ' + Math.round(s.v * 100) + '%');
+  });
+  svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).style('fill', 'transparent')
+    .on('mousemove', (e) => {
+      const [mx] = d3.pointer(e, svg.node());
+      const yr = Math.round(x.invert(mx)), row = table.find((t) => t.year === yr);
+      if (!row) return;
+      tip.show(e, [yr + ' · share of ' + (metric() === 'films' ? 'films' : 'gross')].concat(LANGS.filter((l) => row[l] > 0).map((l) => l + ' ' + Math.round(row[l] * 100) + '%')));
+    })
+    .on('mouseleave', () => tip.hide());
+});
+
+
+// ---------- language map on the reader's own India outline ----------
+const OUTLINE = 'data:image/png;base64,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';
+// home region of each language, in the outline image's pixels (456 × 547)
+const HOME = {
+  Hindi: [200, 200, 'North & central India'], Punjabi: [125, 112, 'Punjab'], Marathi: [118, 300, 'Maharashtra'],
+  Telugu: [188, 345, 'Andhra Pradesh, Telangana'], Kannada: [132, 385, 'Karnataka'], Tamil: [168, 440, 'Tamil Nadu'], Malayalam: [122, 445, 'Kerala'],
+};
+dash.draw('langmap', (el) => {
+  if (!ready(el, 'lang_scope')) return;
+  const k = metric() === 'films' ? 'films_pct' : 'gross_pct';
+  const rows = dash.data('lang_scope').data.filter((r) => r.scope === scope());
+  const IW = 456, IH = 547, padL = 150, padR = 170, W = padL + IW + padR, H = IH;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Map of India with each language’s share placed on its home region');
+  svg.append('image').attr('href', OUTLINE).attr('x', padL).attr('y', 0).attr('width', IW).attr('height', IH).style('opacity', 0.75);
+  if (!rows.length) {
+    svg.append('text').attr('x', padL + IW / 2).attr('y', H / 2).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '15px').text('Language isn’t recorded before 1990');
+    return;
+  }
+  const tip = tooltip(el);
+  const r = (v) => Math.sqrt((v || 0) / 100) * 60;
+  const items = rows.filter((d) => d[k] >= 0.5).map((d) => ({ d, x: padL + HOME[d.language][0], y: HOME[d.language][1], rad: Math.max(4, r(d[k])), side: HOME[d.language][0] < 160 ? 'L' : 'R' }));
+  items.sort((a, b) => b.rad - a.rad).forEach((it) => {
+    svg.append('circle').attr('cx', it.x).attr('cy', it.y).attr('r', it.rad).style('fill', lColor(it.d.language === 'Punjabi' || it.d.language === 'Marathi' ? 'Other' : it.d.language))
+      .style('fill-opacity', 0.85).style('stroke', 'var(--ink)').style('stroke-width', 1.2)
+      .on('mousemove', (e) => tip.show(e, [it.d.language + ' · ' + HOME[it.d.language][2], it.d.films_pct + '% of films · ' + it.d.gross_pct + '% of gross']))
+      .on('mouseleave', () => tip.hide());
+  });
+  // labels in side columns, spread so they never touch
+  ['L', 'R'].forEach((side) => {
+    const col = items.filter((it) => it.side === side).sort((a, b) => a.y - b.y);
+    let last = -Infinity;
+    col.forEach((it) => { it.ly = Math.max(it.y, last + 40); last = it.ly; });
+    const over = last - (H - 20);
+    if (over > 0) col.forEach((it) => { it.ly -= over; });
+    col.forEach((it) => {
+      const lx = side === 'L' ? padL - 14 : padL + IW + 2, ex = side === 'L' ? it.x - it.rad : it.x + it.rad;
+      const tx = side === 'L' ? lx : lx + 14;
+      svg.append('path').attr('d', `M${ex},${it.y} L${side === 'L' ? lx + 6 : lx},${it.ly}`).style('fill', 'none').style('stroke', 'var(--ink)').style('stroke-width', 1).style('opacity', 0.5);
+      const t = svg.append('text').attr('x', tx).attr('y', it.ly).attr('text-anchor', side === 'L' ? 'end' : 'start').attr('class', 'fy-lab fy-halo-p').style('font-size', '14px');
+      t.append('tspan').attr('x', tx).text(it.d.language + ' ' + Math.round(it.d[k]) + '%');
+      t.append('tspan').attr('x', tx).attr('dy', '1.25em').style('font-size', '11.5px').style('font-weight', 600).style('fill', 'var(--muted)').text(HOME[it.d.language][2]);
+    });
+  });
+});
+
+dash.draw('hits', (el) => {
+  if (!ready(el, 'industry_hits')) return;
+  const all = dash.data('industry_hits').data.map((h) => ({ ...h, t: releaseT(h) })).sort((a, b) => a.t - b.t);
+  const upTo = scope() === 'all' ? 2026 : scopeYears()[1];
+  const W = Math.max(320, el.clientWidth), narrow = W < 900;
+  if (upTo < 2014) {
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} 120`);
+    svg.append('text').attr('x', W / 2).attr('y', 60).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '15px').text('The lists only flag industry records from 2014 on');
+    return;
+  }
+  const hits = all.filter((h) => h.year <= upTo);
+  const inds = ['Hindi', 'Telugu', 'Tamil', 'Kannada', 'Malayalam'];
+  const tip = tooltip(el);
+  // left: one dome per industry on an oval stage, sized by its current record; dashed domes are the records it replaced
+  const dW = narrow ? W : W * 0.62, cx = dW / 2, rx = dW * 0.36, ry = narrow ? 44 : 62;
+  const maxG = d3.max(all, (h) => h.gross || 0) || 1, rMax = Math.min(dW * 0.15, 118);
+  const rOf = (g) => 14 + Math.sqrt((g || 0) / maxG) * (rMax - 14);
+  const cy = rMax * 0.9 + 110, domeH = cy + ry + 70;
+  // place industries round the oval: back row first so the front ones sit over them
+  const angle = { Hindi: 180, Telugu: 250, Tamil: 290, Kannada: 0, Malayalam: 90 };
+  const stackH = 6 * 40 + 110, H = narrow ? domeH + stackH : Math.max(domeH, stackH + 20);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('role', 'img').attr('aria-label', 'Each industry’s record film as a dome on an oval stage, with the number of records stacked as clapperboards');
+  const defs = svg.append('defs');
+  inds.forEach((l) => {
+    const gr = defs.append('linearGradient').attr('id', 'fy-dome-' + l).attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+    gr.append('stop').attr('offset', 0).style('stop-color', lColor(l)).style('stop-opacity', 0.45);
+    gr.append('stop').attr('offset', 1).style('stop-color', lColor(l)).style('stop-opacity', 0.95);
+  });
+  svg.append('ellipse').attr('cx', cx).attr('cy', cy).attr('rx', rx).attr('ry', ry).style('fill', 'none').style('stroke', 'var(--ink)').style('stroke-width', 1.2).style('opacity', 0.5);
+  const dome = (x, y, r) => `M${x - r},${y} A${r},${r * 0.92} 0 0 1 ${x + r},${y} A${r},${r * 0.22} 0 0 1 ${x - r},${y} Z`;
+  const placed = inds.map((l) => {
+    const a = angle[l] * Math.PI / 180;
+    return { l, x: cx + rx * Math.cos(a), y: cy + ry * Math.sin(a), mine: hits.filter((h) => h.language === l) };
+  }).sort((a, b) => a.y - b.y);
+  placed.forEach((p) => {
+    const cur = p.mine[p.mine.length - 1];
+    p.mine.slice(0, -1).forEach((h) => svg.append('path').attr('d', dome(p.x, p.y, rOf(h.gross)))
+      .style('fill', 'none').style('stroke', lColor(p.l)).style('stroke-width', 1.5).style('stroke-dasharray', '4 3'));
+    if (!cur) return;
+    const r = rOf(cur.gross);
+    svg.append('path').attr('d', dome(p.x, p.y, r)).style('fill', `url(#fy-dome-${p.l})`).style('stroke', 'var(--paper)').style('stroke-width', 1.5)
+      .on('mousemove', (e) => tip.show(e, [p.l + ' record · ' + fmtDate(cur), cur.title, FMT.cr(cur.gross) + ' worldwide', p.mine.length + (p.mine.length === 1 ? ' record' : ' records') + ' since 2014']))
+      .on('mouseleave', () => tip.hide());
+    p.r = r; p.cur = cur;
+  });
+  // labels: name above each dome, then a pill with the record
+  placed.filter((p) => p.cur).forEach((p) => {
+    const top = p.y - p.r * 0.92 - 12;
+    const g = svg.append('g').attr('transform', `translate(${p.x},${top})`).style('pointer-events', 'none');
+    let name = p.cur.title;
+    const t = g.append('text').attr('text-anchor', 'middle').attr('y', -2).attr('class', 'fy-lab').style('font-size', '13px');
+    t.append('tspan').text(p.l + ' · ');
+    const nm = t.append('tspan').style('font-weight', 700).style('fill', 'var(--muted)').text(name);
+    while (t.node().getComputedTextLength() > 190 && name.length > 4) { name = name.slice(0, -2); nm.text(name + '…'); }
+    const pt = g.append('text').attr('text-anchor', 'middle').attr('y', -24).attr('class', 'fy-lab').style('font-size', '13px').text(FMT.cr(p.cur.gross));
+    const w = pt.node().getComputedTextLength() + 20;
+    g.insert('rect', 'text').attr('x', -w / 2).attr('y', -40).attr('width', w).attr('height', 24).attr('rx', 12)
+      .style('fill', 'var(--paper)').style('stroke', lColor(p.l)).style('stroke-width', 2);
+  });
+  // right: a clapperboard per record, stacked by industry; the 2024–26 records are solid
+  const px = narrow ? 0 : dW + 10, py = narrow ? domeH : 30, pw = W - px, colW = pw / inds.length, s = 34;
+  const base = py + 6 * (s + 6) + 40;
+  svg.append('line').attr('x1', px + 10).attr('x2', W - 10).attr('y1', base).attr('y2', base).style('stroke', 'var(--ink)').style('stroke-width', 2);
+  inds.forEach((l, i) => {
+    const x = px + i * colW + colW / 2, mine = hits.filter((h) => h.language === l);
+    mine.forEach((h, j) => {
+      const recent = h.year >= 2024;
+      const ic = d3icon(svg, 'clapper', x, base - 4 - s / 2 - j * (s + 6), s, lColor(l));
+      ic.style('stroke-width', 2.2).style('fill', recent ? lColor(l) : 'var(--paper)').style('fill-opacity', recent ? 0.55 : 1);
+      ic.append('rect').attr('x', 0).attr('y', 0).attr('width', 24).attr('height', 24).style('fill', 'transparent').style('stroke', 'none')
+        .on('mousemove', (e) => tip.show(e, [l + ' record · ' + fmtDate(h), h.title, h.gross != null ? FMT.cr(h.gross) + ' worldwide' : '']))
+        .on('mouseleave', () => tip.hide());
+    });
+    svg.append('circle').attr('cx', x).attr('cy', base).attr('r', 4).style('fill', 'var(--ink)');
+    svg.append('text').attr('x', x).attr('y', base + 24).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '13px').text(l);
+    svg.append('text').attr('x', x).attr('y', base + 44).attr('text-anchor', 'middle').attr('class', 'fy-lab-muted').style('font-size', '12px').text(mine.length + (mine.length === 1 ? ' record' : ' records'));
+  });
+});
+
+// ---------- more directors: search any career ----------
+window.fyDirQuery = window.fyDirQuery || '';
+document.querySelectorAll('.fy-search').forEach((inp) => inp.addEventListener('input', () => { window.fyDirQuery = inp.value; dash.draw('lanes-more'); }));
+dash.draw('dirlist', (dl) => {
+  const d = dash.data('directors');
+  dl.replaceChildren(...(d.status === 'ok' ? d.data.map((r) => new Option(r.director)) : []));
+});
+dash.draw('lanes-more', (el) => {
+  if (!ready(el, 'directors', 'films')) return;
+  const all = dash.data('directors').data, films = dash.data('films').data;
+  const q = (window.fyDirQuery || '').trim().toLowerCase();
+  const count = new Map();
+  films.forEach((r) => (r.directors || '').split(', ').filter(Boolean).forEach((n) => count.set(n, (count.get(n) || 0) + 1)));
+  const note = (text) => {
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${Math.max(320, el.clientWidth)} 60`);
+    svg.append('text').attr('x', 4).attr('y', 34).attr('class', 'fy-lab-muted').style('font-size', '13px').text(text);
+  };
+  if (!q) { note('Type a name to see that director’s career, 1976–2026.'); return; }
+  const hits = all.filter((d) => d.director.toLowerCase().includes(q)).sort((a, b) => (count.get(b.director) || 0) - (count.get(a.director) || 0) || a.director.localeCompare(b.director));
+  if (!hits.length) { note('No director in the lists matches “' + (window.fyDirQuery || '').trim() + '”.'); return; }
+  lanesChart(el, hits.slice(0, 12).map((d) => d.director), new Map(all.map((d) => [d.director, d.gender])));
+  if (hits.length > 12) {
+    const p = document.createElement('p'); p.className = 'fy-hint'; p.textContent = 'Showing 12 of ' + hits.length + ' matches. Type more of the name to narrow it.';
+    el.appendChild(p);
+  }
+});
+</script>

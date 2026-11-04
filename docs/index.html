@@ -13,7 +13,7 @@
 :root { --font-anthropic-sans: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; --cds-dur-slow: 300ms; }
 html, body { margin: 0; background: #fff; }
 .fy .fy-scope[hidden] { display: none; }
-.fy .fy-stat-value[data-field=gross_total] { font-size: clamp(15px, 1.6vw, 24px); overflow-wrap: normal; }
+.fy .fy-stat-value[data-field=gross_total] { font-size: clamp(15px, 1.6vw, 24px); overflow-wrap: normal; white-space: nowrap; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
 <script src="runtime.js"></script>
@@ -25,13 +25,13 @@ html, body { margin: 0; background: #fff; }
 #dash-root { --dash-gutter: 0; }
 .fy {
   --ink: #141416; --muted: #5f5e5a; --faint: #b4b3ae; --line: #e6e5e0; --grid: #efeee9;
-  --paper: #ffffff; --panel: #f6f5f1; --pill: #ecebe6; --tip: #ffffff; --up: #2e8b57; --down: #d0342c; --star: #ffc93c; --star-edge: #e3a800;
-  --g-action: #f29274; --g-drama: #86acd9; --g-comedy: #f3cb66; --g-romance: #ef96ba; --g-thriller: #ad93dd;
-  --g-crime: #8599a8; --g-musical: #96cc8a; --g-family: #f7b377; --g-fantasy: #77c9c3; --g-history: #c6a27c;
-  --g-action-ink: #9b3d1c; --g-drama-ink: #2c5683; --g-comedy-ink: #8a6500; --g-romance-ink: #9c2f5e; --g-thriller-ink: #563d97;
-  --g-crime-ink: #33454f; --g-musical-ink: #33702a; --g-family-ink: #9a5410; --g-fantasy-ink: #1a6f6a; --g-history-ink: #6e4f2c;
-  --l-hindi: #8e9be8; --l-telugu: #f5b462; --l-tamil: #ee8e8e; --l-malayalam: #74c69d; --l-kannada: #e9d36a; --l-other: #cfccc4;
-  --woman: #c2185b; --man: #3a6ea5; --unsure: #a3a29d;
+  --paper: #ffffff; --panel: #f6f5f1; --pill: #ecebe6; --tip: #ffffff; --up: #4f8368; --down: #b3625c; --star: #e6c56e; --star-edge: #c9a84f;
+  --g-action: #d3a293; --g-drama: #9baec4; --g-comedy: #d0bc89; --g-romance: #d9acbe; --g-thriller: #b3a6ca;
+  --g-crime: #8e989f; --g-musical: #a1bc9b; --g-family: #d7b597; --g-fantasy: #8bb4b2; --g-history: #b3a28e;
+  --g-action-ink: #854832; --g-drama-ink: #3b5774; --g-comedy-ink: #725a18; --g-romance-ink: #894261; --g-thriller-ink: #5d4d87;
+  --g-crime-ink: #38444a; --g-musical-ink: #3c6436; --g-family-ink: #825428; --g-fantasy-ink: #29605d; --g-history-ink: #624e38;
+  --l-hindi: #a4abd2; --l-telugu: #d0b087; --l-tamil: #d6a6a6; --l-malayalam: #89b29d; --l-kannada: #c9be8a; --l-other: #cccbc7;
+  --woman: #a0506f; --man: #566f8a; --unsure: #a3a29d;
   color-scheme: light;
   background: var(--paper); color: var(--ink);
   font-family: var(--font-anthropic-sans); font-weight: 500; font-variant-numeric: tabular-nums;
@@ -54,21 +54,21 @@ html, body { margin: 0; background: #fff; }
 .fy-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--star); color: var(--ink); font-weight: 800; font-size: 18px; flex: none; }
 .fy-title { font-weight: 800; font-size: clamp(26px, 2.6vw, 38px); line-height: 1; letter-spacing: -.02em; }
 .fy-scopebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
-.fy-scopebar b { color: var(--ink); font-weight: 800; background: color-mix(in srgb, var(--star) 45%, transparent); padding: 0 4px; border-radius: 4px; }
-.fy-scope { font: inherit; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 4px 10px; background: var(--star); color: var(--ink); cursor: pointer; }
+.fy-scopebar b { color: var(--muted); font-size: 16px; font-weight: 700; }
+.fy-scope { font: inherit; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 4px 10px; background: var(--pill); color: var(--ink); cursor: pointer; }
 .fy-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 700px) { .fy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 18px; background: var(--ink); color: var(--paper); min-width: 0; }
-.fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--paper) 14%, var(--ink)); color: var(--star); }
-.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #ff8fb8; --pie-man: #7fb2ff; --pie-unsure: #8a8984; }
+.fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 4px 10px; border-left: 1px solid var(--line); color: var(--ink); min-width: 0; }
+.fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--pill); color: var(--muted); }
+.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #c98ba3; --pie-man: #a9b8c8; --pie-unsure: #cfcdc7; }
 .fy-pie { width: 84px; height: 84px; flex: none; }
 .fy-pie svg { display: block; width: 100%; height: 100%; }
 .fy-pie-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.fy-pie-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: color-mix(in srgb, var(--paper) 70%, transparent); }
-.fy-pie-row b { color: var(--paper); font-weight: 800; }
+.fy-pie-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.fy-pie-row b { color: var(--ink); font-weight: 800; }
 .fy-pie-row i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
 .fy-stat-value { font-weight: 800; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; overflow-wrap: anywhere; }
-.fy-stat-label { font-size: 12px; color: color-mix(in srgb, var(--paper) 65%, transparent); font-weight: 600; }
+.fy-stat-label { font-size: 12px; color: var(--muted); font-weight: 600; }
 
 /* cards */
 .fy-card { background: var(--panel); border-radius: 24px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; position: relative; }
@@ -107,20 +107,22 @@ html, body { margin: 0; background: #fff; }
 .fy-note b { color: var(--ink); font-weight: 800; }
 .fy-hits { min-height: 420px; }
 .fy-headline { font-size: 16px; line-height: 1.55; font-weight: 600; color: var(--muted); max-width: 64rem; }
-.fy .fy-headline b { color: var(--ink); font-weight: 800; background: color-mix(in srgb, var(--star) 40%, transparent); padding: 0 4px; border-radius: 4px; }
+.fy .fy-headline b { color: var(--ink); font-weight: 800; background: var(--pill); padding: 0 4px; border-radius: 4px; }
 .fy-circles { min-height: 352px; }
 .fy-dot { width: 10px; height: 10px; border-radius: 50%; }
 .fy-hint { font-size: 12.5px; color: var(--muted); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
 
 /* genre chips */
-.fy-genres { display: flex; flex-wrap: wrap; gap: 6px; padding: 18px 12px; border-radius: 10px; background-color: var(--ink);
+.fy-genres { display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 5px; padding: 18px 12px; border-radius: 10px; background-color: var(--ink);
   background-image: radial-gradient(circle, var(--panel) 2.6px, transparent 3px), radial-gradient(circle, var(--panel) 2.6px, transparent 3px);
   background-size: 16px 9px, 16px 9px; background-repeat: repeat-x; background-position: 4px 3px, 4px calc(100% - 3px); }
-.fy-genre { --g: var(--faint); font: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px 4px 4px; border-radius: 6px; border: 2px solid transparent; background: var(--paper); color: var(--ink); cursor: pointer; }
-.fy-genre svg { width: 24px; height: 24px; padding: 4px; border-radius: 50%; background: var(--g); stroke: var(--gi); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; box-sizing: border-box; }
-.fy-genre .fy-count { color: var(--muted); font-size: 12px; font-weight: 600; }
+.fy-genre { --g: var(--faint); font: inherit; font-size: 12px; line-height: 1.15; text-align: left; font-weight: 700; flex: 1 1 0; display: inline-flex; align-items: center; gap: 5px; padding: 4px 7px 4px 4px; border-radius: 6px; border: 2px solid transparent; background: var(--paper); color: var(--ink); cursor: pointer; }
+.fy-genre svg { flex: none; width: 24px; height: 24px; padding: 4px; border-radius: 50%; background: var(--g); stroke: var(--gi); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; box-sizing: border-box; }
+.fy-genre .fy-count { margin-left: auto; color: var(--muted); font-size: 11.5px; font-weight: 600; }
 .fy-genre[aria-pressed="true"] { border-color: var(--g); background: color-mix(in srgb, var(--g) 22%, var(--paper)); }
 .fy-genre.fy-dim { opacity: .45; }
+@media (max-width: 1360px) { .fy-genre { font-size: 11px; gap: 4px; padding-right: 4px; } .fy-genre .fy-count { display: none; } }
+@media (max-width: 800px) { .fy-genre { flex: none; } }
 .fy-genre:focus-visible { outline-color: var(--star); }
 
 /* star detail */
@@ -197,7 +199,7 @@ html, body { margin: 0; background: #fff; }
       <div>
         <h1 class="fy-title">50 Years of Indian Cinema</h1>
         <div class="fy-scopebar">
-          <span>Showing <b data-draw="scope-name">—</b></span>
+          <span><b data-draw="scope-name">—</b></span>
           <button type="button" class="fy-scope" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M6 6l12 12M18 6 6 18"/></svg>All years</button>
         </div>
       </div>
@@ -738,7 +740,7 @@ dash.onData(() => {
   });
 });
 
-dash.draw('scope-name', (el) => { el.textContent = scope() === 'all' ? 'All years · 1976–2026' : 'The ' + scope(); });
+dash.draw('scope-name', (el) => { el.textContent = scope() === 'all' ? '1976–2026' : 'The ' + scope(); });
 
 dash.draw('dirpie', (el) => {
   const d = dash.data('scope_stats');
@@ -753,7 +755,7 @@ dash.draw('dirpie', (el) => {
   svg.selectAll('path').data(arcs).join('path')
     .attr('d', d3.arc().innerRadius(22).outerRadius(40).padAngle(0.03).cornerRadius(2))
     .style('fill', (a) => a.data[1]);
-  svg.append('text').attr('text-anchor', 'middle').attr('dy', '0.35em').style('fill', 'var(--pie-woman)').style('font-size', '13px').style('font-weight', 800)
+  svg.append('text').attr('text-anchor', 'middle').attr('dy', '0.35em').style('fill', 'var(--ink)').style('font-size', '13px').style('font-weight', 800)
     .text(d3.format('.0%')(row.women_directors / (row.directors || 1)));
 });
 
@@ -1064,7 +1066,7 @@ function lanesChart(el, names, gOf) {
     const col = g === 'woman' ? 'var(--woman)' : g === 'unsure' ? 'var(--unsure)' : 'var(--man)';
     const lane = svg.append('g').attr('class', 'fy-click').on('click', () => dash.setParams({ director: n }));
     lane.append('rect').attr('x', 0).attr('y', cy - laneH / 2 + 1).attr('width', W).attr('height', laneH - 2).attr('rx', 10)
-      .style('fill', isSel ? 'color-mix(in srgb, var(--star) 30%, transparent)' : 'transparent');
+      .style('fill', isSel ? 'var(--pill)' : 'transparent');
     const pts = [];
     fs.forEach((f, k) => { const t = releaseT(f); pts.push([t, k], [t, k + 1]); });
     pts.push([2026.9, fs.length]);

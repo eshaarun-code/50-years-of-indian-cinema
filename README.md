@@ -25,7 +25,7 @@ See the About sheet in the workbook for known gaps.
     python scripts/export_dashboard.py  # writes output/dashboard_films.json and output/dashboard_directors.json
 
 - Lead genre: IMDb lists genres alphabetically, so each film's colour comes from the first matching group in this order: Musical, Fantasy & horror, History & sport, Romance, Comedy, Thriller, Crime, Family & adventure, Action, Drama.
-- `raw/director_gender.csv`: directors known to be women (some from Claude's knowledge, not checked against a source, some confirmed by the author). Everyone not listed is assumed to be a man. Correct the file and re-run the export.
+- `raw/director_gender.csv`: directors known to be women, each with its source (Wikipedia or the author; Anubhuti Kashyap is still unconfirmed). Everyone not listed is assumed to be a man, so the dashboard shows no count of men and women. Correct the file and re-run the export.
 - The export also carries release date (only when it falls in the list's year), opening-day and overseas gross, and the lists' "Industry Hit" record flag.
 - Posters: put images in `raw/posters/` named by IMDb id (e.g. `tt0112870.jpg`) and re-run the export; they then need uploading to the dashboard.
 

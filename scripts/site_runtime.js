@@ -38,16 +38,16 @@
   };
 
   // charts size themselves to their box, so redraw when the box changes
-  let width = 0, timer;
-  new ResizeObserver(() => {
+  let width = document.documentElement.clientWidth, timer;
+  const resized = () => {
     const w = document.documentElement.clientWidth;
     if (w === width) return;
-    const first = !width;
     width = w;
-    if (first) return;
     clearTimeout(timer);
     timer = setTimeout(render, 150);
-  }).observe(document.documentElement);
+  };
+  new ResizeObserver(resized).observe(document.documentElement);
+  window.addEventListener('resize', resized);
   document.addEventListener('toggle', (e) => { if (e.target.open) render(); }, true);
 
   const load = async () => {

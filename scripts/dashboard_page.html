@@ -35,17 +35,10 @@
 .fy-scopebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
 .fy-scopebar b { color: var(--muted); font-size: 16px; font-weight: 700; }
 .fy-scope { font: inherit; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 4px 10px; background: var(--pill); color: var(--ink); cursor: pointer; }
-.fy-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.fy-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 700px) { .fy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 4px 10px; border-left: 1px solid var(--line); color: var(--ink); min-width: 0; }
 .fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--pill); color: var(--muted); }
-.fy-stat-pie { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; --pie-woman: #f8a4c8; --pie-man: #8fbff2; --pie-unsure: #d9d9dc; }
-.fy-pie { width: 84px; height: 84px; flex: none; }
-.fy-pie svg { display: block; width: 100%; height: 100%; }
-.fy-pie-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.fy-pie-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.fy-pie-row b { color: var(--ink); font-weight: 800; }
-.fy-pie-row i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
 .fy-stat-value { font-weight: 800; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; overflow-wrap: anywhere; }
 .fy-stat-label { font-size: 12px; color: var(--muted); font-weight: 600; }
 
@@ -81,7 +74,7 @@
 .fy-map { min-height: 400px; }
 .fy-combo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: center; }
 @media (max-width: 1000px) { .fy-combo { grid-template-columns: minmax(0, 1fr); } }
-.fy-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 10px; }
+.fy-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 10px; }
 .fy-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--pill); font-size: 13px; line-height: 1.5; color: var(--muted); font-weight: 600; }
 .fy-note b { color: var(--ink); font-weight: 800; }
 .fy-hits { min-height: 420px; }
@@ -89,6 +82,13 @@
 .fy .fy-headline b { color: var(--ink); font-weight: 800; background: var(--pill); padding: 0 4px; border-radius: 4px; }
 .fy-circles { min-height: 352px; }
 .fy-dot { width: 10px; height: 10px; border-radius: 50%; }
+.fy-jump { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 12.5px; font-weight: 700; }
+.fy-jump a, .fy-list a { color: var(--ink); text-underline-offset: 3px; }
+.fy-panels { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 18px; border-top: 1px solid var(--line); }
+.fy-panels section { scroll-margin-top: 16px; min-width: 0; }
+@media (max-width: 1000px) { .fy-panels { grid-template-columns: minmax(0, 1fr); } }
+.fy-list { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.fy-list b { color: var(--ink); font-weight: 800; }
 .fy-hint { font-size: 12.5px; color: var(--muted); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
 
 /* genre chips */
@@ -181,19 +181,13 @@
           <span><b data-draw="scope-name">—</b></span>
           <button type="button" class="fy-scope" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M6 6l12 12M18 6 6 18"/></svg>All years</button>
         </div>
+        <nav class="fy-jump" aria-label="About this dashboard"><a href="#how-to-read">How to read this</a><a href="#doesnt-show">What this doesn’t show</a><a href="#came-from">Where this came from</a></nav>
       </div>
     </div>
     <div class="fy-stats">
       <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="films" data-fmt="int">—</span><span class="fy-stat-label">Films</span></div>
       <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 9h12M14 20 7 13h2c3 0 5-2 5-4.5S12 4 9 4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="gross_total" data-fmt="cr">—</span><span class="fy-stat-label">Worldwide gross</span></div>
-      <div class="fy-stat fy-stat-pie">
-        <div class="fy-pie" data-draw="dirpie" data-source="scope_stats">—</div>
-        <div class="fy-pie-text">
-          <span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="directors" data-fmt="int">—</span> <span class="fy-stat-label">directors</span></span>
-          <span class="fy-pie-row"><i style="background: var(--pie-woman)"></i><b data-draw="stat" data-source="scope_stats" data-field="women_directors" data-fmt="int">—</b> women</span>
-          <span class="fy-pie-row"><i style="background: var(--pie-man)"></i><b data-draw="stat" data-source="scope_stats" data-field="men_directors" data-fmt="int">—</b> men</span>
-        </div>
-      </div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="directors" data-fmt="int">—</span><span class="fy-stat-label">Directors</span></div>
       <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 8 4 4 5-7 5 7 4-4-2 11H5z"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="top_film">—</span><span class="fy-stat-label" data-draw="stat" data-source="scope_stats" data-field="top_film_gross" data-fmt="cr">—</span></div>
     </div>
   </header>
@@ -260,13 +254,14 @@
   <section class="fy-card" id="directors">
     <div class="fy-card-head">
       <h2 class="fy-card-title">Top directors: genres and growth</h2>
-      <span class="fy-info" tabindex="0" aria-label="About these charts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The directors with the most films in this view. Top: each band runs from a lead genre to a director, as wide as their films in it. Bottom: each director’s whole career, 1976–2026; the lane swells with every film they add, and dots are films coloured by lead genre and sized by worldwide gross. Click a director to highlight them. Women directors are marked in raw/director_gender.csv: some from Claude’s own knowledge (not checked against a source), some confirmed by the project author. Everyone not listed there is assumed to be a man.</span></span>
+      <span class="fy-info" tabindex="0" aria-label="About these charts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The directors with the most films in this view. Top: each band runs from a lead genre to a director, as wide as their films in it. Bottom: each director’s whole career, 1976–2026; the lane swells with every film they add, and dots are films coloured by lead genre and sized by worldwide gross. Click a director to highlight them, or a genre to fade the others. Men and Women rely on a list of women directors. Everyone else is assumed to be a man: see “What this doesn’t show”.</span></span>
       <div class="fy-gender fy-push" role="group" aria-label="Show directors">
         <button type="button" class="fy-gbtn" data-gender="">All</button>
         <button type="button" class="fy-gbtn" data-gender="man"><svg class="fy-ico-man" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M5 21v-1.5a7 7 0 0 1 14 0V21"/></svg>Men</button>
         <button type="button" class="fy-gbtn" data-gender="woman"><svg class="fy-ico-woman" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M12 11 6 21h12z"/></svg>Women</button>
       </div>
     </div>
+    <p class="fy-hint">Click a genre to fade the rest. Hover a dot for its film and genre.</p>
     <div class="fy-chart fy-ribbons dash-skeleton" data-draw="ribbons" data-source="director_scope">—</div>
     <div class="fy-chart fy-lanes dash-skeleton" data-draw="lanes" data-source="director_scope films">—</div>
     <details class="fy-more" id="more-directors">
@@ -296,9 +291,46 @@
     <div class="fy-notes">
       <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>2021:</b> opening day was <b data-draw="snote" data-source="share_notes" data-field="opening_2021">—</b> of a typical film’s total, against <b data-draw="snote" data-source="share_notes" data-field="opening_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="opening_max">—</b> in other years. Theatres reopened after COVID and runs were short.</span></p>
       <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span><b>Overseas</b> earned <b data-draw="snote" data-source="share_notes" data-field="overseas_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="overseas_max">—</b> of a typical film’s gross every year since 2014.</span></p>
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h6"/></svg><span><b>The 2020s drop isn’t all real:</b> typical gross went from <b data-draw="snote" data-source="share_notes" data-field="gross_2010s" data-fmt="cr">—</b> in the 2010s to <b data-draw="snote" data-source="share_notes" data-field="gross_2020_23" data-fmt="cr">—</b> in 2020–23. In 2024–26 it is <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26" data-fmt="cr">—</b>, but the lists now take smaller films. Under the old ₹20 cr cutoff it would be <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26_floor" data-fmt="cr">—</b>.</span></p>
     </div>
   </section>
 
+  <div class="fy-panels">
+    <section id="how-to-read">
+      <h2 class="fy-card-title">How to read this</h2>
+      <ul class="fy-list">
+        <li><b>The ribbon is a timeline.</b> It starts at 1976, runs left to right, then turns and runs back, so every second row reads right to left. Follow the year labels.</li>
+        <li><b>Band width</b> is a genre’s share of that year’s films. Each film counts once, under one lead genre.</li>
+        <li><b>Click a genre</b> to fade the others here and in the director charts. Its five stars are its highest-rated films.</li>
+        <li><b>Click a year or a decade circle</b> to filter the whole page. “All years” resets it.</li>
+        <li><b>Money</b> is in ₹ crore (1 crore = 10 million), as reported at the time. “Typical” means the median film.</li>
+        <li><b>The cost chart</b> uses a multiplying scale: each gridline is ten times the one below.</li>
+      </ul>
+    </section>
+    <section id="doesnt-show">
+      <h2 class="fy-card-title">What this doesn’t show</h2>
+      <ul class="fy-list">
+        <li><b>Every film.</b> The lists cover top grossers only. From 2000 a film needs ₹20 cr worldwide, or ₹10 cr in 1994–99 and 2024–26. Before 1994 they are each year’s top grossers, with no cutoff.</li>
+        <li><b>Inflation.</b> Rupees aren’t adjusted, so much of the rise in budgets and gross is rising prices.</li>
+        <li><b>A finished 2026.</b> The year isn’t over, and 9 films were still running when their figures were listed.</li>
+        <li><b>Complete records.</b> 1,456 of 1,550 films have box-office figures and 1,336 have a language. Language starts in 1990, and the 1976 and 1989 lists have no details. Pre-1990 figures are rough. Records are only marked from 2014.</li>
+        <li><b>Actors.</b> The lists don’t include cast.</li>
+        <li><b>A count of men and women directors.</b> Only the women on the list were looked up. Everyone else is assumed to be a man, so the Men view is approximate.</li>
+        <li><b>Quality.</b> Ratings are IMDb votes on the day of export, and they change.</li>
+      </ul>
+    </section>
+    <section id="came-from">
+      <h2 class="fy-card-title">Where this came from</h2>
+      <ul class="fy-list">
+        <li><b>Films:</b> 51 IMDb user lists, one per year, 1976–2026. That is 1,563 films, less 13 English-language Hollywood films.</li>
+        <li><b>Box office:</b> taken from the descriptions in those lists and split into budget, gross, overseas and verdict. Several formats were used across the years.</li>
+        <li><b>Checks:</b> rows flagged as doubtful were compared with IMDb, Box Office Mojo, Wikipedia and news reports on 3 Nov 2026. Not every row was checked.</li>
+        <li><b>Hanuman Ansh:</b> its ×127 return was checked on 4 Nov 2026. Sacnilk and Wikipedia report a budget near ₹2 cr and a higher gross than the list’s ₹381 cr at day 57, so the list’s figures stand.</li>
+        <li><b>Lead genre:</b> IMDb lists genres alphabetically, so each film takes the first match in a fixed order, from Musical through to Drama.</li>
+        <li><b>Code and method:</b> <a href="https://github.com/eshaarun-code/50-years-of-indian-cinema">on GitHub</a>.</li>
+      </ul>
+    </section>
+  </div>
 
 </div>
 </div>
@@ -547,14 +579,16 @@ dash.calc('share_year', {
 });
 
 dash.calc('share_notes', {
-  inputs: ['share_year'],
-  title: 'Opening day and overseas, in short',
-  description: 'The 2021 opening-day share against the range in other years, and the range of overseas share across years.',
-  fn: (share_year) => {
+  inputs: ['share_year', 'films'],
+  title: 'Opening day, overseas and the 2024 cutoff, in short',
+  description: 'The 2021 opening-day share against the range in other years, the range of overseas share across years, and the typical gross around the 2024 cutoff change.',
+  fn: (share_year, films) => {
+    const med = (a) => { const s = a.slice().sort((x, y) => x - y), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+    const typical = (a, b, floor) => Math.round(med(films.filter((r) => r.budget > 0 && r.gross >= floor && r.year >= a && r.year <= b).map((r) => r.gross)) * 10) / 10;
     const op = share_year.filter((r) => r.year !== 2021 && r.opening_pct != null).map((r) => r.opening_pct);
     const os = share_year.filter((r) => r.overseas_pct != null).map((r) => r.overseas_pct);
     const y21 = share_year.find((r) => r.year === 2021);
-    return [{ opening_2021: y21 ? y21.opening_pct : null, opening_min: Math.min(...op), opening_max: Math.max(...op), overseas_min: Math.min(...os), overseas_max: Math.max(...os) }];
+    return [{ opening_2021: y21 ? y21.opening_pct : null, opening_min: Math.min(...op), opening_max: Math.max(...op), overseas_min: Math.min(...os), overseas_max: Math.max(...os), gross_2010s: typical(2010, 2019, 0), gross_2020_23: typical(2020, 2023, 0), gross_2024_26: typical(2024, 2026, 0), gross_2024_26_floor: typical(2024, 2026, 20) }];
   },
 });
 
@@ -613,6 +647,8 @@ const FMT = {
 };
 const enc = (v) => String(v).replace(/%/g, '%25').replace(/&/g, '%26').replace(/=/g, '%3D');
 const scope = () => dash.params().scope || 'all';
+const viewName = () => (scope() === 'all' ? 'all years' : 'the ' + scope());
+const topGenre = (films) => { const f = films.filter((r) => scope() === 'all' || r.decade === scope()), top = d3.greatest(d3.rollups(f, (v) => v.length, (r) => r.lead_genre), (d) => d[1]); return top ? top[0] + ' is the largest with ' + top[1] + ' films in ' + viewName() + '.' : ''; };
 const inScope = (r) => scope() === 'all' || r.decade === scope();
 const topDirs = () => {
   const d = dash.data('director_scope');
@@ -721,23 +757,6 @@ dash.onData(() => {
 
 dash.draw('scope-name', (el) => { el.textContent = scope() === 'all' ? '1976–2026' : 'The ' + scope(); });
 
-dash.draw('dirpie', (el) => {
-  const d = dash.data('scope_stats');
-  el.replaceChildren();
-  if (d.status !== 'ok') { el.textContent = '—'; return; }
-  const row = d.data.find((r) => r.scope === scope());
-  if (!row) { el.textContent = '—'; return; }
-  const parts = [['women_directors', 'var(--pie-woman)'], ['men_directors', 'var(--pie-man)'], ['unsure_directors', 'var(--pie-unsure)']];
-  const arcs = d3.pie().sort(null).value((p) => row[p[0]])(parts);
-  const svg = d3.select(el).append('svg').attr('viewBox', '-42 -42 84 84').attr('role', 'img')
-    .attr('aria-label', row.women_directors + ' women, ' + row.men_directors + ' men, ' + row.unsure_directors + ' not known');
-  svg.selectAll('path').data(arcs).join('path')
-    .attr('d', d3.arc().innerRadius(22).outerRadius(40).padAngle(0.03).cornerRadius(2))
-    .style('fill', (a) => a.data[1]);
-  svg.append('text').attr('text-anchor', 'middle').attr('dy', '0.35em').style('fill', 'var(--ink)').style('font-size', '13px').style('font-weight', 800)
-    .text(d3.format('.0%')(row.women_directors / (row.directors || 1)));
-});
-
 dash.draw('stat', (el) => {
   el.dataset.where = 'scope=' + enc(scope());
   const d = dash.data('scope_stats');
@@ -780,7 +799,7 @@ dash.draw('ribbons', (el) => {
   }));
   const tip = tooltip(el);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Lead genres flowing to the directors with the most films');
+    .attr('role', 'img').attr('aria-label', 'Bands flowing from lead genres to the directors with the most films in ' + viewName() + '. ' + dirs[0].d + ' leads with ' + dirs[0].n + ' films.');
   const y0 = top + 8, y1 = bot, ym = (y0 + y1) / 2;
   const dir = director(), pickG = dash.params().genre;
   const focus = dirs.some((x) => x.d === dir);
@@ -800,6 +819,8 @@ dash.draw('ribbons', (el) => {
     d3icon(svg, SLUG[x.g], cx, 14, 16, 'var(--g-' + SLUG[x.g] + '-ink)');
     if (!narrow) svg.append('text').attr('x', cx).attr('y', 44).attr('text-anchor', 'middle').attr('class', 'fy-lab').text(x.g);
     svg.append('text').attr('x', cx).attr('y', narrow ? 40 : 57).attr('text-anchor', 'middle').attr('class', 'fy-lab-muted').text(x.n ? fmtInt(x.n) : '');
+    svg.append('rect').attr('x', i * gSlot).attr('y', 0).attr('width', gSlot).attr('height', 62).attr('class', 'fy-click').style('fill', pickG === x.g ? 'var(--ink)' : 'transparent').style('fill-opacity', pickG === x.g ? 0.08 : 0)
+      .on('click', () => dash.setParams({ genre: pickG === x.g ? null : x.g }));
   });
   dirs.forEach((x, i) => {
     const cx = i * dSlot + dSlot / 2;
@@ -894,7 +915,7 @@ dash.draw('stream', (el) => {
   const pickG = dash.params().genre;
   const tip = tooltip(el);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Lead genre share of each year, 1976 to 2026, with the best film of each genre in each decade as stars');
+    .attr('role', 'img').attr('aria-label', 'Ribbon of each lead genre’s share of films per year, 1976 to 2026, running left to right and back on alternate rows. ' + topGenre(films) + (pickG ? ' Showing the five top-rated ' + pickG + ' films as stars.' : ''));
   lines.forEach(([a, b]) => {
     for (let y = a; y <= b; y++) {
       const [x, cy] = P(y), key = y % 10 === 0 || y === 1976 || y === 2026;
@@ -1021,7 +1042,7 @@ dash.draw('lanes', (el) => {
 function lanesChart(el, names, gOf) {
   const films = dash.data('films').data;
   const byDir = new Map(names.map((n) => [n, films.filter((r) => (r.directors || '').split(', ').includes(n)).sort((a, b) => releaseT(a) - releaseT(b))]));
-  const dir = director();
+  const dir = director(), pickG = dash.params().genre;
   const W = Math.max(340, el.clientWidth), narrow = W < 720;
   const nameW = narrow ? 120 : 220, laneH = narrow ? 28 : 44, topA = 28, endW = narrow ? 64 : 96;
   const H = topA + names.length * laneH + 8;
@@ -1032,7 +1053,7 @@ function lanesChart(el, names, gOf) {
   const rr = d3.scaleSqrt([0, d3.max(all, (r) => r.gross || 0) || 1], [2.5, laneH * 0.4]);
   const tip = tooltip(el);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Career lanes for the top ten directors in this view');
+    .attr('role', 'img').attr('aria-label', 'Career lanes, 1976 to 2026, for ' + names.join(', ') + '. Each lane widens with every film; dots are films sized by worldwide gross.');
   const [s0, s1] = scopeYears();
   if (scope() !== 'all') svg.append('rect').attr('x', x(s0)).attr('width', x(s1 + 1) - x(s0)).attr('y', topA - 6).attr('height', H - topA).attr('rx', 8).style('fill', 'var(--paper)');
   d3.range(1980, 2030, 10).forEach((y) => {
@@ -1054,8 +1075,8 @@ function lanesChart(el, names, gOf) {
       .style('fill', col).style('opacity', isSel ? 0.4 : 0.2);
     lane.selectAll('circle').data(fs).join('circle')
       .attr('cx', (f) => x(releaseT(f))).attr('cy', cy).attr('r', (f) => rr(f.gross || 0))
-      .style('fill', (f) => gColor(f.lead_genre)).style('stroke', 'var(--paper)').style('stroke-width', 1.2)
-      .style('opacity', (f) => (scope() === 'all' || f.decade === scope() ? 1 : 0.4))
+      .style('fill', (f) => gColor(f.lead_genre)).style('stroke', (f) => (pickG === f.lead_genre ? 'var(--ink)' : 'var(--paper)')).style('stroke-width', 1.2)
+      .style('opacity', (f) => (pickG && pickG !== f.lead_genre ? 0.1 : scope() === 'all' || f.decade === scope() ? 1 : 0.4))
       .on('mousemove', (e, f) => tip.show(e, [n + ' · ' + f.year, f.title, f.lead_genre + (f.gross != null ? ' · ' + FMT.cr(f.gross) : '')]))
       .on('mouseleave', () => tip.hide());
     d3icon(lane, g === 'woman' ? 'woman' : g === 'unsure' ? 'unsure' : 'man', 11, cy, narrow ? 16 : 20, col, g === 'unsure');
@@ -1088,7 +1109,7 @@ dash.draw('costtime', (el) => {
   const on = (yr) => yr >= s0 && yr <= s1;
   const tip = tooltip(el);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Budget and worldwide gross of every film by year, the typical budget and gross, and each decade’s typical film as nested circles');
+    .attr('role', 'img').attr('aria-label', 'Budget and worldwide gross of every film by year on a multiplying scale. From the ' + decs[0].decade + ' to the ' + decs[decs.length - 1].decade + ' the typical budget rose from ' + FMT.cr(decs[0].median_budget) + ' to ' + FMT.cr(decs[decs.length - 1].median_budget) + ' and typical gross from ' + FMT.cr(decs[0].median_gross) + ' to ' + FMT.cr(decs[decs.length - 1].median_gross) + '.');
   if (scope() !== 'all') svg.append('rect').attr('x', x(s0)).attr('width', x(s1 + 1) - x(s0)).attr('y', m.t).attr('height', H - m.t).attr('rx', 10).style('fill', 'var(--paper)');
   [1, 10, 100, 1000].filter((v) => v >= y.domain()[0] && v <= y.domain()[1]).forEach((v) => {
     svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--line)');
@@ -1133,9 +1154,12 @@ dash.draw('costtime', (el) => {
     svg.append('text').attr('x', px + (right ? 8 : -8)).attr('y', ly).attr('text-anchor', right ? 'start' : 'end').attr('class', 'fy-lab fy-halo-p').style('font-size', '11.5px')
       .style('fill', good ? 'var(--up)' : 'var(--down)').text(r.title + ' ' + FMT.x(r.multiple));
   });
-  // 2021: opening day spike (see the note below)
-  const xx = x(2021.5);
-  svg.append('line').attr('x1', xx).attr('x2', xx).attr('y1', m.t).attr('y2', H1 - m.b).style('stroke', 'var(--ink)').style('stroke-dasharray', '3 3').style('opacity', 0.6);
+  // 2021: opening day spike; 2024: the lists' cutoff falls (see the notes below)
+  [[2021, '2021: short theatre runs', m.t + 8], [2023.5, '2024: list cutoff falls from ₹20 cr to ₹10 cr', H1 - m.b - 8]].forEach(([yr, label, ly]) => {
+    const xx = x(yr);
+    svg.append('line').attr('x1', xx).attr('x2', xx).attr('y1', m.t).attr('y2', H1 - m.b).style('stroke', 'var(--ink)').style('stroke-dasharray', '3 3').style('opacity', 0.6);
+    svg.append('text').attr('x', xx - 6).attr('y', ly).attr('text-anchor', 'end').attr('class', 'fy-lab fy-halo-p').style('font-size', '12px').text(label);
+  });
   // decade strip: the typical film of each decade, budget circle inside gross circle, area to scale
   const sy = H1 + 8, base = sy + 2 * rMax;
   svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', sy - 4).attr('y2', sy - 4).style('stroke', 'var(--line)');
@@ -1183,7 +1207,7 @@ dash.draw('snote', (el) => {
   el.dataset.row = '0';
   if (d.status !== 'ok' || !d.data[0]) { el.textContent = '—'; return; }
   const v = d.data[0][el.dataset.field];
-  el.textContent = v == null ? '—' : v + '%';
+  el.textContent = v == null ? '—' : el.dataset.fmt === 'cr' ? FMT.cr(v) : v + '%';
 });
 dash.draw('lstat', (el) => whereStat(el, 'lang_period', 'key'));
 dash.draw('hstat', (el) => whereStat(el, 'hits_summary', 'group'));
@@ -1207,7 +1231,7 @@ dash.draw('langshare', (el) => {
   const series = d3.stack().keys(LANGS)(table);
   const tip = tooltip(el);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Language share of ' + (metric() === 'films' ? 'films' : 'gross') + ' per year, 1990 to 2026');
+    .attr('role', 'img').attr('aria-label', 'Stacked bands of each language’s share of ' + (metric() === 'films' ? 'films' : 'gross') + ' per year. Hindi falls from ' + Math.round(table[0].Hindi * 100) + '% in ' + table[0].year + ' to ' + Math.round(table[table.length - 1].Hindi * 100) + '% in ' + table[table.length - 1].year + '.');
   const [s0, s1] = scopeYears();
   svg.append('g').selectAll('path').data(series).join('path')
     .attr('d', d3.area().x((d) => x(d.data.year)).y0((d) => y(d[0])).y1((d) => y(d[1])))
@@ -1242,6 +1266,7 @@ dash.draw('langshare', (el) => {
     svg.append('text').attr('x', W - m.r + 8).attr('y', yy).attr('dy', '0.35em').attr('class', 'fy-lab').style('font-size', '12px')
       .text(s.key + ' ' + Math.round(s.v * 100) + '%');
   });
+  svg.append('text').attr('x', W - m.r + 8).attr('y', H - 10).attr('class', 'fy-lab-muted').text('2026 only');
   svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).style('fill', 'transparent')
     .on('mousemove', (e) => {
       const [mx] = d3.pointer(e, svg.node());
@@ -1260,18 +1285,21 @@ const HOME = {
   Hindi: [200, 200, 'North & central India'], Punjabi: [125, 112, 'Punjab'], Marathi: [118, 300, 'Maharashtra'],
   Telugu: [188, 345, 'Andhra Pradesh, Telangana'], Kannada: [132, 385, 'Karnataka'], Tamil: [168, 440, 'Tamil Nadu'], Malayalam: [122, 445, 'Kerala'],
 };
+const mapPeriod = () => (scope() === 'all' ? '1990–2026' : 'The ' + scope());
 dash.draw('langmap', (el) => {
   if (!ready(el, 'lang_scope')) return;
   const k = metric() === 'films' ? 'films_pct' : 'gross_pct';
   const rows = dash.data('lang_scope').data.filter((r) => r.scope === scope());
   const IW = 456, IH = 547, padL = 150, padR = 170, W = padL + IW + padR, H = IH;
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Map of India with each language’s share placed on its home region');
+    .attr('role', 'img').attr('aria-label', 'Map of India with a circle for each language on its home region. ' + mapPeriod() + ' combined, share of ' + (metric() === 'films' ? 'films' : 'gross') + ': ' + (rows.filter((d) => d[k] >= 0.5).map((d) => d.language + ' ' + Math.round(d[k]) + '%').join(', ') || 'language isn’t recorded') + '.');
   svg.append('image').attr('href', OUTLINE).attr('x', padL).attr('y', 0).attr('width', IW).attr('height', IH).style('opacity', 0.75);
   if (!rows.length) {
     svg.append('text').attr('x', padL + IW / 2).attr('y', H / 2).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '15px').text('Language isn’t recorded before 1990');
     return;
   }
+  svg.append('text').attr('x', 0).attr('y', 20).attr('class', 'fy-lab').style('font-size', '17px').text(mapPeriod() + ' combined');
+  svg.append('text').attr('x', 0).attr('y', 42).attr('class', 'fy-lab-muted').style('font-size', '14px').text('Share of ' + (metric() === 'films' ? 'films' : 'gross'));
   const tip = tooltip(el);
   const r = (v) => Math.sqrt((v || 0) / 100) * 60;
   const items = rows.filter((d) => d[k] >= 0.5).map((d) => ({ d, x: padL + HOME[d.language][0], y: HOME[d.language][1], rad: Math.max(4, r(d[k])), side: HOME[d.language][0] < 160 ? 'L' : 'R' }));
@@ -1321,7 +1349,7 @@ dash.draw('hits', (el) => {
   const angle = { Hindi: 180, Telugu: 250, Tamil: 290, Kannada: 0, Malayalam: 90 };
   const stackH = 6 * 40 + 110, H = narrow ? domeH + stackH : Math.max(domeH, stackH + 20);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Each industry’s record film as a dome on an oval stage, with the number of records stacked as clapperboards');
+    .attr('role', 'img').attr('aria-label', 'Domes on an oval stage for each industry’s record film, with clapperboards counting its records. ' + all.length + ' records: ' + ['Hindi', 'Telugu', 'Tamil', 'Kannada', 'Malayalam'].map((l) => l + ' ' + all.filter((h) => h.language === l).length).join(', ') + '.');
   const defs = svg.append('defs');
   inds.forEach((l) => {
     const gr = defs.append('linearGradient').attr('id', 'fy-dome-' + l).attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
@@ -1393,7 +1421,7 @@ dash.draw('lanes-more', (el) => {
   const count = new Map();
   films.forEach((r) => (r.directors || '').split(', ').filter(Boolean).forEach((n) => count.set(n, (count.get(n) || 0) + 1)));
   const note = (text) => {
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${Math.max(320, el.clientWidth)} 60`);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${Math.max(320, el.clientWidth)} 60`).attr('role', 'img').attr('aria-label', text);
     svg.append('text').attr('x', 4).attr('y', 34).attr('class', 'fy-lab-muted').style('font-size', '13px').text(text);
   };
   if (!q) { note('Type a name to see that director’s career, 1976–2026.'); return; }

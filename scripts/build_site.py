@@ -42,5 +42,6 @@ with open(os.path.join(DOCS,'index.html'),'w',encoding='utf-8') as f:
 shutil.copy(os.path.join(ROOT,'scripts','site_runtime.js'),os.path.join(DOCS,'runtime.js'))
 shutil.copy(os.path.join(ROOT,'output','dashboard_films.json'),os.path.join(DOCS,'data','films.json'))
 shutil.copy(os.path.join(ROOT,'output','dashboard_directors.json'),os.path.join(DOCS,'data','directors.json'))
+shutil.copy(os.path.join(ROOT,'output','Indian_Box_Office_Refined.xlsx'),os.path.join(DOCS,'data','Indian_Box_Office_Refined.xlsx'))
 open(os.path.join(DOCS,'.nojekyll'),'w').close()
 print('built',DOCS)

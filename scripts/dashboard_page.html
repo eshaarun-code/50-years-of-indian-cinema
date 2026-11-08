@@ -4,7 +4,7 @@
 #dash-root { --dash-gutter: 0; }
 .fy {
   --ink: #141416; --muted: #5f6066; --faint: #b4b5ba; --line: #e6e6e9; --grid: #efeff1;
-  --paper: #ffffff; --panel: #ffffff; --pill: #f1f1f4; --tip: #ffffff; --up: #3f9e6e; --down: #e0695f; --star: #ffd24d; --star-edge: #e8b400;
+  --paper: #ffffff; --panel: #ffffff; --pill: #f1f1f4; --tip: #ffffff; --up: #3f9e6e; --down: #e0695f; --star: #ffd24d; --star-edge: #e8b400; --band: #fff3c4; --band-edge: #e8c64a;
   --g-action: #fba88f; --g-drama: #8fbff2; --g-comedy: #fbd96f; --g-romance: #f8a4c8; --g-thriller: #bba3f2;
   --g-crime: #a6b8c8; --g-musical: #9ade90; --g-family: #fdc187; --g-fantasy: #7cdfd3; --g-history: #e0bb90;
   --g-action-ink: #9b3d1c; --g-drama-ink: #2c5683; --g-comedy-ink: #8a6500; --g-romance-ink: #9c2f5e; --g-thriller-ink: #563d97;
@@ -35,7 +35,7 @@
 .fy-scopebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
 .fy-scopebar b { color: var(--muted); font-size: 16px; font-weight: 700; }
 .fy-scope { font: inherit; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 4px 10px; background: var(--pill); color: var(--ink); cursor: pointer; }
-.fy-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.fy-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 700px) { .fy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .fy-stat { display: flex; flex-direction: column; gap: 6px; padding: 4px 10px; border-left: 1px solid var(--line); color: var(--ink); min-width: 0; }
 .fy-stat-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--pill); color: var(--muted); }
@@ -72,7 +72,7 @@
 .fy-cost { min-height: 420px; }
 .fy-langshare { min-height: 360px; }
 .fy-map { min-height: 400px; }
-.fy-combo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+.fy-combo { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: center; }
 @media (max-width: 1000px) { .fy-combo { grid-template-columns: minmax(0, 1fr); } }
 .fy-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 10px; }
 .fy-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--pill); font-size: 13px; line-height: 1.5; color: var(--muted); font-weight: 600; }
@@ -149,6 +149,20 @@
 .fy-times { margin-left: auto; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--star); font-weight: 800; font-size: 13px; }
 .fy-key { width: 14px; height: 4px; border-radius: 2px; }
 .fy-key-line { width: 0; height: 14px; border-left: 2px solid; border-radius: 0; }
+.fy-key-band { width: 14px; height: 14px; border-radius: 3px; background: var(--band); border-top: 2px solid var(--band-edge); }
+.fy-for { margin: 8px 0 0; font-size: 16px; font-weight: 600; color: var(--muted); }
+.fy-q { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 800; flex: none; }
+.fy-sub { font-size: 13px; font-weight: 700; color: var(--muted); padding: 3px 10px; border-radius: 999px; background: var(--pill); letter-spacing: 0; }
+.fy-card-title { flex-wrap: wrap; }
+.fy-para { margin: 12px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+.fy-para b { color: var(--ink); font-weight: 800; }
+.fy-topfilms { margin-top: 6px; }
+.fy-topfilms-h { margin: 0 0 10px; font-size: 14px; font-weight: 800; }
+.fy-shelf { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; max-width: 760px; }
+@media (max-width: 600px) { .fy-shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.fy-shelf .fy-poster { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fy-shelf .fy-poster-title { font-size: 13px; font-weight: 700; line-height: 1.25; }
+.fy-shelf .fy-poster-meta { font-size: 12px; color: var(--muted); font-weight: 600; }
 .fy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .fy-table th { text-align: left; font-weight: 700; color: var(--muted); padding: 5px 6px; border-bottom: 1.5px solid var(--line); }
 .fy-table td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -177,23 +191,24 @@
     <div class="fy-brand">
       <div>
         <h1 class="fy-title">50 Years of Indian Cinema</h1>
+        <p class="fy-for">For first-time filmmakers deciding what to pitch.</p>
         <div class="fy-scopebar">
-          <span><b data-draw="scope-name">—</b></span>
           <button type="button" class="fy-scope" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M6 6l12 12M18 6 6 18"/></svg>All years</button>
         </div>
-        <nav class="fy-jump" aria-label="About this dashboard"><a href="#how-to-read">How to read this</a><a href="#doesnt-show">What this doesn’t show</a><a href="#came-from">Where this came from</a></nav>
+        <nav class="fy-jump" aria-label="Sections"><a href="#flow">What to make</a><a href="#money">What to ask for</a><a href="#languages">Where to make it</a><a href="#directors">How careers grow</a><a href="#how-to-read">How to read this</a><a href="#doesnt-show">What this doesn’t show</a><a href="#came-from">Where this came from</a></nav>
       </div>
     </div>
     <div class="fy-stats">
       <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="films" data-fmt="int">—</span><span class="fy-stat-label">Films</span></div>
-      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 9h12M14 20 7 13h2c3 0 5-2 5-4.5S12 4 9 4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="gross_total" data-fmt="cr">—</span><span class="fy-stat-label">Worldwide gross</span></div>
-      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="directors" data-fmt="int">—</span><span class="fy-stat-label">Directors</span></div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg></span><span class="fy-stat-value" data-draw="scope-years">—</span><span class="fy-stat-label">Years</span></div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4zM8 7V5h8v2"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="typ_budget" data-fmt="cr">—</span><span class="fy-stat-label" data-draw="stat-label" data-what="Typical budget">Typical budget today</span></div>
+      <div class="fy-stat"><span class="fy-stat-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 9h12M14 20 7 13h2c3 0 5-2 5-4.5S12 4 9 4"/></svg></span><span class="fy-stat-value" data-draw="stat" data-source="scope_stats" data-field="typ_gross" data-fmt="cr">—</span><span class="fy-stat-label" data-draw="stat-label" data-what="Typical earnings">Typical earnings today</span></div>
     </div>
   </header>
 
   <section class="fy-card" id="flow">
     <div class="fy-card-head">
-      <h2 class="fy-card-title">How genres flowed</h2>
+      <h2 class="fy-card-title"><span class="fy-q">1</span>What should I make?<span class="fy-sub">Genre flow</span></h2>
       <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The ribbon snakes through 50 years, a row per decade. Each colour is a lead genre, as thick as its share of that year’s films. Click a genre to see stars: its 5 best-rated films in this view (all 50 years, or the decade you picked), the bigger the star, the higher it ranks, placed on its release date. Only films with at least the view’s median IMDb votes count, so a little-seen film can’t top a genre. English-language films are left out.</span></span>
       <span class="fy-hint fy-push"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v6l4 1a2 2 0 0 1 1.5 2.3L17 21H9l-4-6a1.6 1.6 0 0 1 2.4-2z"/></svg>Click a year to focus its decade · pick a genre, then click a star</span>
     </div>
@@ -209,12 +224,37 @@
       <button type="button" class="fy-genre g-fantasy" data-genre="Fantasy &amp; horror"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>Fantasy &amp; horror <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="Fantasy &amp; horror">—</span></button>
       <button type="button" class="fy-genre g-history" data-genre="History &amp; sport"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3.5 3M17 6h3v1a3 3 0 0 1-3.5 3M12 13v4M8 21h8M10 17h4v4h-4z"/></svg>History &amp; sport <span class="fy-count" data-draw="gcount" data-source="genre_scope" data-field="films" data-genre="History &amp; sport">—</span></button>
     </div>
+    <p class="fy-headline" data-draw="trend-line" data-source="genre_trend">—</p>
     <div class="fy-chart fy-stream dash-skeleton" data-draw="stream" data-source="genre_year best_genre films">—</div>
+    <div class="fy-topfilms" data-draw="genre-top" data-source="best_genre">—</div>
+  </section>
+
+  <section class="fy-card" id="money">
+    <div class="fy-card-head">
+      <h2 class="fy-card-title"><span class="fy-q">2</span>How much should I ask for?<span class="fy-sub">What films cost</span></h2>
+      <span class="fy-info" tabindex="0" aria-label="About these figures"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Top: each stem runs from what a film cost (dot) to what it grossed worldwide; the thick lines are the typical (median) budget and gross each year, and ringed films are the three best returns and three biggest misses in this view. Bottom: the typical film of each decade, its budget (dark circle) inside its gross (green circle), area to scale; click one to open that decade. ₹ crore as reported, not adjusted for inflation, on a log scale. Gross is before cinemas and taxes take their cut, so a film usually needs about twice its budget to break even. Earlier lists hold only hits.</span></span>
+      <div class="fy-legend fy-push">
+        <span><i class="fy-key fy-key-band"></i>Under ₹20 cr</span>
+        <span><i class="fy-key" style="background: var(--ink)"></i>Typical budget</span>
+        <span><i class="fy-key" style="background: var(--up)"></i>Typical gross</span>
+        <span><i class="fy-key fy-key-line" style="border-color: var(--up)"></i>Made more than it cost</span>
+        <span><i class="fy-key fy-key-line" style="border-color: var(--down)"></i>Made less</span>
+        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--up)"></i>Best returns</span>
+        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--down)"></i>Biggest misses</span>
+      </div>
+    </div>
+    <p class="fy-headline" data-draw="small-genre" data-source="small_returns">—</p>
+    <div class="fy-chart fy-cost dash-skeleton" data-draw="costtime" data-source="budget_year budget_decade returns_rank films share_year">—</div>
+    <div class="fy-notes">
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>2021:</b> opening day was <b data-draw="snote" data-source="share_notes" data-field="opening_2021">—</b> of a typical film’s total, against <b data-draw="snote" data-source="share_notes" data-field="opening_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="opening_max">—</b> in other years. Theatres reopened after COVID and runs were short.</span></p>
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span><b>Overseas</b> earned <b data-draw="snote" data-source="share_notes" data-field="overseas_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="overseas_max">—</b> of a typical film’s gross every year since 2014.</span></p>
+      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h6"/></svg><span><b>The 2020s drop isn’t all real:</b> typical gross went from <b data-draw="snote" data-source="share_notes" data-field="gross_2010s" data-fmt="cr">—</b> in the 2010s to <b data-draw="snote" data-source="share_notes" data-field="gross_2020_23" data-fmt="cr">—</b> in 2020–23. In 2024–26 it is <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26" data-fmt="cr">—</b>, but the lists now take smaller films. Under the old ₹20 cr cutoff it would be <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26_floor" data-fmt="cr">—</b>.</span></p>
+    </div>
   </section>
 
   <section class="fy-card" id="languages">
     <div class="fy-card-head">
-      <h2 class="fy-card-title">Hindi’s share of the box office has shrunk</h2>
+      <h2 class="fy-card-title"><span class="fy-q">3</span>Where should I make it?<span class="fy-sub">Language share</span></h2>
       <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Each line is one language’s share of the listed films, or of their combined worldwide gross, in that period. The lists before 1990 don’t record language, and before 2013 they include almost no Malayalam or Kannada films. Punjabi, Marathi and bilingual films aren’t drawn: they never reach 2% of gross. The lists cover top grossers only, and the cutoff changed in 2024 (₹20 cr to ₹10 cr).</span></span>
       <div class="fy-gender fy-push" role="group" aria-label="Measure">
         <button type="button" class="fy-mbtn" data-metric="gross">Share of gross</button>
@@ -222,41 +262,20 @@
       </div>
     </div>
     <p class="fy-headline">Hindi took <b data-draw="lstat" data-source="lang_period" data-field="gross_pct" data-where="key=2000–12|Hindi">—</b> of total gross in 2000–12 and just <b data-draw="lstat" data-source="lang_period" data-field="gross_pct" data-where="key=2024–26|Hindi">—</b> in 2024–26. South Indian films took the difference: Malayalam’s share of films alone grew from <b data-draw="lstat" data-source="lang_period" data-field="films_pct" data-where="key=2013–18|Malayalam">—</b> to <b data-draw="lstat" data-source="lang_period" data-field="films_pct" data-where="key=2024–26|Malayalam">—</b> since 2013.</p>
+    <p class="fy-headline" data-draw="small-lang" data-source="small_returns">—</p>
     <div class="fy-combo">
       <div class="fy-chart fy-langshare dash-skeleton" data-draw="langshare" data-source="lang_period">—</div>
       <div class="fy-chart fy-map dash-skeleton" data-draw="langmap" data-source="lang_scope">—</div>
     </div>
   </section>
 
-
-  <section class="fy-card" id="industry-hits">
-    <div class="fy-card-head">
-      <h2 class="fy-card-title">Industry records have moved south</h2>
-      <span class="fy-info" tabindex="0" aria-label="About this chart"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Films the source lists mark as their industry’s biggest ever (“Industry Hit”). Left: each industry stands on the stage as a dome, sized by the worldwide gross of its current record; dashed domes are the records it replaced. Right: one clapperboard per record, stacked by industry. Pick a decade to see the records as they stood at its end. The lists only mark records from 2014 on.</span></span>
-    </div>
-    <p class="fy-headline">Of the <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=All">—</b> films marked as their industry’s biggest ever, <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=Hindi">—</b> are Hindi and <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=South Indian">—</b> come from South Indian industries. Malayalam alone broke its record <b data-draw="hstat" data-source="hits_summary" data-field="films" data-where="group=Malayalam 2024–26">—</b> times between 2024 and 2026.</p>
-    <div class="fy-legend">
-      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted)"><path d="M3 18A9 8 0 0 1 21 18Z"/></svg>Dome size = gross of the industry’s current record</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted); stroke-dasharray: 3 2"><path d="M3 18A9 8 0 0 1 21 18Z"/></svg>Records it replaced</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: var(--muted)"><path d="M4 11h16v9H4zM4 11l2-6 14 2-2 4M9 5.5l-1 5M14 6.3l-1 4.5"/></svg>One clapper per record · solid = 2024–26</span>
-    </div>
-    <div class="fy-chart fy-hits dash-skeleton" data-draw="hits" data-source="industry_hits">—</div>
-  </section>
-
-
-
-
   <section class="fy-card" id="directors">
     <div class="fy-card-head">
-      <h2 class="fy-card-title">Top directors: genres and growth</h2>
-      <span class="fy-info" tabindex="0" aria-label="About these charts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The directors with the most films in this view. Top: each band runs from a lead genre to a director, as wide as their films in it. Bottom: each director’s whole career, 1976–2026; the lane swells with every film they add, and dots are films coloured by lead genre and sized by worldwide gross. Click a director to highlight them, or a genre to fade the others. Men and Women rely on a list of women directors. Everyone else is assumed to be a man: see “What this doesn’t show”.</span></span>
-      <div class="fy-gender fy-push" role="group" aria-label="Show directors">
-        <button type="button" class="fy-gbtn" data-gender="">All</button>
-        <button type="button" class="fy-gbtn" data-gender="man"><svg class="fy-ico-man" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M5 21v-1.5a7 7 0 0 1 14 0V21"/></svg>Men</button>
-        <button type="button" class="fy-gbtn" data-gender="woman"><svg class="fy-ico-woman" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="3.5"/><path d="M12 11 6 21h12z"/></svg>Women</button>
-      </div>
+      <h2 class="fy-card-title"><span class="fy-q">4</span>How do careers grow?<span class="fy-sub">How directors who started small scaled up</span></h2>
+      <span class="fy-info" tabindex="0" aria-label="About these charts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">The directors with the most films in this view. Top: each band runs from a lead genre to a director, as wide as their films in it. Bottom: each director’s whole career, 1976–2026; the lane swells with every film they add, and dots are films coloured by lead genre and sized by worldwide gross. Click a director to highlight them, or a genre to fade the others. A director’s first film here is their first on the lists, not always their debut.</span></span>
     </div>
-    <p class="fy-hint">Click a genre to fade the rest. Hover a dot for its film and genre.</p>
+    <p class="fy-headline" data-draw="career-line" data-source="career_growth">—</p>
+    <p class="fy-hint">Click a genre to fade the rest. Hover a dot for its film, genre and budget.</p>
     <div class="fy-chart fy-ribbons dash-skeleton" data-draw="ribbons" data-source="director_scope">—</div>
     <div class="fy-chart fy-lanes dash-skeleton" data-draw="lanes" data-source="director_scope films">—</div>
     <details class="fy-more" id="more-directors">
@@ -269,60 +288,29 @@
     </details>
   </section>
 
-  <section class="fy-card" id="money">
-    <div class="fy-card-head">
-      <h2 class="fy-card-title">What films cost, then and now</h2>
-      <span class="fy-info" tabindex="0" aria-label="About these figures"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg><span class="fy-info-text">Top: each stem runs from what a film cost (dot) to what it grossed worldwide; the thick lines are the typical (median) budget and gross each year, and ringed films are the three best returns and three biggest misses in this view. Bottom: the typical film of each decade, its budget (dark circle) inside its gross (green circle), area to scale; click one to open that decade. ₹ crore as reported, not adjusted for inflation, on a log scale. Gross is before cinemas and taxes take their cut, so a film usually needs about twice its budget to break even. Earlier lists hold only hits.</span></span>
-      <div class="fy-legend fy-push">
-        <span><i class="fy-key" style="background: var(--ink)"></i>Typical budget</span>
-        <span><i class="fy-key" style="background: var(--up)"></i>Typical gross</span>
-        <span><i class="fy-key fy-key-line" style="border-color: var(--up)"></i>Made more than it cost</span>
-        <span><i class="fy-key fy-key-line" style="border-color: var(--down)"></i>Made less</span>
-        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--up)"></i>Best returns</span>
-        <span><i class="fy-key fy-dot" style="background: none; border: 2px solid var(--down)"></i>Biggest misses</span>
-      </div>
-    </div>
-    <div class="fy-chart fy-cost dash-skeleton" data-draw="costtime" data-source="budget_year budget_decade returns_rank films share_year">—</div>
-    <div class="fy-notes">
-      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>2021:</b> opening day was <b data-draw="snote" data-source="share_notes" data-field="opening_2021">—</b> of a typical film’s total, against <b data-draw="snote" data-source="share_notes" data-field="opening_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="opening_max">—</b> in other years. Theatres reopened after COVID and runs were short.</span></p>
-      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span><b>Overseas</b> earned <b data-draw="snote" data-source="share_notes" data-field="overseas_min">—</b>–<b data-draw="snote" data-source="share_notes" data-field="overseas_max">—</b> of a typical film’s gross every year since 2014.</span></p>
-      <p class="fy-note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h6"/></svg><span><b>The 2020s drop isn’t all real:</b> typical gross went from <b data-draw="snote" data-source="share_notes" data-field="gross_2010s" data-fmt="cr">—</b> in the 2010s to <b data-draw="snote" data-source="share_notes" data-field="gross_2020_23" data-fmt="cr">—</b> in 2020–23. In 2024–26 it is <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26" data-fmt="cr">—</b>, but the lists now take smaller films. Under the old ₹20 cr cutoff it would be <b data-draw="snote" data-source="share_notes" data-field="gross_2024_26_floor" data-fmt="cr">—</b>.</span></p>
-    </div>
-  </section>
-
   <div class="fy-panels">
     <section id="how-to-read">
       <h2 class="fy-card-title">How to read this</h2>
-      <ul class="fy-list">
-        <li><b>The ribbon is a timeline.</b> It starts at 1976, runs left to right, then turns and runs back, so every second row reads right to left. Follow the year labels.</li>
-        <li><b>Band width</b> is a genre’s share of that year’s films. Each film counts once, under one lead genre.</li>
-        <li><b>Click a genre</b> to fade the others here and in the director charts. Its five stars are its highest-rated films.</li>
-        <li><b>Click a year or a decade circle</b> to filter the whole page. “All years” resets it.</li>
-        <li><b>Money</b> is in ₹ crore (1 crore = 10 million), as reported at the time. “Typical” means the median film.</li>
-        <li><b>The cost chart</b> uses a multiplying scale: each gridline is ten times the one below.</li>
-      </ul>
+      <p class="fy-para">Read the four views in order, as four questions. <b>What should I make?</b> The ribbon is a timeline of genres, a row per decade; every second row runs right to left, so follow the year labels. A band’s width is its share of that year’s films. Click a genre to see its five best-rated films. <b>How much should I ask for?</b> Each stem runs from what a film cost to what it made; the shaded band is films under ₹20 cr, on a scale where each gridline is ten times the one below. <b>Where should I make it?</b> The lines show each language’s share of films or of gross by period; in the map, each dot is a slice of that share. <b>How do careers grow?</b> Each lane is one director’s career, swelling with every film. Click a year or a decade circle to filter the page; “All years” resets it. Money is in ₹ crore (1 crore = 10 million), and “typical” means the median film.</p>
     </section>
     <section id="doesnt-show">
       <h2 class="fy-card-title">What this doesn’t show</h2>
       <ul class="fy-list">
-        <li><b>Every film.</b> The lists cover top grossers only. From 2000 a film needs ₹20 cr worldwide, or ₹10 cr in 1994–99 and 2024–26. Before 1994 they are each year’s top grossers, with no cutoff.</li>
+        <li><b>Small flops.</b> Only films above the lists’ cutoff are included: ₹20 cr worldwide from 2000, ₹10 cr in 1994–99 and 2024–26, and each year’s top grossers before 1994. Films that earned less are missing, so returns on small budgets look better than they are.</li>
         <li><b>Inflation.</b> Rupees aren’t adjusted, so much of the rise in budgets and gross is rising prices.</li>
-        <li><b>A finished 2026.</b> The year isn’t over, and 9 films were still running when their figures were listed.</li>
-        <li><b>Complete records.</b> 1,456 of 1,550 films have box-office figures and 1,336 have a language. Language starts in 1990, and the 1976 and 1989 lists have no details. Pre-1990 figures are rough. Records are only marked from 2014.</li>
-        <li><b>Actors.</b> The lists don’t include cast.</li>
-        <li><b>A count of men and women directors.</b> Only the women on the list were looked up. Everyone else is assumed to be a man, so the Men view is approximate.</li>
-        <li><b>Quality.</b> Ratings are IMDb votes on the day of export, and they change.</li>
+        <li><b>Official trade data.</b> Budgets and gross come from the list maker’s notes, not from producers or a trade body.</li>
+        <li><b>Language before 1990.</b> The lists don’t record it.</li>
+        <li><b>Hollywood.</b> 13 English-language Hollywood films on the lists are left out.</li>
       </ul>
     </section>
     <section id="came-from">
       <h2 class="fy-card-title">Where this came from</h2>
       <ul class="fy-list">
-        <li><b>Films:</b> 51 IMDb user lists, one per year, 1976–2026. That is 1,563 films, less 13 English-language Hollywood films.</li>
-        <li><b>Box office:</b> taken from the descriptions in those lists and split into budget, gross, overseas and verdict. Several formats were used across the years.</li>
-        <li><b>Checks:</b> rows flagged as doubtful were compared with IMDb, Box Office Mojo, Wikipedia and news reports on 3 Nov 2026. Not every row was checked.</li>
-        <li><b>Hanuman Ansh:</b> its ×127 return was checked on 4 Nov 2026. Sacnilk and Wikipedia report a budget near ₹2 cr and a higher gross than the list’s ₹381 cr at day 57, so the list’s figures stand.</li>
+        <li><b>Films:</b> 51 IMDb user lists of each year’s top Indian grossers, 1976–2026, exported on 3 Nov 2026: 1,563 films, less the 13 Hollywood films.</li>
+        <li><b>Licence:</b> IMDb content is used under IMDb’s Conditions of Use, for personal and non-commercial use. This is a class project.</li>
+        <li><b>Checks:</b> doubtful rows were compared with Wikipedia, Box Office Mojo and news reports on 3 Nov 2026, and Hanuman Ansh’s ×127 return with Sacnilk and Wikipedia on 4 Nov 2026. Not every row was checked.</li>
         <li><b>Lead genre:</b> IMDb lists genres alphabetically, so each film takes the first match in a fixed order, from Musical through to Drama.</li>
-        <li><b>Code and method:</b> <a href="https://github.com/eshaarun-code/50-years-of-indian-cinema">on GitHub</a>.</li>
+        <li><b>Data cleaning:</b> <a href="data/Indian_Box_Office_Refined.xlsx">the cleaned workbook</a> (every year’s sheet, plus an About sheet). Code and method are <a href="https://github.com/eshaarun-code/50-years-of-indian-cinema">on GitHub</a>.</li>
       </ul>
     </section>
   </div>
@@ -335,7 +323,7 @@
 dash.calc('scope_stats', {
   inputs: ['films', 'directors'],
   title: 'Summary per view',
-  description: 'For all 50 years and each decade: films, total gross, directors, women directors, top grosser, most common lead genre and median gross ÷ budget.',
+  description: 'For all 50 years and each decade: films, total gross, directors, women directors, top grosser, most common lead genre, median gross ÷ budget, and the typical (median) budget and gross. In the all-years view the typical budget and gross are for 2024–26.',
   fn: (films, directors) => {
     const scopes = ['all', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
     const gender = new Map(directors.map((d) => [d.director, d.gender]));
@@ -349,7 +337,10 @@ dash.calc('scope_stats', {
       f.forEach((r) => { lead[r.lead_genre] = (lead[r.lead_genre] || 0) + 1; });
       const top = Object.entries(lead).sort((a, b) => b[1] - a[1])[0] || [null, 0];
       const big = f.filter((r) => r.gross != null).sort((a, b) => b.gross - a.gross)[0];
+      const t = (scope === 'all' ? films.filter((r) => r.year >= 2024) : f).filter((r) => r.budget > 0 && r.gross != null);
+      const med = (a) => { const s = a.slice().sort((x, y) => x - y), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
       return {
+        typ_budget: med(t.map((r) => r.budget)), typ_gross: med(t.map((r) => r.gross)),
         scope, films: f.length,
         gross_total: Math.round(f.reduce((s, r) => s + (r.gross || 0), 0)),
         directors: names.size,
@@ -587,6 +578,44 @@ dash.calc('returns_rank', {
   },
 });
 
+dash.calc('genre_trend', {
+  inputs: ['genre_year'],
+  title: 'Genres rising and fading',
+  description: 'Each lead genre’s share of films in 2000–09 and in 2020–26, and the change in percentage points.',
+  fn: (genre_year) => {
+    const share = (g, a, b) => { const r = genre_year.filter((x) => x.year >= a && x.year <= b), n = r.reduce((s, x) => s + x.films, 0); return n ? Math.round(r.filter((x) => x.genre === g).reduce((s, x) => s + x.films, 0) / n * 100) : 0; };
+    const genres = Array.from(new Set(genre_year.map((r) => r.genre)));
+    return genres.map((genre) => { const then = share(genre, 2000, 2009), now = share(genre, 2020, 2026); return { genre, then_pct: then, now_pct: now, change: now - then }; }).sort((a, b) => b.change - a.change);
+  },
+});
+
+dash.calc('small_returns', {
+  inputs: ['films'],
+  title: 'Returns on small budgets',
+  description: 'Films since 2010 that cost under ₹20 cr: the median worldwide gross ÷ budget for each lead genre (at least 20 films) and each language (at least 10 films).',
+  fn: (films) => {
+    const med = (a) => { const s = a.slice().sort((x, y) => x - y), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+    const f = films.filter((r) => r.year >= 2010 && r.budget > 0 && r.budget < 20 && r.gross != null);
+    const by = (k, min, kind) => Array.from(d3.group(f.filter((r) => r[k]), (r) => r[k]), ([name, v]) => ({ kind, name, films: v.length, multiple: Math.round(med(v.map((r) => r.gross / r.budget)) * 10) / 10 }))
+      .filter((r) => r.films >= min).sort((a, b) => b.multiple - a.multiple);
+    return [...by('lead_genre', 20, 'genre'), ...by('language', 10, 'language')];
+  },
+});
+
+dash.calc('career_growth', {
+  inputs: ['films', 'director_scope'],
+  title: 'How top directors’ budgets grew',
+  description: 'For the ten directors with the most films across all years: the budget of their first and latest film on the lists that has one.',
+  fn: (films, director_scope) => {
+    const names = Array.from(new Set(director_scope.filter((r) => r.scope === 'all' && r.filter === 'all').sort((a, b) => a.rank - b.rank).map((r) => r.director)));
+    return names.map((director) => {
+      const f = films.filter((r) => r.budget > 0 && (r.directors || '').split(', ').includes(director)).sort((a, b) => (a.release || String(a.year)).localeCompare(b.release || String(b.year)));
+      const a = f[0], b = f[f.length - 1];
+      return { director, films: f.length, first_title: a ? a.title : null, first_year: a ? a.year : null, first_budget: a ? a.budget : null, last_title: b ? b.title : null, last_year: b ? b.year : null, last_budget: b ? b.budget : null };
+    }).filter((r) => r.films >= 2);
+  },
+});
+
 
 // ---------- helpers ----------
 const GENRES = ['Action', 'Drama', 'Comedy', 'Romance', 'Thriller', 'Crime', 'Musical', 'Family & adventure', 'Fantasy & horror', 'History & sport'];
@@ -629,8 +658,7 @@ const inScope = (r) => scope() === 'all' || r.decade === scope();
 const topDirs = () => {
   const d = dash.data('director_scope');
   if (d.status !== 'ok') return [];
-  const f = dash.params().dgender || 'all';
-  return Array.from(new Set(d.data.filter((r) => r.scope === scope() && r.filter === f).sort((a, b) => a.rank - b.rank).map((r) => r.director)));
+  return Array.from(new Set(d.data.filter((r) => r.scope === scope() && r.filter === 'all').sort((a, b) => a.rank - b.rank).map((r) => r.director)));
 };
 const director = () => { const p = dash.params().director, t = topDirs(); return t.includes(p) ? p : (t[0] || p); };
 const decadeOf = (y) => (y < 1980 ? '1970s' : Math.floor(y / 10) * 10 + 's');
@@ -718,20 +746,68 @@ function poster(r, genre, rank) {
 // ---------- controls ----------
 document.querySelectorAll('.fy-scope').forEach((b) => b.addEventListener('click', () => dash.setParams({ scope: 'all', film: null })));
 document.querySelectorAll('.fy-mbtn').forEach((b) => b.addEventListener('click', () => dash.setParams({ langmetric: b.dataset.metric })));
-document.querySelectorAll('.fy-gbtn').forEach((b) => b.addEventListener('click', () => dash.setParams({ dgender: b.dataset.gender || null, director: null })));
 document.querySelectorAll('.fy-genre').forEach((b) => b.addEventListener('click', () => dash.setParams({ genre: dash.params().genre === b.dataset.genre ? null : b.dataset.genre, film: null })));
 dash.onData(() => {
   const g = dash.params().genre;
   document.querySelectorAll('.fy-scope').forEach((b) => { b.hidden = scope() === 'all'; });
   document.querySelectorAll('.fy-mbtn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.metric === (dash.params().langmetric === 'films' ? 'films' : 'gross'))));
-  document.querySelectorAll('.fy-gbtn').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.gender || null) === (dash.params().dgender || null))));
   document.querySelectorAll('.fy-genre').forEach((b) => {
     b.setAttribute('aria-pressed', String(b.dataset.genre === g));
     b.classList.toggle('fy-dim', Boolean(g) && b.dataset.genre !== g);
   });
 });
 
-dash.draw('scope-name', (el) => { el.textContent = scope() === 'all' ? '1976–2026' : 'The ' + scope(); });
+dash.draw('scope-years', (el) => { const [a, b] = scopeYears(); el.textContent = a + '–' + String(b).slice(scope() === 'all' ? 0 : 2); });
+dash.draw('stat-label', (el) => { el.textContent = el.dataset.what + (scope() === 'all' ? ' today (2024–26)' : ', ' + scope()); });
+
+// a sentence with bold figures: parts alternate plain text and [bold] arrays
+function sentence(el, parts) {
+  el.replaceChildren(...parts.map((p) => { if (!Array.isArray(p)) return document.createTextNode(p); const b = document.createElement('b'); b.textContent = p[0]; return b; }));
+}
+dash.draw('trend-line', (el) => {
+  const d = dash.data('genre_trend');
+  if (d.status !== 'ok' || d.data.length < 4) { el.textContent = '—'; return; }
+  const r = d.data, up = r.slice(0, 2), down = r.slice(-2).reverse();
+  const pts = (x) => ' (' + x.then_pct + '% → ' + x.now_pct + '%)';
+  sentence(el, ['Since the 2000s, ', [up[0].genre], pts(up[0]) + ' and ', [up[1].genre], pts(up[1]) + ' have grown the most as a share of films. ', [down[0].genre], pts(down[0]) + ' and ', [down[1].genre], pts(down[1]) + ' have faded most.']);
+});
+dash.draw('small-genre', (el) => {
+  const d = dash.data('small_returns');
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const g = d.data.filter((r) => r.kind === 'genre');
+  if (g.length < 3) { el.textContent = '—'; return; }
+  const lo = g[g.length - 1];
+  sentence(el, ['On budgets under ₹20 cr since 2010, ', [g[0].name], ' films typically made back ', [FMT.x(g[0].multiple)], ' their cost and ', [g[1].name], ' ', [FMT.x(g[1].multiple)], '. ', [lo.name], ' made the least, ', [FMT.x(lo.multiple)], '. Small films that flopped never reached the lists, so these returns are flattering.']);
+});
+dash.draw('small-lang', (el) => {
+  const d = dash.data('small_returns');
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const l = d.data.filter((r) => r.kind === 'language');
+  if (l.length < 2) { el.textContent = '—'; return; }
+  const lo = l[l.length - 1];
+  sentence(el, ['Per rupee on small films (under ₹20 cr, since 2010), ', [l[0].name], ' gets the most back: ', [FMT.x(l[0].multiple)], ' its budget across ' + l[0].films + ' films, against ', [FMT.x(lo.multiple)], ' for ' + lo.name + '.']);
+});
+dash.draw('career-line', (el) => {
+  const d = dash.data('career_growth');
+  if (d.status !== 'ok' || !d.data.length) { el.textContent = '—'; return; }
+  const r = d.data, small = r.filter((x) => x.first_budget < 20);
+  const med = (a) => d3.median(a);
+  const best = d3.greatest(small, (x) => x.last_budget / x.first_budget);
+  const parts = [small.length === r.length ? 'All ' : '', [String(small.length)], (small.length === r.length ? '' : ' of the ' + r.length) + ' directors with the most films started under ₹20 cr, in rupees of the day. Their first films on the lists typically cost ', [FMT.cr(med(r.map((x) => x.first_budget)))], ' and their latest ', [FMT.cr(med(r.map((x) => x.last_budget)))], '.'];
+  if (best) parts.push(' ' + best.director + ' went from ', [FMT.cr(best.first_budget)], ' (' + best.first_title + ', ' + best.first_year + ') to ', [FMT.cr(best.last_budget)], ' (' + best.last_title + ', ' + best.last_year + ').');
+  sentence(el, parts);
+});
+dash.draw('genre-top', (el) => {
+  const g = dash.params().genre, b = dash.data('best_genre');
+  el.replaceChildren();
+  if (!g) { const p = document.createElement('p'); p.className = 'fy-hint'; p.textContent = 'Pick a genre above to see its five best-rated films' + (scope() === 'all' ? '.' : ' of the ' + scope() + '.'); el.appendChild(p); return; }
+  if (b.status !== 'ok') { el.textContent = '—'; return; }
+  const top = b.data.filter((r) => r.scope === scope() && r.genre === g).sort((x, y) => x.rank - y.rank);
+  const h = document.createElement('h3'); h.className = 'fy-topfilms-h'; h.textContent = 'Top ' + g + ' films, ' + (scope() === 'all' ? 'all 50 years' : 'the ' + scope());
+  const ol = document.createElement('ol'); ol.className = 'fy-shelf';
+  top.forEach((r) => { const li = poster(r, g, r.rank); li.classList.add('fy-click'); li.tabIndex = 0; li.addEventListener('click', () => dash.setParams({ film: r.key })); li.addEventListener('keydown', (e) => { if (e.key === 'Enter') dash.setParams({ film: r.key }); }); ol.appendChild(li); });
+  el.append(h, ol);
+});
 
 dash.draw('stat', (el) => {
   el.dataset.where = 'scope=' + enc(scope());
@@ -753,7 +829,7 @@ dash.draw('gcount', (el) => {
 
 dash.draw('ribbons', (el) => {
   if (!ready(el, 'director_scope')) return;
-  const rows = dash.data('director_scope').data.filter((r) => r.scope === scope() && r.filter === (dash.params().dgender || 'all'));
+  const rows = dash.data('director_scope').data.filter((r) => r.scope === scope() && r.filter === 'all');
   if (!rows.length) { el.textContent = '—'; return; }
   const dirs = Array.from(d3.group(rows, (r) => r.director), ([d, v]) => ({ d, rank: v[0].rank, gender: v[0].gender, n: d3.sum(v, (r) => r.films) })).sort((a, b) => a.rank - b.rank);
   const gens = GENRES.map((g) => ({ g, n: d3.sum(rows.filter((r) => r.genre === g), (r) => r.films) }));
@@ -800,10 +876,10 @@ dash.draw('ribbons', (el) => {
   });
   dirs.forEach((x, i) => {
     const cx = i * dSlot + dSlot / 2;
-    const col = x.gender === 'woman' ? 'var(--woman)' : x.gender === 'unsure' ? 'var(--unsure)' : 'var(--man)';
+    const col = 'var(--ink)';
     svg.append('rect').attr('x', dx.get(x.d)).attr('y', y1).attr('width', x.n * k).attr('height', 4).style('fill', 'var(--ink)');
     svg.append('circle').attr('cx', cx).attr('cy', y1 + 28).attr('r', 17).style('fill', 'var(--paper)').style('stroke', col).style('stroke-width', x.d === dir ? 2.5 : 1.2);
-    d3icon(svg, x.gender === 'woman' ? 'woman' : x.gender === 'unsure' ? 'unsure' : 'man', cx, y1 + 28, 20, col, x.gender === 'unsure')
+    d3icon(svg, 'man', cx, y1 + 28, 20, col)
       .attr('class', 'fy-click').on('click', () => dash.setParams({ director: x.d }));
     const name = svg.append('text').attr('x', cx).attr('y', y1 + 62).attr('text-anchor', 'middle').attr('class', 'fy-lab fy-click')
       .style('font-weight', x.d === dir ? 800 : 700).text(x.d).on('click', () => dash.setParams({ director: x.d }));
@@ -1039,7 +1115,7 @@ function lanesChart(el, names, gOf) {
   names.forEach((n, i) => {
     const cy = topA + i * laneH + laneH / 2, fs = byDir.get(n), g = gOf.get(n) || 'man';
     const isSel = n === dir;
-    const col = g === 'woman' ? 'var(--woman)' : g === 'unsure' ? 'var(--unsure)' : 'var(--man)';
+    const col = 'var(--muted)';
     const lane = svg.append('g').attr('class', 'fy-click').on('click', () => dash.setParams({ director: n }));
     lane.append('rect').attr('x', 0).attr('y', cy - laneH / 2 + 1).attr('width', W).attr('height', laneH - 2).attr('rx', 10)
       .style('fill', isSel ? 'var(--pill)' : 'transparent');
@@ -1053,9 +1129,9 @@ function lanesChart(el, names, gOf) {
       .attr('cx', (f) => x(releaseT(f))).attr('cy', cy).attr('r', (f) => rr(f.gross || 0))
       .style('fill', (f) => gColor(f.lead_genre)).style('stroke', (f) => (pickG === f.lead_genre ? 'var(--ink)' : 'var(--paper)')).style('stroke-width', 1.2)
       .style('opacity', (f) => (pickG && pickG !== f.lead_genre ? 0.1 : scope() === 'all' || f.decade === scope() ? 1 : 0.4))
-      .on('mousemove', (e, f) => tip.show(e, [n + ' · ' + f.year, f.title, f.lead_genre + (f.gross != null ? ' · ' + FMT.cr(f.gross) : '')]))
+      .on('mousemove', (e, f) => tip.show(e, [n + ' · ' + f.year, f.title, f.lead_genre, (f.budget != null ? 'Cost ' + FMT.cr(f.budget) : 'Cost not listed') + (f.gross != null ? ' · made ' + FMT.cr(f.gross) : '')]))
       .on('mouseleave', () => tip.hide());
-    d3icon(lane, g === 'woman' ? 'woman' : g === 'unsure' ? 'unsure' : 'man', 11, cy, narrow ? 16 : 20, col, g === 'unsure');
+    d3icon(lane, 'man', 11, cy, narrow ? 16 : 20, col);
     const name = lane.append('text').attr('x', narrow ? 24 : 28).attr('y', cy).attr('dy', '0.35em').attr('class', 'fy-lab')
       .style('font-size', narrow ? '11px' : '13px').style('font-weight', isSel ? 800 : 700).text(n);
     let label = n;
@@ -1091,6 +1167,11 @@ dash.draw('costtime', (el) => {
     svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--line)');
     svg.append('text').attr('x', m.l - 8).attr('y', y(v)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'fy-lab-muted').text('₹' + fmtInt(v) + ' cr');
   });
+  // the stakeholder's range: budgets under ₹20 cr
+  svg.append('rect').attr('x', m.l).attr('width', W - m.r - m.l).attr('y', y(20)).attr('height', H1 - m.b - y(20)).style('fill', 'var(--band)');
+  svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(20)).attr('y2', y(20)).style('stroke', 'var(--band-edge)').style('stroke-width', 1.5);
+  svg.append('text').attr('x', W - m.r + 8).attr('y', y(20)).attr('dy', '0.35em').attr('class', 'fy-lab').style('font-size', '12px').text('₹20 cr');
+  svg.append('text').attr('x', W - m.r + 8).attr('y', y(20) + 16).attr('dy', '0.35em').attr('class', 'fy-lab-muted').style('font-size', '11px').text('your range ↓');
   d3.range(1980, 2030, 10).forEach((v) => svg.append('text').attr('x', x(v)).attr('y', H1 - 12).attr('text-anchor', 'middle').attr('class', 'fy-lab').text(v));
   // each film: a stem from what it cost (dot) to what it made
   const jit = (r) => releaseT(r) + 0.5;
@@ -1224,50 +1305,88 @@ dash.draw('langshare', (el) => {
 
 // ---------- language map on the reader's own India outline ----------
 const OUTLINE = 'data:image/png;base64,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';
-// home region of each language, in the outline image's pixels (456 × 547)
-const HOME = {
-  Hindi: [200, 200, 'North & central India'], Punjabi: [125, 112, 'Punjab'], Marathi: [118, 300, 'Maharashtra'],
-  Telugu: [188, 345, 'Andhra Pradesh, Telangana'], Kannada: [132, 385, 'Karnataka'], Tamil: [168, 440, 'Tamil Nadu'], Malayalam: [122, 445, 'Kerala'],
-};
+// dots that fill the outline: flood-fill the mainland from inside, then keep grid points clear of the border
+const DOT_STEP = 13;
+let MAP_DOTS = null;
+function mapDots() {
+  if (MAP_DOTS) return MAP_DOTS;
+  MAP_DOTS = 'loading';
+  const img = new Image();
+  img.onload = () => {
+    const w = img.width, h = img.height, c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const px = ctx.getImageData(0, 0, w, h).data;
+    const wall = (i) => px[i * 4 + 3] > 60 && px[i * 4] < 160;
+    const inside = new Uint8Array(w * h), stack = [Math.round(h * 0.4) * w + Math.round(w * 0.45)];
+    while (stack.length) {
+      const i = stack.pop();
+      if (inside[i] || wall(i)) continue;
+      inside[i] = 1;
+      const x = i % w;
+      if (x > 0) stack.push(i - 1);
+      if (x < w - 1) stack.push(i + 1);
+      if (i >= w) stack.push(i - w);
+      if (i < w * (h - 1)) stack.push(i + w);
+    }
+    const ok = (x, y) => x >= 0 && y >= 0 && x < w && y < h && inside[Math.round(y) * w + Math.round(x)];
+    const r = DOT_STEP * 0.42, dots = [];
+    for (let y = DOT_STEP / 2; y < h; y += DOT_STEP) {
+      for (let x = DOT_STEP / 2; x < w; x += DOT_STEP) {
+        if (ok(x, y) && ok(x - r, y) && ok(x + r, y) && ok(x, y - r) && ok(x, y + r)) dots.push([x, y]);
+      }
+    }
+    MAP_DOTS = { w, h, dots };
+    dash.draw('langmap');
+  };
+  img.onerror = () => { MAP_DOTS = { w: 456, h: 547, dots: [] }; dash.draw('langmap'); };
+  img.src = OUTLINE;
+  return MAP_DOTS;
+}
+// north to south, so each language's dots sit roughly towards its home
+const MAP_ORDER = ['Hindi', 'Other', 'Telugu', 'Kannada', 'Tamil', 'Malayalam'];
+const MAP_PLACE = { Hindi: 'North & central India', Other: 'Punjabi, Marathi and others', Telugu: 'Andhra Pradesh, Telangana', Kannada: 'Karnataka', Tamil: 'Tamil Nadu', Malayalam: 'Kerala' };
 const mapPeriod = () => (scope() === 'all' ? '1990–2026' : 'The ' + scope());
 dash.draw('langmap', (el) => {
   if (!ready(el, 'lang_scope')) return;
+  const md = mapDots();
+  if (md === 'loading') { el.textContent = '—'; return; }
   const k = metric() === 'films' ? 'films_pct' : 'gross_pct';
   const rows = dash.data('lang_scope').data.filter((r) => r.scope === scope());
-  const IW = 456, IH = 547, padL = 150, padR = 170, W = padL + IW + padR, H = IH;
+  const share = new Map(MAP_ORDER.map((l) => [l, 0]));
+  rows.forEach((r) => { const l = LANGS.slice(0, 5).includes(r.language) ? r.language : 'Other'; share.set(l, share.get(l) + r[k]); });
+  share.set('Other', Math.max(0, 100 - d3.sum(LANGS.slice(0, 5), (l) => share.get(l))));
+  const IW = md.w, IH = md.h, legW = 250, W = IW + legW, H = IH;
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('role', 'img').attr('aria-label', 'Map of India with a circle for each language on its home region. ' + mapPeriod() + ' combined, share of ' + (metric() === 'films' ? 'films' : 'gross') + ': ' + (rows.filter((d) => d[k] >= 0.5).map((d) => d.language + ' ' + Math.round(d[k]) + '%').join(', ') || 'language isn’t recorded') + '.');
-  svg.append('image').attr('href', OUTLINE).attr('x', padL).attr('y', 0).attr('width', IW).attr('height', IH).style('opacity', 0.75);
+    .attr('role', 'img').attr('aria-label', 'Dot map of India, each dot a slice of the share of ' + (metric() === 'films' ? 'films' : 'gross') + ', ' + mapPeriod() + ' combined: ' + MAP_ORDER.map((l) => l + ' ' + Math.round(share.get(l)) + '%').join(', ') + '.');
   if (!rows.length) {
-    svg.append('text').attr('x', padL + IW / 2).attr('y', H / 2).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '15px').text('Language isn’t recorded before 1990');
+    svg.append('text').attr('x', IW / 2).attr('y', H / 2).attr('text-anchor', 'middle').attr('class', 'fy-lab').style('font-size', '15px').text('Language isn’t recorded before 1990');
     return;
   }
-  svg.append('text').attr('x', 0).attr('y', 20).attr('class', 'fy-lab').style('font-size', '17px').text(mapPeriod() + ' combined');
-  svg.append('text').attr('x', 0).attr('y', 42).attr('class', 'fy-lab-muted').style('font-size', '14px').text('Share of ' + (metric() === 'films' ? 'films' : 'gross'));
+  // largest remainder: whole dots per language that add up to every dot
+  const n = md.dots.length, raw = MAP_ORDER.map((l) => share.get(l) / 100 * n);
+  const cnt = raw.map(Math.floor);
+  d3.range(raw.length).sort((a, b) => (raw[b] - cnt[b]) - (raw[a] - cnt[a])).slice(0, n - d3.sum(cnt)).forEach((i) => { cnt[i] += 1; });
+  const colour = [];
+  MAP_ORDER.forEach((l, i) => { for (let j = 0; j < cnt[i]; j++) colour.push(l); });
   const tip = tooltip(el);
-  const r = (v) => Math.sqrt((v || 0) / 100) * 60;
-  const items = rows.filter((d) => d[k] >= 0.5).map((d) => ({ d, x: padL + HOME[d.language][0], y: HOME[d.language][1], rad: Math.max(4, r(d[k])), side: HOME[d.language][0] < 160 ? 'L' : 'R' }));
-  items.sort((a, b) => b.rad - a.rad).forEach((it) => {
-    svg.append('circle').attr('cx', it.x).attr('cy', it.y).attr('r', it.rad).style('fill', lColor(it.d.language === 'Punjabi' || it.d.language === 'Marathi' ? 'Other' : it.d.language))
-      .style('fill-opacity', 0.85).style('stroke', 'var(--ink)').style('stroke-width', 1.2)
-      .on('mousemove', (e) => tip.show(e, [it.d.language + ' · ' + HOME[it.d.language][2], it.d.films_pct + '% of films · ' + it.d.gross_pct + '% of gross']))
-      .on('mouseleave', () => tip.hide());
-  });
-  // labels in side columns, spread so they never touch
-  ['L', 'R'].forEach((side) => {
-    const col = items.filter((it) => it.side === side).sort((a, b) => a.y - b.y);
-    let last = -Infinity;
-    col.forEach((it) => { it.ly = Math.max(it.y, last + 40); last = it.ly; });
-    const over = last - (H - 20);
-    if (over > 0) col.forEach((it) => { it.ly -= over; });
-    col.forEach((it) => {
-      const lx = side === 'L' ? padL - 14 : padL + IW + 2, ex = side === 'L' ? it.x - it.rad : it.x + it.rad;
-      const tx = side === 'L' ? lx : lx + 14;
-      svg.append('path').attr('d', `M${ex},${it.y} L${side === 'L' ? lx + 6 : lx},${it.ly}`).style('fill', 'none').style('stroke', 'var(--ink)').style('stroke-width', 1).style('opacity', 0.5);
-      const t = svg.append('text').attr('x', tx).attr('y', it.ly).attr('text-anchor', side === 'L' ? 'end' : 'start').attr('class', 'fy-lab fy-halo-p').style('font-size', '14px');
-      t.append('tspan').attr('x', tx).text(it.d.language + ' ' + Math.round(it.d[k]) + '%');
-      t.append('tspan').attr('x', tx).attr('dy', '1.25em').style('font-size', '11.5px').style('font-weight', 600).style('fill', 'var(--muted)').text(HOME[it.d.language][2]);
-    });
+  svg.append('g').selectAll('circle').data(md.dots).join('circle')
+    .attr('cx', (d) => d[0]).attr('cy', (d) => d[1]).attr('r', DOT_STEP * 0.4)
+    .style('fill', (d, i) => lColor(colour[i]))
+    .on('mousemove', (e, d) => { const l = colour[md.dots.indexOf(d)]; tip.show(e, [l, Math.round(share.get(l)) + '% of ' + (metric() === 'films' ? 'films' : 'gross'), MAP_PLACE[l]]); })
+    .on('mouseleave', () => tip.hide());
+  const lg = svg.append('g').attr('transform', `translate(${IW + 16},20)`);
+  lg.append('text').attr('class', 'fy-lab').style('font-size', '20px').text(mapPeriod());
+  lg.append('text').attr('y', 26).attr('class', 'fy-lab-muted').style('font-size', '17px').text('Share of ' + (metric() === 'films' ? 'films' : 'gross'));
+  lg.append('text').attr('y', 48).attr('class', 'fy-lab-muted').style('font-size', '17px').text('1 dot ≈ ' + d3.format('.2f')(100 / n) + '%');
+  MAP_ORDER.filter((l) => Math.round(share.get(l)) > 0).forEach((l, i) => {
+    const gy = 100 + i * 78;
+    lg.append('circle').attr('cx', 10).attr('cy', gy - 9).attr('r', 10).style('fill', lColor(l));
+    const t = lg.append('text').attr('x', 30).attr('y', gy).attr('class', 'fy-lab').style('font-size', '26px');
+    t.append('tspan').text(Math.round(share.get(l)) + '% ');
+    t.append('tspan').style('font-size', '18px').text(l);
+    lg.append('text').attr('x', 30).attr('y', gy + 22).attr('class', 'fy-lab-muted').style('font-size', '15px').text(MAP_PLACE[l]);
   });
 });
 
